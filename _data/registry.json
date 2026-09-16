@@ -1,0 +1,857 @@
+{
+  "meta": {
+    "kit_version": "0.2.0",
+    "kit_source": null,
+    "exported_utc": "2026-09-01T18:26:33Z",
+    "python": "3.10.16",
+    "n_models": 21,
+    "n_datasets": 5,
+    "canonical_probe": "12x5",
+    "probes": {
+      "12x5": {
+        "input_channels": 12,
+        "output_size": 5
+      },
+      "1x4": {
+        "input_channels": 1,
+        "output_size": 4
+      },
+      "2x2": {
+        "input_channels": 2,
+        "output_size": 2
+      }
+    },
+    "kit_git_sha": "2e333f459d09",
+    "kit_git_dirty": false,
+    "torch": "2.7.0"
+  },
+  "models": {
+    "afmodel": {
+      "registry_name": "afmodel",
+      "class": "AFModel",
+      "module": "deepecgkit.models.af_classifier",
+      "description": "Atrial Fibrillation model optimized for 30s ECG segments",
+      "head_attr": "output",
+      "default_kwargs": {
+        "recording_length": 30
+      },
+      "min_input_length": 7971,
+      "max_input_length": null,
+      "display_name": null,
+      "probes": {
+        "12x5": {
+          "status": "ok",
+          "params_total": 5781821,
+          "params_trainable": 5781821,
+          "feature_dim": 196
+        },
+        "1x4": {
+          "status": "ok",
+          "params_total": 5759096,
+          "params_trainable": 5759096,
+          "feature_dim": 196
+        },
+        "2x2": {
+          "status": "ok",
+          "params_total": 5760750,
+          "params_trainable": 5760750,
+          "feature_dim": 196
+        }
+      }
+    },
+    "convnext-v2": {
+      "registry_name": "convnext-v2",
+      "class": "ConvNeXtV21D",
+      "module": "deepecgkit.models.convnext_v2_1d",
+      "description": "Modern ConvNet with depthwise convolutions and Global Response Normalization for ECG",
+      "head_attr": "classifier",
+      "default_kwargs": {},
+      "min_input_length": 29,
+      "max_input_length": null,
+      "display_name": "ConvNeXt-V2",
+      "probes": {
+        "12x5": {
+          "status": "ok",
+          "params_total": 8090437,
+          "params_trainable": 8090437,
+          "feature_dim": 512
+        },
+        "1x4": {
+          "status": "ok",
+          "params_total": 8084996,
+          "params_trainable": 8084996,
+          "feature_dim": 512
+        },
+        "2x2": {
+          "status": "ok",
+          "params_total": 8084418,
+          "params_trainable": 8084418,
+          "feature_dim": 512
+        }
+      }
+    },
+    "crnn": {
+      "registry_name": "crnn",
+      "class": "CRNN",
+      "module": "deepecgkit.models.crnn",
+      "description": "CNN-LSTM hybrid for local feature extraction and temporal aggregation",
+      "head_attr": "classifier",
+      "default_kwargs": {},
+      "min_input_length": 16,
+      "max_input_length": null,
+      "display_name": "CRNN",
+      "probes": {
+        "12x5": {
+          "status": "ok",
+          "params_total": 944549,
+          "params_trainable": 944549,
+          "feature_dim": 256
+        },
+        "1x4": {
+          "status": "ok",
+          "params_total": 942020,
+          "params_trainable": 942020,
+          "feature_dim": 256
+        },
+        "2x2": {
+          "status": "ok",
+          "params_total": 942114,
+          "params_trainable": 942114,
+          "feature_dim": 256
+        }
+      }
+    },
+    "deep-res-cnn": {
+      "registry_name": "deep-res-cnn",
+      "class": "DeepResCNN",
+      "module": "deepecgkit.models.deep_res_cnn",
+      "description": "Deep Residual 2D CNN (Elyamani et al. 2022) for multi-lead ECG classification",
+      "head_attr": "fc_out",
+      "default_kwargs": {},
+      "min_input_length": 127,
+      "max_input_length": null,
+      "display_name": null,
+      "probes": {
+        "12x5": {
+          "status": "ok",
+          "params_total": 593669,
+          "params_trainable": 593669,
+          "feature_dim": 128
+        },
+        "1x4": {
+          "status": "ok",
+          "params_total": 413380,
+          "params_trainable": 413380,
+          "feature_dim": 128
+        },
+        "2x2": {
+          "status": "ok",
+          "params_total": 429634,
+          "params_trainable": 429634,
+          "feature_dim": 128
+        }
+      }
+    },
+    "dualnet": {
+      "registry_name": "dualnet",
+      "class": "ECGDualNet",
+      "module": "deepecgkit.models.ecg_dualnet",
+      "description": "Dual-path architecture with CNN-LSTM and Transformer branches for ECG",
+      "head_attr": "classifier",
+      "default_kwargs": {},
+      "min_input_length": 8,
+      "max_input_length": 5000,
+      "display_name": null,
+      "probes": {
+        "12x5": {
+          "status": "ok",
+          "params_total": 677189,
+          "params_trainable": 677189,
+          "feature_dim": 384
+        },
+        "1x4": {
+          "status": "ok",
+          "params_total": 670724,
+          "params_trainable": 670724,
+          "feature_dim": 384
+        },
+        "2x2": {
+          "status": "ok",
+          "params_total": 671042,
+          "params_trainable": 671042,
+          "feature_dim": 384
+        }
+      }
+    },
+    "fcn-wang": {
+      "registry_name": "fcn-wang",
+      "class": "FCNWang",
+      "module": "deepecgkit.models.fcn_wang",
+      "description": "Fully Convolutional Network (Wang et al.) for time series classification",
+      "head_attr": "classifier",
+      "default_kwargs": {},
+      "min_input_length": 2,
+      "max_input_length": null,
+      "display_name": null,
+      "probes": {
+        "12x5": {
+          "status": "ok",
+          "params_total": 276101,
+          "params_trainable": 276101,
+          "feature_dim": 128
+        },
+        "1x4": {
+          "status": "ok",
+          "params_total": 264708,
+          "params_trainable": 264708,
+          "feature_dim": 128
+        },
+        "2x2": {
+          "status": "ok",
+          "params_total": 265474,
+          "params_trainable": 265474,
+          "feature_dim": 128
+        }
+      }
+    },
+    "gru": {
+      "registry_name": "gru",
+      "class": "GRUECG",
+      "module": "deepecgkit.models.gru_model",
+      "description": "GRU-based model for sequential ECG analysis",
+      "head_attr": "head",
+      "default_kwargs": {},
+      "min_input_length": null,
+      "max_input_length": null,
+      "display_name": null,
+      "probes": {
+        "12x5": {
+          "status": "ok",
+          "params_total": 607493,
+          "params_trainable": 607493,
+          "feature_dim": 768
+        },
+        "1x4": {
+          "status": "ok",
+          "params_total": 598276,
+          "params_trainable": 598276,
+          "feature_dim": 768
+        },
+        "2x2": {
+          "status": "ok",
+          "params_total": 597506,
+          "params_trainable": 597506,
+          "feature_dim": 768
+        }
+      }
+    },
+    "inception-time": {
+      "registry_name": "inception-time",
+      "class": "InceptionTime1D",
+      "module": "deepecgkit.models.inception_time",
+      "description": "Multi-scale temporal CNN inspired by InceptionTime",
+      "head_attr": "classifier",
+      "default_kwargs": {},
+      "min_input_length": null,
+      "max_input_length": null,
+      "display_name": "InceptionTime",
+      "probes": {
+        "12x5": {
+          "status": "ok",
+          "params_total": 503685,
+          "params_trainable": 503685,
+          "feature_dim": 128
+        },
+        "1x4": {
+          "status": "ok",
+          "params_total": 501444,
+          "params_trainable": 501444,
+          "feature_dim": 128
+        },
+        "2x2": {
+          "status": "ok",
+          "params_total": 501378,
+          "params_trainable": 501378,
+          "feature_dim": 128
+        }
+      }
+    },
+    "kanres": {
+      "registry_name": "kanres",
+      "class": "KanResWideX",
+      "module": "deepecgkit.models.kanres_wide_x",
+      "description": "KAN-ResNet architecture with wide layers",
+      "head_attr": "classifier",
+      "default_kwargs": {},
+      "min_input_length": null,
+      "max_input_length": null,
+      "display_name": null,
+      "probes": {
+        "12x5": {
+          "status": "ok",
+          "params_total": 77701,
+          "params_trainable": 77701,
+          "feature_dim": 64
+        },
+        "1x4": {
+          "status": "ok",
+          "params_total": 75524,
+          "params_trainable": 75524,
+          "feature_dim": 64
+        },
+        "2x2": {
+          "status": "ok",
+          "params_total": 75586,
+          "params_trainable": 75586,
+          "feature_dim": 64
+        }
+      }
+    },
+    "kanres-deep": {
+      "registry_name": "kanres-deep",
+      "class": "KanResDeepX",
+      "module": "deepecgkit.models.kanres_deep_x",
+      "description": "Deep KAN-ResNet architecture",
+      "head_attr": "fc",
+      "default_kwargs": {},
+      "min_input_length": 11,
+      "max_input_length": null,
+      "display_name": null,
+      "probes": {
+        "12x5": {
+          "status": "ok",
+          "params_total": 1653445,
+          "params_trainable": 1653445,
+          "feature_dim": 32
+        },
+        "1x4": {
+          "status": "ok",
+          "params_total": 1647780,
+          "params_trainable": 1647780,
+          "feature_dim": 32
+        },
+        "2x2": {
+          "status": "ok",
+          "params_total": 1648226,
+          "params_trainable": 1648226,
+          "feature_dim": 32
+        }
+      }
+    },
+    "lstm": {
+      "registry_name": "lstm",
+      "class": "LSTMECG",
+      "module": "deepecgkit.models.lstm_model",
+      "description": "LSTM-based model for sequential ECG analysis",
+      "head_attr": "classifier",
+      "default_kwargs": {},
+      "min_input_length": null,
+      "max_input_length": null,
+      "display_name": null,
+      "probes": {
+        "12x5": {
+          "status": "ok",
+          "params_total": 557445,
+          "params_trainable": 557445,
+          "feature_dim": 256
+        },
+        "1x4": {
+          "status": "ok",
+          "params_total": 546116,
+          "params_trainable": 546116,
+          "feature_dim": 256
+        },
+        "2x2": {
+          "status": "ok",
+          "params_total": 547010,
+          "params_trainable": 547010,
+          "feature_dim": 256
+        }
+      }
+    },
+    "mamba": {
+      "registry_name": "mamba",
+      "class": "Mamba1D",
+      "module": "deepecgkit.models.mamba1d",
+      "description": "Bidirectional Mamba state space model with linear complexity for ECG",
+      "head_attr": "classifier",
+      "default_kwargs": {},
+      "min_input_length": 50,
+      "max_input_length": 25049,
+      "display_name": "Mamba",
+      "probes": {
+        "12x5": {
+          "status": "ok",
+          "params_total": 1183749,
+          "params_trainable": 1183749,
+          "feature_dim": 128
+        },
+        "1x4": {
+          "status": "ok",
+          "params_total": 1113220,
+          "params_trainable": 1113220,
+          "feature_dim": 128
+        },
+        "2x2": {
+          "status": "ok",
+          "params_total": 1119362,
+          "params_trainable": 1119362,
+          "feature_dim": 128
+        }
+      }
+    },
+    "medformer": {
+      "registry_name": "medformer",
+      "class": "Medformer",
+      "module": "deepecgkit.models.medformer",
+      "description": "Multi-granularity patching Transformer for medical time series (NeurIPS 2024)",
+      "head_attr": "classifier",
+      "default_kwargs": {},
+      "min_input_length": 50,
+      "max_input_length": 5009,
+      "display_name": "Medformer",
+      "probes": {
+        "12x5": {
+          "status": "ok",
+          "params_total": 1318661,
+          "params_trainable": 1318661,
+          "feature_dim": 384
+        },
+        "1x4": {
+          "status": "ok",
+          "params_total": 1198596,
+          "params_trainable": 1198596,
+          "feature_dim": 384
+        },
+        "2x2": {
+          "status": "ok",
+          "params_total": 1208706,
+          "params_trainable": 1208706,
+          "feature_dim": 384
+        }
+      }
+    },
+    "resnet": {
+      "registry_name": "resnet",
+      "class": "ResNet1D",
+      "module": "deepecgkit.models.resnet1d",
+      "description": "1D ResNet architecture adapted for ECG",
+      "head_attr": "fc",
+      "default_kwargs": {},
+      "min_input_length": null,
+      "max_input_length": null,
+      "display_name": "ResNet1D",
+      "probes": {
+        "12x5": {
+          "status": "ok",
+          "params_total": 8739973,
+          "params_trainable": 8739973,
+          "feature_dim": 512
+        },
+        "1x4": {
+          "status": "ok",
+          "params_total": 8728900,
+          "params_trainable": 8728900,
+          "feature_dim": 512
+        },
+        "2x2": {
+          "status": "ok",
+          "params_total": 8728834,
+          "params_trainable": 8728834,
+          "feature_dim": 512
+        }
+      }
+    },
+    "resnet-wang": {
+      "registry_name": "resnet-wang",
+      "class": "ResNetWang",
+      "module": "deepecgkit.models.resnet1d_wang",
+      "description": "ResNet (Wang et al.) for time series classification",
+      "head_attr": "classifier",
+      "default_kwargs": {},
+      "min_input_length": null,
+      "max_input_length": null,
+      "display_name": null,
+      "probes": {
+        "12x5": {
+          "status": "ok",
+          "params_total": 406405,
+          "params_trainable": 406405,
+          "feature_dim": 128
+        },
+        "1x4": {
+          "status": "ok",
+          "params_total": 396420,
+          "params_trainable": 396420,
+          "feature_dim": 128
+        },
+        "2x2": {
+          "status": "ok",
+          "params_total": 397058,
+          "params_trainable": 397058,
+          "feature_dim": 128
+        }
+      }
+    },
+    "se-resnet": {
+      "registry_name": "se-resnet",
+      "class": "SEResNet1D",
+      "module": "deepecgkit.models.se_resnet1d",
+      "description": "ResNet with Squeeze-and-Excitation channel attention for ECG",
+      "head_attr": "fc",
+      "default_kwargs": {},
+      "min_input_length": null,
+      "max_input_length": null,
+      "display_name": "SE-ResNet1D",
+      "probes": {
+        "12x5": {
+          "status": "ok",
+          "params_total": 8827013,
+          "params_trainable": 8827013,
+          "feature_dim": 512
+        },
+        "1x4": {
+          "status": "ok",
+          "params_total": 8815940,
+          "params_trainable": 8815940,
+          "feature_dim": 512
+        },
+        "2x2": {
+          "status": "ok",
+          "params_total": 8815874,
+          "params_trainable": 8815874,
+          "feature_dim": 512
+        }
+      }
+    },
+    "simple-cnn": {
+      "registry_name": "simple-cnn",
+      "class": "SimpleCNN",
+      "module": "deepecgkit.models.simple_cnn",
+      "description": "Lightweight CNN for fast inference",
+      "head_attr": "classifier",
+      "default_kwargs": {},
+      "min_input_length": 8,
+      "max_input_length": null,
+      "display_name": null,
+      "probes": {
+        "12x5": {
+          "status": "ok",
+          "params_total": 170789,
+          "params_trainable": 170789,
+          "feature_dim": 256
+        },
+        "1x4": {
+          "status": "ok",
+          "params_total": 168196,
+          "params_trainable": 168196,
+          "feature_dim": 256
+        },
+        "2x2": {
+          "status": "ok",
+          "params_total": 168162,
+          "params_trainable": 168162,
+          "feature_dim": 256
+        }
+      }
+    },
+    "tcn": {
+      "registry_name": "tcn",
+      "class": "TCN",
+      "module": "deepecgkit.models.tcn",
+      "description": "Temporal Convolutional Network with dilated causal convolutions",
+      "head_attr": "classifier",
+      "default_kwargs": {},
+      "min_input_length": null,
+      "max_input_length": null,
+      "display_name": null,
+      "probes": {
+        "12x5": {
+          "status": "ok",
+          "params_total": 2146821,
+          "params_trainable": 2146821,
+          "feature_dim": 256
+        },
+        "1x4": {
+          "status": "ok",
+          "params_total": 2140932,
+          "params_trainable": 2140932,
+          "feature_dim": 256
+        },
+        "2x2": {
+          "status": "ok",
+          "params_total": 2140930,
+          "params_trainable": 2140930,
+          "feature_dim": 256
+        }
+      }
+    },
+    "transformer": {
+      "registry_name": "transformer",
+      "class": "TransformerECG",
+      "module": "deepecgkit.models.transformer_ecg",
+      "description": "Transformer-based ECG classifier",
+      "head_attr": "classifier",
+      "default_kwargs": {},
+      "min_input_length": null,
+      "max_input_length": 5000,
+      "display_name": null,
+      "probes": {
+        "12x5": {
+          "status": "ok",
+          "params_total": 829061,
+          "params_trainable": 829061,
+          "feature_dim": 128
+        },
+        "1x4": {
+          "status": "ok",
+          "params_total": 827396,
+          "params_trainable": 827396,
+          "feature_dim": 128
+        },
+        "2x2": {
+          "status": "ok",
+          "params_total": 827010,
+          "params_trainable": 827010,
+          "feature_dim": 128
+        }
+      }
+    },
+    "xresnet": {
+      "registry_name": "xresnet",
+      "class": "XResNet1D",
+      "module": "deepecgkit.models.xresnet1d",
+      "description": "Improved ResNet with Mish activation and blur-pool downsampling",
+      "head_attr": "fc",
+      "default_kwargs": {},
+      "min_input_length": 17,
+      "max_input_length": null,
+      "display_name": null,
+      "probes": {
+        "12x5": {
+          "status": "ok",
+          "params_total": 8740485,
+          "params_trainable": 8740485,
+          "feature_dim": 512
+        },
+        "1x4": {
+          "status": "ok",
+          "params_total": 8737508,
+          "params_trainable": 8737508,
+          "feature_dim": 512
+        },
+        "2x2": {
+          "status": "ok",
+          "params_total": 8736706,
+          "params_trainable": 8736706,
+          "feature_dim": 512
+        }
+      }
+    },
+    "xresnet1d-benchmark": {
+      "registry_name": "xresnet1d-benchmark",
+      "class": "XResNet1dBenchmark",
+      "module": "deepecgkit.models.xresnet1d_benchmark",
+      "description": "XResNet1d from PTB-XL benchmark (fixed feature dim, concat pooling)",
+      "head_attr": "head",
+      "default_kwargs": {},
+      "min_input_length": null,
+      "max_input_length": null,
+      "display_name": null,
+      "probes": {
+        "12x5": {
+          "status": "ok",
+          "params_total": 348165,
+          "params_trainable": 348165,
+          "feature_dim": 128
+        },
+        "1x4": {
+          "status": "ok",
+          "params_total": 346276,
+          "params_trainable": 346276,
+          "feature_dim": 128
+        },
+        "2x2": {
+          "status": "ok",
+          "params_total": 346178,
+          "params_trainable": 346178,
+          "feature_dim": 128
+        }
+      }
+    }
+  },
+  "datasets": {
+    "af-classification": {
+      "registry_name": "af-classification",
+      "class": "AFClassificationDataset",
+      "module": "deepecgkit.datasets.af_classification",
+      "description": "PhysioNet 2017 AF Classification (4 classes, single-lead)",
+      "input_channels": 1,
+      "num_classes": null,
+      "class_labels": [
+        "Normal",
+        "AF",
+        "Other",
+        "Noisy"
+      ],
+      "binary_class_labels": [
+        "Non-AF",
+        "AF"
+      ],
+      "display_name": "PhysioNet 2017"
+    },
+    "ltafdb": {
+      "registry_name": "ltafdb",
+      "class": "LTAFDBDataset",
+      "module": "deepecgkit.datasets.ltafdb",
+      "description": "Long-Term AF Database (2-lead, binary or 4-class)",
+      "input_channels": 2,
+      "num_classes": 4,
+      "class_labels": [
+        "Normal",
+        "AF",
+        "AFL",
+        "J"
+      ],
+      "binary_class_labels": [
+        "Non-AF",
+        "AF"
+      ],
+      "display_name": "LTAFDB"
+    },
+    "mitbih-afdb": {
+      "registry_name": "mitbih-afdb",
+      "class": "MITBIHAFDBDataset",
+      "module": "deepecgkit.datasets.mitbih_afdb",
+      "description": "MIT-BIH AF Database (2-lead, binary or 4-class)",
+      "input_channels": 2,
+      "num_classes": 4,
+      "class_labels": [
+        "Normal",
+        "AF",
+        "AFL",
+        "J"
+      ],
+      "binary_class_labels": [
+        "Non-AF",
+        "AF"
+      ],
+      "display_name": "MIT-BIH AFDB"
+    },
+    "ptbxl": {
+      "registry_name": "ptbxl",
+      "class": "PTBXLDataset",
+      "module": "deepecgkit.datasets.ptbxl",
+      "description": "PTB-XL 12-lead ECG dataset (multi-task)",
+      "input_channels": 12,
+      "num_classes": 5,
+      "class_labels": [],
+      "binary_class_labels": [
+        "Non-AF",
+        "AF"
+      ],
+      "display_name": "PTB-XL"
+    },
+    "unified-af": {
+      "registry_name": "unified-af",
+      "class": "UnifiedAFDataset",
+      "module": "deepecgkit.datasets.unified_af",
+      "description": "Unified AF dataset combining PhysioNet 2017, MIT-BIH, LTAFDB",
+      "input_channels": 1,
+      "num_classes": 4,
+      "class_labels": [
+        "Normal",
+        "AF",
+        "AFL",
+        "J"
+      ],
+      "binary_class_labels": [
+        "Non-AF",
+        "AF"
+      ],
+      "display_name": "Unified AF"
+    }
+  },
+  "constants": {
+    "single_label_metrics": [
+      "accuracy",
+      "precision",
+      "recall",
+      "f1",
+      "auroc",
+      "mcc",
+      "ece",
+      "adaptive_ece",
+      "mce",
+      "brier",
+      "temperature",
+      "ece_temp",
+      "adaptive_ece_temp",
+      "mce_temp",
+      "brier_temp"
+    ],
+    "multi_label_metrics": [
+      "exact_match_accuracy",
+      "label_accuracy",
+      "precision",
+      "recall",
+      "f1",
+      "auroc",
+      "ece",
+      "adaptive_ece",
+      "mce",
+      "brier",
+      "temperature",
+      "ece_temp",
+      "adaptive_ece_temp",
+      "mce_temp",
+      "brier_temp"
+    ],
+    "calibration_metrics": [
+      "ece",
+      "adaptive_ece",
+      "mce",
+      "brier",
+      "temperature",
+      "ece_temp",
+      "adaptive_ece_temp",
+      "mce_temp",
+      "brier_temp"
+    ],
+    "lower_is_better": [
+      "adaptive_ece",
+      "adaptive_ece_temp",
+      "brier",
+      "brier_temp",
+      "ece",
+      "ece_temp",
+      "mce",
+      "mce_temp"
+    ],
+    "metric_display_names": {
+      "f1": "F1",
+      "precision": "Prec.",
+      "recall": "Recall",
+      "auroc": "AUROC",
+      "accuracy": "Acc.",
+      "mcc": "MCC",
+      "exact_match_accuracy": "Exact match",
+      "label_accuracy": "Label acc.",
+      "ece": "ECE",
+      "adaptive_ece": "AECE",
+      "mce": "MCE",
+      "brier": "Brier",
+      "temperature": "$T$",
+      "ece_temp": "ECE$_T$",
+      "adaptive_ece_temp": "AECE$_T$",
+      "mce_temp": "MCE$_T$",
+      "brier_temp": "Brier$_T$",
+      "auroc_macro": "AUROC",
+      "balanced_accuracy": "Bal. acc.",
+      "f1_macro": "F1"
+    },
+    "averaging_macro_label": "macro-label",
+    "averaging_unknown": "unknown",
+    "legacy_seed": -1
+  }
+}

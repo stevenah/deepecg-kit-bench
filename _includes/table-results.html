@@ -1,0 +1,147 @@
+{%- comment -%}
+One results table renderer, shared by /leaderboard/ and every task page.
+
+Deliberately absent: any bolding of a best value. deepecgkit's own results_table() refuses
+to bold a winner because overlapping intervals cannot support the claim, and the site keeps
+that rule. `n` is a mandatory column, and `sd` renders an em dash rather than 0.000 at n=1.
+
+Architectures never trained on this task are NOT in the main table. They carry no value in any
+column, and listing them there made it mostly em dashes -- 21 rows of nothing on LTAFDB. They
+follow in a compact disclosure instead: still present, still statused, but three columns wide
+rather than eight, because "never trained" is one fact and does not need a metric grid to say
+it. /coverage/ remains the exhaustive cell-by-cell enumeration.
+{%- endcomment -%}
+{%- assign r = include.r -%}
+{%- if r.rows == empty -%}
+  <p class="muted">
+    No architecture has been trained on this task, and no published value has been recorded for
+    one. All {{ r.n_no_data }} are listed below.
+  </p>
+{%- else -%}
+<div class="table-wrap" style="padding-left:0;padding-right:0">
+  <table>
+    <thead>
+      <tr>
+        <th>Architecture</th>
+        <th>Status</th>
+        {% for m in r.columns %}
+          {%- assign spec = site.data.metrics[m] -%}
+          <th class="num" title="{{ m }} &mdash; {% if spec.direction == 'lower' %}lower is better{% elsif spec.direction == 'higher' %}higher is better{% else %}not ranked{% endif %}">
+            {{ spec.label | default: m }}
+            {% if spec.direction == 'lower' %}<span class="muted">&darr;</span>
+            {% elsif spec.direction == 'higher' %}<span class="muted">&uarr;</span>
+            {% else %}<span class="muted">&middot;</span>{% endif %}
+          </th>
+        {% endfor %}
+        <th class="num">Replicates</th>
+        <th class="num">sd ({{ r.primary_metric }})</th>
+        <th class="num" title="Student-t interval over replicates. NOT a bootstrap confidence interval over test recordings.">t-interval over N replicates</th>
+        <th class="num" title="Bootstrap over test recordings is what the journal protocol asks for; no committed snapshot carries it.">bootstrap</th>
+        <th>Averaging</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for row in r.rows %}
+        {%- assign pm = row.metrics[r.primary_metric] -%}
+        <tr>
+          <td>
+            {%- comment -%}
+            A survey architecture has no catalogue page -- it is not implemented here -- so
+            it must render as plain text. Linking it would 404.
+            {%- endcomment -%}
+            {%- if row.is_survey -%}
+              <span class="row-name">{{ row.title }}</span>
+              <span class="row-sub">{{ row.family }} &middot; not in DeepECG-Kit</span>
+            {%- else -%}
+              <a class="row-name" href="{{ '/models/' | append: row.model | append: '/' | relative_url }}">{{ row.title }}</a>
+              <span class="row-sub">{{ row.family }}</span>
+            {%- endif -%}
+          </td>
+          <td class="nowrap">
+            {% include status-chip.html key=row.status %}
+            {% for f in row.flags %}<span class="chip chip-bad">{{ f | replace: '_', ' ' }}</span>{% endfor %}
+            {%- if row.reported_doi != "" or row.reported_paper != "" %}
+              <span class="row-sub">
+                {%- if row.reported_doi != "" -%}
+                  <a class="paper-link" href="{% if row.reported_doi contains 'arXiv:' %}https://arxiv.org/abs/{{ row.reported_doi | remove: 'arXiv:' }}{% else %}https://doi.org/{{ row.reported_doi }}{% endif %}" title="{{ row.protocol_note }}">{{ row.reported_paper | default: row.reported_doi | truncate: 60 }}</a>
+                {%- else -%}
+                  <span class="muted" title="{{ row.protocol_note }}">{{ row.reported_paper | truncate: 60 }}</span>
+                {%- endif -%}
+              </span>
+            {%- endif %}
+          </td>
+          {% for m in r.columns %}
+            {%- assign cellm = row.metrics[m] -%}
+            <td class="num">
+              {%- if cellm.value != nil -%}
+                {%- if cellm.status == 'reported' -%}
+                  <span style="color: var(--status-reported)" title="Published by the original authors, not measured here">{{ cellm.display }}</span>
+                {%- else -%}{{ cellm.display }}{%- endif -%}
+              {%- else -%}<span class="muted" title="{{ row.reason }}">{{ site.data.statuses[cellm.status].glyph }}</span>{%- endif -%}
+            </td>
+          {% endfor %}
+          <td class="num">{% if pm.n and pm.n > 0 %}{{ pm.n }}<span class="muted">/{{ r.expected_replicates }}</span>{% else %}<span class="muted">&mdash;</span>{% endif %}</td>
+          <td class="num">{% if pm.sd %}{{ pm.sd_display }}{% else %}<span class="muted" title="Not estimable from a single replicate">&mdash;</span>{% endif %}</td>
+          <td class="num">{% if pm.lower_ci != nil %}{{ pm.interval_display }}{% else %}<span class="muted" title="Requires at least MIN_SEEDS_FOR_INTERVAL = 3 replicates">&mdash;</span>{% endif %}</td>
+          <td class="num"><span class="muted" title="Not computed by any committed snapshot">not measured</span></td>
+          <td><span class="muted">{{ pm.averaging | default: "&mdash;" }}</span></td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{%- endif -%}
+
+{%- if r.n_no_data > 0 %}
+<details style="margin-top:14px">
+  <summary class="muted" style="cursor:pointer;font-size:.86rem">
+    {{ r.n_no_data }} further architecture{% if r.n_no_data > 1 %}s{% endif %} with no value on
+    this task &mdash; never trained, and nothing published
+  </summary>
+  <div class="table-wrap" style="padding-left:0;padding-right:0;margin-top:10px">
+    <table>
+      <thead><tr><th>Architecture</th><th>Status</th><th>Reason</th></tr></thead>
+      <tbody>
+        {% for row in r.rows_no_data %}
+        <tr>
+          <td>
+            {%- if row.is_survey -%}
+              <span class="row-name">{{ row.title }}</span>
+            {%- else -%}
+              <a class="row-name" href="{{ '/models/' | append: row.model | append: '/' | relative_url }}">{{ row.title }}</a>
+            {%- endif -%}
+            <span class="row-sub">{{ row.family }}</span>
+          </td>
+          <td class="nowrap">{% include status-chip.html key=row.status %}</td>
+          <td><span class="muted" style="font-size:.82rem">{{ row.reason }}</span></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <p class="muted" style="font-size:.8rem;margin-top:6px">
+    Three columns rather than the full grid: these rows carry no value in any metric, so the
+    metric columns would be nothing but em dashes. Every cell and its reason is enumerated on
+    <a href="{{ '/coverage/' | relative_url }}">the coverage page</a>.
+  </p>
+</details>
+{%- endif %}
+
+<p class="muted" style="font-size:.82rem;margin-top:8px">
+  No value is bolded. Marking a best mean would be a pairwise claim that per-model intervals
+  at this replicate count cannot support &mdash; the same reason
+  <code>deepecgkit.analysis.latex.results_table()</code> bolds nothing.
+  Intervals, where computable, are Student-t over replicates, <b>not</b> bootstrap confidence
+  intervals over test recordings.
+  {%- if r.n_reported > 0 %}
+  The {{ r.n_reported }} amber row{% if r.n_reported > 1 %}s{% endif %} at the foot of the table
+  carr{% if r.n_reported > 1 %}y{% else %}ies{% endif %} values <b>published in the literature</b>,
+  not measured here. They are listed alphabetically and are deliberately <b>not ranked</b>: the
+  split, preprocessing and averaging behind them are the publishing authors', so those numbers are
+  not comparable with the measured ones above, nor with each other. Rows marked
+  <i>not in DeepECG-Kit</i> are field-survey architectures this site does not implement, so they
+  have no catalogue page and could never be measured here. Follow the citation beside each status
+  chip: it says whether the number is the architecture's own authors reporting their model, or a
+  third party's re-implementation of it, and what protocol produced it.
+  {%- endif %}
+</p>

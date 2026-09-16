@@ -1,0 +1,20 @@
+{%- assign ev = site.data.generated.evidence -%}
+<footer class="site">
+  <div class="row">
+    <span>deepecgkit <b>{{ ev.kit_version }}</b>{% if ev.kit_git_sha %} <code>{{ ev.kit_git_sha }}</code>{% endif %}</span>
+    <span class="sep">&middot;</span>
+    <span>snapshot <b>{{ ev.snapshot_id }}</b> ({{ ev.snapshot_status }})</span>
+    <span class="sep">&middot;</span>
+    <span>generated {{ ev.generated_utc }}</span>
+    <span class="sep">&middot;</span>
+    <a href="{{ site.repo }}">Source</a>
+    <span class="sep">&middot;</span>
+    <a href="{{ '/cite/' | relative_url }}">How to cite</a>
+    <span class="sep">&middot;</span>
+    <span>Apache-2.0</span>
+  </div>
+  <p style="margin-top:10px">
+    A companion to <a href="{{ site.kit_repo }}">DeepECG-Kit</a>. Dataset-side catalogue:
+    <a href="https://vajira.info/ECGBench/">ECGBench</a>.
+  </p>
+</footer>

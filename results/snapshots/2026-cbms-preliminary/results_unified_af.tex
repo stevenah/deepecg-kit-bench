@@ -1,0 +1,20 @@
+\begin{table}[ht]
+\centering
+\caption{Unified AF results, mean over $n$ random seeds. Each seed redraws the patient-level split and reinitialises the weights, so brackets give two-sided 95\% Student-$t$ intervals over that combined variation. The interval is a within-corpus statement and is not a generalisation interval.}
+\label{tab:seed_unified_af}
+\small
+\begin{tabular}{lcccc}
+\toprule
+Model & F1 & Prec. & Recall & $n$ \\
+\midrule
+ConvNeXt-V2 & $0.865$ & $0.993$ & $0.820$ & 1 \\
+Medformer & $0.846$ & $0.980$ & $0.796$ & 1 \\
+ResNet1D & $0.841$ & $0.870$ & $0.820$ & 1 \\
+CRNN & $0.720$ & $0.741$ & $0.702$ & 1 \\
+\midrule
+\multicolumn{5}{l}{\footnotesize Intervals describe how much each model moves when the split and the initialisation} \\
+\multicolumn{5}{l}{\footnotesize are redrawn; they are not a pairwise test. See Table~\ref{tab:flip_survival}.} \\
+\multicolumn{5}{l}{\footnotesize Averaging: unknown.} \\
+\bottomrule
+\end{tabular}
+\end{table}

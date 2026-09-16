@@ -1,0 +1,7 @@
+<section>
+  <div class="section-header" style="padding-left:0;padding-right:0"><h2>{{ include.section.title }}</h2></div>
+  <figure class="plot-card">
+    <img src="{{ include.section.image | relative_url }}" alt="{{ include.section.caption | default: include.section.title }}" loading="lazy">
+    {% if include.section.caption %}<figcaption>{{ include.section.caption }}</figcaption>{% endif %}
+  </figure>
+</section>

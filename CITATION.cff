@@ -1,0 +1,18 @@
+cff-version: 1.2.0
+message: >-
+  If you refer to results published on DeepECG-Bench, cite the DeepECG-Kit software and name the
+  snapshot id you read. Snapshot directories are immutable and carry checksums, so a snapshot id
+  identifies an exact set of numbers.
+title: "DeepECG-Bench"
+abstract: >-
+  A catalogue of the architectures registered in DeepECG-Kit and a record of what has been
+  measured on each, published as immutable, checksummed result snapshots.
+type: software
+authors:
+  - family-names: Hicks
+    given-names: Steven
+    email: steven@simula.no
+    affiliation: SimulaMet
+license: Apache-2.0
+repository-code: "https://github.com/stevenah/deepecg-kit-bench"
+url: "https://stevenah.github.io/deepecg-kit-bench/"

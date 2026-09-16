@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>{% include head.html %}</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+{% include nav.html %}
+<main id="main">{{ content }}</main>
+{% include footer.html %}
+<script src="{{ '/assets/js/theme.js' | relative_url }}"></script>
+<script src="{{ '/assets/js/age.js' | relative_url }}"></script>
+{% if page.needs_filter %}<script src="{{ '/assets/js/filter.js' | relative_url }}"></script>{% endif %}
+</body>
+</html>

@@ -1,0 +1,180 @@
+# Paper-reported results: values AS PUBLISHED IN THE LITERATURE, never measured here.
+#
+# SHAPE. One block per paper: the source and the protocol note are written once, and every
+# value that paper reports hangs off it. Adding a paper is therefore adding ONE block, not
+# copy-pasting a citation onto each row -- which is what let a note drift out of step with
+# the source beside it. A single value may set its own `protocol_note:` to override the
+# block's. A flat row with `model:` at the top level still parses, for one-offs.
+#
+#   - source:
+#       paper_title: "..."
+#       doi: "..."                    # resolved, never guessed. See `make identifiers`.
+#     protocol_note: "applies to every value below"
+#     values:
+#       - {model: st-mem, task: ptbxl-multilabel, metric: f1, value: 0.662, n: null}
+#
+# `model` is a registry_name or a _data/field.yml slug. `task` is a task_id from _tasks/.
+# `metric` must be defined for that task's label_mode in _data/metrics.yml. `n` is the
+# replicate count the paper states, or null when it states none.
+#
+# WHOSE NUMBER IS IT. Some blocks are the architecture's own authors reporting their own
+# model; others are a benchmark that re-implemented it -- the PTB-XL baselines in Strodthoff
+# are re-implementations of Wang's architectures, and a foundation-model comparison table is
+# a re-implementation of its rivals. Both are legitimate; they are not the same claim, so
+# every protocol_note says which, by name.
+#
+# WHAT THIS IS NOT. A reported value is NOT comparable with a measured one. The split,
+# preprocessing, label mapping and averaging are the publishing authors', not the protocol on
+# /methodology/. That is the whole reason for the separate bucket -- putting a published
+# number in a green cell would be a false comparison, and the site would have no way to say
+# so. Reported rows sit below the ranked block, are never ranked, and never draw a bar.
+#
+# PRECEDENCE. A reported value only ever fills a cell this site has NOT measured. If a run
+# exists for the pair, the measurement wins and tools/validate.py refuses the row rather than
+# letting it quietly stop mattering.
+#
+# ONE SOURCE PER (model, task, metric). Several papers report the same architecture on the
+# same task, at different numbers, because their protocols differ -- BenchECG and the ECG-JEPA
+# paper both give ST-MEM a PTB-XL AUROC, 0.930 and 0.896, and neither is wrong. A cell holds
+# one value, so the duplicate gate forces a choice rather than letting the file's order decide
+# it silently. Pick on documentation quality first and protocol proximity second, and say in
+# the note what was passed over: ST-MEM, ECG-JEPA and CLOCS below come from the ECG-JEPA paper
+# because it states plainly that its metrics are macro-averaged over the five superclasses,
+# which BenchECG does not, even though BenchECG's finetuning protocol is otherwise closer to
+# this site's.
+#
+# SURVEY ARCHITECTURES. An unimplemented architecture has no run and never will, so its cell
+# is created by the citation rather than by the model x task grid: it appears only on tasks a
+# paper reports it for, takes whichever metric that paper prints, and is excluded from the
+# coverage denominator. Citing a paper must not move a number describing what was measured.
+#
+# WHY EVERY ROW FOR AN IMPLEMENTED MODEL IS AUROC, AND EVERY ROW IS PTB-XL. Structural, not a
+# gap in the search: no peer-reviewed macro-F1 exists for any of the 21 implemented
+# architectures on any of the five tasks. Only 1 of 21 traces to a paper that ran it on an
+# ECG dataset at all; fifteen trace to general vision/NLP/time-series papers, and four have no
+# origin paper. The survey blocks DO carry macro-F1, because the self-supervised literature
+# reports it where the supervised benchmark literature does not.
+#
+# CONSIDERED AND DELIBERATELY NOT RECORDED, so nobody re-derives these later:
+#   - Strodthoff's Fmax: no such metric here, and one added with an empty vocabulary would be
+#     rejected by check_reported anyway.
+#   - Any PhysioNet/CinC 2017 challenge score. The official score is the mean F1 over THREE
+#     classes, deliberately excluding Noisy; this site's task is 4-class macro-F1. Every
+#     published CinC-2017 F1 is a different quantity, inflated by dropping the hardest class.
+#     This rules out ENCASE, Teijeiro, Zihlmann and the rest of the 2017 leaderboard.
+#   - MRM-Net (arXiv:2406.16928) prints macro-ish F1 for fcn_wang, resnet1d_wang and
+#     xresnet1d101 on super-diag. Unrefereed, averaging never stated, replicate count given
+#     only as "multiple experiments".
+#   - Medformer (NeurIPS 2024) reports true macro-F1 on "PTB-XL", but over 1-second
+#     single-label segments at 250 Hz with a random 60/20/20 subject split -- a different task
+#     wearing the same dataset name.
+#   - Elyamani's PTB-XL F1 of 79.74% is labelled "Micro F1". Its precision (81.08) and recall
+#     (78.43) carry no averaging label, but their harmonic mean is 79.733, reproducing that
+#     micro F1 -- so they are micro too and cannot go in this site's macro-label columns.
+#     Its accuracy (89.87) maps to neither exact_match_accuracy nor label_accuracy.
+#   - Kraft & Rumm report ConvNeXtV2 F1 0.986 on MIT-BIH AFDB, but it is a duration-overlap F1
+#     from a zero-shot cross-dataset single-lead run with AF and AFL merged.
+#   - inception-time on ptbxl-multilabel (AUC .921, Strodthoff Table II): measured here, so
+#     the measurement wins and the row would be refused.
+#   - gru on ptbxl-multilabel: Strodthoff's Table II has no GRU row.
+#   - "Benchmarking ECG Foundational Models: A Reality Check" (arXiv:2509.25095) has exactly
+#     the comparison table this file wants -- ECGFounder, ECG-JEPA, ST-MEM, MERL, ECGFM-KED,
+#     HuBERT-ECG, ECG-FM, ECG-CPC, S4 and Net1D, finetuned and frozen -- but its dataset rows
+#     are PTB, Ningbo, CPSC2018, CPSC-Extra, Georgia and Chapman. That first row is the older
+#     PTB Diagnostic ECG Database, NOT PTB-XL; the paper lists both separately in its
+#     pretraining table, and PTB-XL is pretraining data for several of the models. Nothing in
+#     it maps onto a task here. Do not re-check this one hoping otherwise.
+
+- source:
+    paper_title: "Deep Learning for ECG Analysis: Benchmarks and Insights from PTB-XL"
+    doi: "10.1109/JBHI.2020.3022989"
+  protocol_note: >-
+    Table II, `super-diag.` column: term-centric macro-averaged AUC on the five PTB-XL
+    diagnostic superclasses. These are the benchmark authors' own re-implementations of the
+    named architectures, not each architecture's original paper. Official PTB-XL folds 1-8
+    train / 9 validation / 10 test at 100 Hz; this site's snapshot uses a random stratified
+    record-level split, and the two are not interchangeable. The paper's parenthesised figure
+    is a bootstrap interval over a fixed test set, not a spread over replicates, hence n: null.
+  values:
+    - {model: resnet-wang,         task: ptbxl-multilabel, metric: auroc, value: 0.930, n: null}
+    - {model: xresnet1d-benchmark, task: ptbxl-multilabel, metric: auroc, value: 0.928, n: null,
+       protocol_note: "Reported as xresnet1d101. Otherwise as the block above: Table II super-diag., macro AUC, official folds 1-8/9/10 at 100 Hz, bootstrap interval rather than replicates."}
+    - {model: lstm,                task: ptbxl-multilabel, metric: auroc, value: 0.927, n: null,
+       protocol_note: "The benchmark's own unidirectional LSTM baseline, not necessarily this site's implementation. Otherwise as the block above: Table II super-diag., macro AUC, official folds 1-8/9/10 at 100 Hz."}
+    - {model: fcn-wang,            task: ptbxl-multilabel, metric: auroc, value: 0.925, n: null}
+
+- source:
+    paper_title: "Deep residual 2D convolutional neural network for cardiovascular disease classification"
+    doi: "10.1038/s41598-024-72382-3"
+  protocol_note: >-
+    The origin paper for deep-res-cnn, self-reported, Table 3, 12-lead row. Official PTB-XL
+    split with folds 1-9 for training and validation and fold 10 held out; this site's
+    snapshot uses a random stratified record-level split. No replicate count is stated. The
+    paper does not label the averaging, but its printed AUC is the mean of its own per-class
+    AUCs (CD 93.43, HYP 90.46, MI 93.73, NORM 95.60, STTC 94.05, mean 93.454), so it is
+    macro-averaged over the five superclasses and comparable in kind with this site's AUROC.
+  values:
+    - {model: deep-res-cnn, task: ptbxl-multilabel, metric: auroc, value: 0.9346, n: null}
+
+- source:
+    paper_title: "Learning General Representation of 12-Lead Electrocardiogram with a Joint-Embedding Predictive Architecture"
+    doi: "arXiv:2410.08559"
+  protocol_note: >-
+    Table 1, "Linear evaluation on multi-label task", PTB-XL columns. Label set and shape
+    match this site's task -- the five diagnostic superclasses, multi-label, macro-averaged.
+    The PROTOCOL does not and cannot be made to: these are linear probes on a FROZEN
+    self-supervised encoder rather than a network trained end to end, and the split puts folds
+    1-9 in training with fold 10 for test rather than reserving fold 9 for validation. Read
+    them as what a linear head recovers from a pretrained representation, which is a different
+    question from the one the measured rows answer. Only the ECG-JEPA rows are self-reported;
+    the others are this paper's re-implementations of its rivals.
+  values:
+    # Self-reported. The paper's own best variant, E-JEPA with multi-block masking.
+    - {model: ecg-jepa, task: ptbxl-multilabel, metric: f1,    value: 0.712, n: null}
+    - {model: ecg-jepa, task: ptbxl-multilabel, metric: auroc, value: 0.912, n: null}
+    # Re-implementations. Named here as the paper names them, so a reader can find the row.
+    - {model: st-mem,   task: ptbxl-multilabel, metric: f1,    value: 0.662, n: null,
+       protocol_note: "NOT self-reported: the ECG-JEPA authors' re-implementation of ST-MEM, pretrained 800 epochs, from their Table 1. Linear evaluation on a frozen encoder, PTB-XL five diagnostic superclasses, multi-label, macro-averaged; folds 1-9 train and fold 10 test."}
+    - {model: st-mem,   task: ptbxl-multilabel, metric: auroc, value: 0.896, n: null,
+       protocol_note: "NOT self-reported: the ECG-JEPA authors' re-implementation of ST-MEM, pretrained 800 epochs, from their Table 1. Linear evaluation on a frozen encoder, five superclasses, multi-label, macro-averaged; folds 1-9 train and fold 10 test."}
+    - {model: clocs,    task: ptbxl-multilabel, metric: f1,    value: 0.472, n: null,
+       protocol_note: "NOT self-reported, and listed in the source's Table 1 as CMSC -- the contrastive multi-segment coding variant introduced in the CLOCS paper -- pretrained 300 epochs. Linear evaluation on a frozen encoder, five superclasses, multi-label, macro-averaged; folds 1-9 train and fold 10 test."}
+    - {model: clocs,    task: ptbxl-multilabel, metric: auroc, value: 0.802, n: null,
+       protocol_note: "NOT self-reported, and listed in the source's Table 1 as CMSC -- the CLOCS variant -- pretrained 300 epochs. Linear evaluation on a frozen encoder, five superclasses, multi-label, macro-averaged; folds 1-9 train and fold 10 test."}
+
+- source:
+    paper_title: "BenchECG and xECG: a benchmark and baseline for ECG foundation models"
+    doi: "arXiv:2509.10151"
+  protocol_note: >-
+    BenchECG's PTB-XL table, FINETUNING rows: the encoder is trained end to end rather than
+    frozen, and the split is the official stratified one with fold 9 for validation and fold
+    10 held out for test -- so of the sources on this page these are the closest in protocol
+    to this site's own runs, though this site's snapshot still uses a random stratified
+    record-level split rather than the official folds. The xECG rows are self-reported;
+    ECGFounder is this benchmark's re-implementation of someone else's model. One caveat that
+    the ECG-JEPA block above does not have: BenchECG states AUROC as its classification metric
+    but never says how AUROC or F1 are averaged across the five superclasses, so read the F1
+    in particular as approximate in kind rather than known to be macro-label. The paper prints
+    a standard deviation over independent runs but does not give their number, hence n: null.
+  values:
+    - {model: ecgfounder, task: ptbxl-multilabel, metric: f1,    value: 0.734, n: null}
+    - {model: ecgfounder, task: ptbxl-multilabel, metric: auroc, value: 0.930, n: null}
+    - {model: xecg,       task: ptbxl-multilabel, metric: f1,    value: 0.718, n: null}
+    - {model: xecg,       task: ptbxl-multilabel, metric: auroc, value: 0.928, n: null}
+
+- source:
+    paper_title: "Zero-Shot ECG Classification with Multimodal Learning and Test-time Clinical Knowledge Enhancement"
+    doi: "arXiv:2403.06659"
+  protocol_note: >-
+    MERL's Table 1, "PTBXL-Super" column at 100% training data: linear probing on a frozen
+    encoder over the five PTB-XL diagnostic superclasses. The metric is stated plainly --
+    "for all downstream tasks, we use macro AUC as the metric" -- so it is comparable in kind
+    with this site's AUROC, though a linear probe is not comparable with end-to-end training.
+    The MERL row is self-reported; ASTCL and CRT are MERL's re-implementations of rival
+    methods. The paper reports single numbers with no dispersion and states no replicate
+    count. Its CLOCS (76.31) and ST-MEM (71.36) values are not recorded here: those cells are
+    already filled from the ECG-JEPA paper, and a cell holds one value.
+  values:
+    - {model: merl,  task: ptbxl-multilabel, metric: auroc, value: 0.8867, n: null}
+    - {model: astcl, task: ptbxl-multilabel, metric: auroc, value: 0.8102, n: null}
+    - {model: crt,   task: ptbxl-multilabel, metric: auroc, value: 0.7724, n: null}

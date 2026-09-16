@@ -1,0 +1,60 @@
+name: Refresh registry
+
+# Re-exports _data/registry.json from the library and opens a PULL REQUEST. It cannot push
+# to main, and that polarity is the point: when someone registers a new architecture
+# upstream, this PR's validate run goes RED (E_MISSING_PAGE) until a human writes
+# _models/<name>.md. An architecture can therefore never appear in the catalogue without
+# prose, and a new model upstream can never silently break main.
+on:
+  schedule:
+    - cron: "0 5 * * 1"
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: "deepecg-kit git ref to export from"
+        required: false
+        default: main
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: astral-sh/setup-uv@v5
+
+      - name: Install deepecgkit (CPU torch)
+        run: |
+          uv venv
+          uv pip install --index-url https://download.pytorch.org/whl/cpu torch
+          uv pip install pyyaml \
+            "deepecgkit @ git+https://github.com/stevenah/deepecg-kit@${{ inputs.ref || 'main' }}"
+
+      - name: Export registry
+        run: uv run python tools/export_registry.py --out _data/registry.json --probes-from _tasks
+
+      # Only the registry<->_models gates here. The full suite runs on the PR, where a
+      # failure is visible as a red check rather than as a silently skipped refresh.
+      - name: Registry gates
+        run: uv run python tools/validate.py --registry-only || true
+
+      - uses: peter-evans/create-pull-request@v6
+        with:
+          branch: chore/registry-refresh
+          title: "chore: refresh model registry from deepecg-kit"
+          commit-message: "chore: refresh _data/registry.json"
+          body: |
+            Automated re-export of `_data/registry.json` from deepecg-kit.
+
+            **Read the diff before merging.** If this adds a model, the checks on this PR
+            will fail with `E_MISSING_PAGE` until a matching `_models/<registry_name>.md`
+            exists. That is intended: an architecture must not reach the catalogue without
+            prose describing it.
+
+            Parameter counts changing is normal when an architecture is edited upstream;
+            parameter counts changing for a model nobody touched is worth investigating.
+          labels: automated

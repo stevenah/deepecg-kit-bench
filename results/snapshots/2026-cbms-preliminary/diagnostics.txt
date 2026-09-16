@@ -1,0 +1,203 @@
+$ deepecg aggregate --runs-dir /Users/steven/code/deepecg-kit-repos/deepecg-kit-paper/runs --output-dir results/snapshots/2026-cbms-preliminary --confidence-level 0.95 --include-legacy --on-duplicate error --emit-latex
+  24 run(s) no_seed
+
+24 runs across 4 dataset(s)
+
+          dataset          model    metric  n     mean  std  lower_ci  upper_ci   averaging
+af-classification           crnn        f1  1 0.723451  NaN       NaN       NaN     unknown
+af-classification           crnn precision  1 0.737431  NaN       NaN       NaN     unknown
+af-classification           crnn    recall  1 0.717842  NaN       NaN       NaN     unknown
+af-classification inception-time        f1  1 0.656201  NaN       NaN       NaN     unknown
+af-classification inception-time precision  1 0.690553  NaN       NaN       NaN     unknown
+af-classification inception-time    recall  1 0.641875  NaN       NaN       NaN     unknown
+af-classification          mamba        f1  1 0.632605  NaN       NaN       NaN     unknown
+af-classification          mamba precision  1 0.655109  NaN       NaN       NaN     unknown
+af-classification          mamba    recall  1 0.614995  NaN       NaN       NaN     unknown
+af-classification      medformer        f1  1 0.477452  NaN       NaN       NaN     unknown
+af-classification      medformer precision  1 0.534037  NaN       NaN       NaN     unknown
+af-classification      medformer    recall  1 0.459481  NaN       NaN       NaN     unknown
+af-classification         resnet        f1  1 0.753991  NaN       NaN       NaN     unknown
+af-classification         resnet precision  1 0.769101  NaN       NaN       NaN     unknown
+af-classification         resnet    recall  1 0.744415  NaN       NaN       NaN     unknown
+af-classification      se-resnet        f1  1 0.707267  NaN       NaN       NaN     unknown
+af-classification      se-resnet precision  1 0.724569  NaN       NaN       NaN     unknown
+af-classification      se-resnet    recall  1 0.693078  NaN       NaN       NaN     unknown
+      mitbih-afdb    convnext-v2        f1  1 0.000000  NaN       NaN       NaN     unknown
+      mitbih-afdb    convnext-v2 precision  1 0.000000  NaN       NaN       NaN     unknown
+      mitbih-afdb    convnext-v2    recall  1 0.000000  NaN       NaN       NaN     unknown
+      mitbih-afdb           crnn        f1  1 0.978790  NaN       NaN       NaN     unknown
+      mitbih-afdb           crnn precision  1 0.997199  NaN       NaN       NaN     unknown
+      mitbih-afdb           crnn    recall  1 0.961049  NaN       NaN       NaN     unknown
+      mitbih-afdb inception-time        f1  1 0.961591  NaN       NaN       NaN     unknown
+      mitbih-afdb inception-time precision  1 0.972397  NaN       NaN       NaN     unknown
+      mitbih-afdb inception-time    recall  1 0.951022  NaN       NaN       NaN     unknown
+      mitbih-afdb          mamba        f1  1 0.920095  NaN       NaN       NaN     unknown
+      mitbih-afdb          mamba precision  1 0.874826  NaN       NaN       NaN     unknown
+      mitbih-afdb          mamba    recall  1 0.970305  NaN       NaN       NaN     unknown
+      mitbih-afdb      medformer        f1  1 0.851686  NaN       NaN       NaN     unknown
+      mitbih-afdb      medformer precision  1 0.768872  NaN       NaN       NaN     unknown
+      mitbih-afdb      medformer    recall  1 0.954493  NaN       NaN       NaN     unknown
+      mitbih-afdb         resnet        f1  1 0.949953  NaN       NaN       NaN     unknown
+      mitbih-afdb         resnet precision  1 0.930792  NaN       NaN       NaN     unknown
+      mitbih-afdb         resnet    recall  1 0.969919  NaN       NaN       NaN     unknown
+      mitbih-afdb      se-resnet        f1  1 0.974069  NaN       NaN       NaN     unknown
+      mitbih-afdb      se-resnet precision  1 0.985016  NaN       NaN       NaN     unknown
+      mitbih-afdb      se-resnet    recall  1 0.963363  NaN       NaN       NaN     unknown
+            ptbxl    convnext-v2        f1  1 0.690786  NaN       NaN       NaN macro-label
+            ptbxl    convnext-v2 precision  1 0.622773  NaN       NaN       NaN macro-label
+            ptbxl    convnext-v2    recall  1 0.784544  NaN       NaN       NaN macro-label
+            ptbxl           crnn        f1  1 0.681632  NaN       NaN       NaN macro-label
+            ptbxl           crnn precision  1 0.604003  NaN       NaN       NaN macro-label
+            ptbxl           crnn    recall  1 0.805744  NaN       NaN       NaN macro-label
+            ptbxl inception-time        f1  1 0.705921  NaN       NaN       NaN macro-label
+            ptbxl inception-time precision  1 0.631949  NaN       NaN       NaN macro-label
+            ptbxl inception-time    recall  1 0.825436  NaN       NaN       NaN macro-label
+            ptbxl          mamba        f1  1 0.672061  NaN       NaN       NaN macro-label
+            ptbxl          mamba precision  1 0.638035  NaN       NaN       NaN macro-label
+            ptbxl          mamba    recall  1 0.711308  NaN       NaN       NaN macro-label
+            ptbxl      medformer        f1  1 0.673825  NaN       NaN       NaN macro-label
+            ptbxl      medformer precision  1 0.606907  NaN       NaN       NaN macro-label
+            ptbxl      medformer    recall  1 0.758203  NaN       NaN       NaN macro-label
+            ptbxl         resnet        f1  1 0.701685  NaN       NaN       NaN macro-label
+            ptbxl         resnet precision  1 0.614418  NaN       NaN       NaN macro-label
+            ptbxl         resnet    recall  1 0.843598  NaN       NaN       NaN macro-label
+            ptbxl      se-resnet        f1  1 0.697626  NaN       NaN       NaN macro-label
+            ptbxl      se-resnet precision  1 0.620109  NaN       NaN       NaN macro-label
+            ptbxl      se-resnet    recall  1 0.821306  NaN       NaN       NaN macro-label
+       unified-af    convnext-v2        f1  1 0.864628  NaN       NaN       NaN     unknown
+       unified-af    convnext-v2 precision  1 0.992835  NaN       NaN       NaN     unknown
+       unified-af    convnext-v2    recall  1 0.819801  NaN       NaN       NaN     unknown
+       unified-af           crnn        f1  1 0.719656  NaN       NaN       NaN     unknown
+       unified-af           crnn precision  1 0.740578  NaN       NaN       NaN     unknown
+       unified-af           crnn    recall  1 0.701825  NaN       NaN       NaN     unknown
+       unified-af      medformer        f1  1 0.846472  NaN       NaN       NaN     unknown
+       unified-af      medformer precision  1 0.980207  NaN       NaN       NaN     unknown
+       unified-af      medformer    recall  1 0.796445  NaN       NaN       NaN     unknown
+       unified-af         resnet        f1  1 0.840757  NaN       NaN       NaN     unknown
+       unified-af         resnet precision  1 0.870030  NaN       NaN       NaN     unknown
+       unified-af         resnet    recall  1 0.819964  NaN       NaN       NaN     unknown
+
+Wrote 6 file(s) to results/snapshots/2026-cbms-preliminary:
+  seed_runs_long.csv
+  seed_metrics_long.csv
+  results_af_classification.tex
+  results_mitbih_afdb.tex
+  results_ptbxl.tex
+  results_unified_af.tex
+
+$ deepecg rank --runs-dir /Users/steven/code/deepecg-kit-repos/deepecg-kit-paper/runs --output-dir results/snapshots/2026-cbms-preliminary --confidence-level 0.95 --include-legacy --on-duplicate error --metric f1 --emit-latex
+24 runs over seeds [-1], ranking on f1
+
+Rank distribution
+          dataset          model  rank_1  rank_2  rank_3  rank_4  rank_5  rank_6  rank_7  mode_rank  top1_fraction  mean_value
+af-classification           crnn       0       1       0       0     0.0     0.0     NaN          2            0.0    0.723451
+af-classification inception-time       0       0       0       1     0.0     0.0     NaN          4            0.0    0.656201
+af-classification          mamba       0       0       0       0     1.0     0.0     NaN          5            0.0    0.632605
+af-classification      medformer       0       0       0       0     0.0     1.0     NaN          6            0.0    0.477452
+af-classification         resnet       1       0       0       0     0.0     0.0     NaN          1            1.0    0.753991
+af-classification      se-resnet       0       0       1       0     0.0     0.0     NaN          3            0.0    0.707267
+      mitbih-afdb    convnext-v2       0       0       0       0     0.0     0.0     1.0          7            0.0    0.000000
+      mitbih-afdb           crnn       1       0       0       0     0.0     0.0     0.0          1            1.0    0.978790
+      mitbih-afdb inception-time       0       0       1       0     0.0     0.0     0.0          3            0.0    0.961591
+      mitbih-afdb          mamba       0       0       0       0     1.0     0.0     0.0          5            0.0    0.920095
+      mitbih-afdb      medformer       0       0       0       0     0.0     1.0     0.0          6            0.0    0.851686
+      mitbih-afdb         resnet       0       0       0       1     0.0     0.0     0.0          4            0.0    0.949953
+      mitbih-afdb      se-resnet       0       1       0       0     0.0     0.0     0.0          2            0.0    0.974069
+            ptbxl    convnext-v2       0       0       0       1     0.0     0.0     0.0          4            0.0    0.690786
+            ptbxl           crnn       0       0       0       0     1.0     0.0     0.0          5            0.0    0.681632
+            ptbxl inception-time       1       0       0       0     0.0     0.0     0.0          1            1.0    0.705921
+            ptbxl          mamba       0       0       0       0     0.0     0.0     1.0          7            0.0    0.672061
+            ptbxl      medformer       0       0       0       0     0.0     1.0     0.0          6            0.0    0.673825
+            ptbxl         resnet       0       1       0       0     0.0     0.0     0.0          2            0.0    0.701685
+            ptbxl      se-resnet       0       0       1       0     0.0     0.0     0.0          3            0.0    0.697626
+       unified-af    convnext-v2       1       0       0       0     NaN     NaN     NaN          1            1.0    0.864628
+       unified-af           crnn       0       0       0       1     NaN     NaN     NaN          4            0.0    0.719656
+       unified-af      medformer       0       1       0       0     NaN     NaN     NaN          2            0.0    0.846472
+       unified-af         resnet       0       0       1       0     NaN     NaN     NaN          3            0.0    0.840757
+
+Kendall tau between per-seed rankings
+          dataset  n_models  n_seeds  n_pairs  tau_mean  tau_min  tau_max  min_attainable_p
+af-classification         6        1        0       NaN      NaN      NaN          0.002778
+      mitbih-afdb         7        1        0       NaN      NaN      NaN          0.000397
+            ptbxl         7        1        0       NaN      NaN      NaN          0.000397
+       unified-af         4        1        0       NaN      NaN      NaN          0.083333
+
+Cross-task ranking reversals
+       model_a        model_b         dataset_1   dataset_2    mean_1    mean_2  n_seeds    verdict  p_flip  p_adjusted
+          crnn inception-time af-classification mitbih-afdb  0.067250  0.017199        1 untestable     NaN         NaN
+          crnn          mamba af-classification mitbih-afdb  0.090846  0.058695        1 untestable     NaN         NaN
+          crnn      medformer af-classification mitbih-afdb  0.245999  0.127104        1 untestable     NaN         NaN
+          crnn         resnet af-classification mitbih-afdb -0.030540  0.028837        1 untestable     NaN         NaN
+          crnn      se-resnet af-classification mitbih-afdb  0.016183  0.004721        1 untestable     NaN         NaN
+inception-time          mamba af-classification mitbih-afdb  0.023596  0.041496        1 untestable     NaN         NaN
+inception-time      medformer af-classification mitbih-afdb  0.178749  0.109905        1 untestable     NaN         NaN
+inception-time         resnet af-classification mitbih-afdb -0.097790  0.011638        1 untestable     NaN         NaN
+inception-time      se-resnet af-classification mitbih-afdb -0.051067 -0.012478        1 untestable     NaN         NaN
+         mamba      medformer af-classification mitbih-afdb  0.155153  0.068409        1 untestable     NaN         NaN
+         mamba         resnet af-classification mitbih-afdb -0.121386 -0.029858        1 untestable     NaN         NaN
+         mamba      se-resnet af-classification mitbih-afdb -0.074662 -0.053974        1 untestable     NaN         NaN
+     medformer         resnet af-classification mitbih-afdb -0.276539 -0.098267        1 untestable     NaN         NaN
+     medformer      se-resnet af-classification mitbih-afdb -0.229815 -0.122383        1 untestable     NaN         NaN
+        resnet      se-resnet af-classification mitbih-afdb  0.046724 -0.024116        1 untestable     NaN         NaN
+          crnn inception-time af-classification       ptbxl  0.067250 -0.024289        1 untestable     NaN         NaN
+          crnn          mamba af-classification       ptbxl  0.090846  0.009571        1 untestable     NaN         NaN
+          crnn      medformer af-classification       ptbxl  0.245999  0.007807        1 untestable     NaN         NaN
+          crnn         resnet af-classification       ptbxl -0.030540 -0.020053        1 untestable     NaN         NaN
+          crnn      se-resnet af-classification       ptbxl  0.016183 -0.015994        1 untestable     NaN         NaN
+inception-time          mamba af-classification       ptbxl  0.023596  0.033859        1 untestable     NaN         NaN
+inception-time      medformer af-classification       ptbxl  0.178749  0.032095        1 untestable     NaN         NaN
+inception-time         resnet af-classification       ptbxl -0.097790  0.004236        1 untestable     NaN         NaN
+inception-time      se-resnet af-classification       ptbxl -0.051067  0.008294        1 untestable     NaN         NaN
+         mamba      medformer af-classification       ptbxl  0.155153 -0.001764        1 untestable     NaN         NaN
+         mamba         resnet af-classification       ptbxl -0.121386 -0.029623        1 untestable     NaN         NaN
+         mamba      se-resnet af-classification       ptbxl -0.074662 -0.025565        1 untestable     NaN         NaN
+     medformer         resnet af-classification       ptbxl -0.276539 -0.027859        1 untestable     NaN         NaN
+     medformer      se-resnet af-classification       ptbxl -0.229815 -0.023801        1 untestable     NaN         NaN
+        resnet      se-resnet af-classification       ptbxl  0.046724  0.004058        1 untestable     NaN         NaN
+          crnn      medformer af-classification  unified-af  0.245999 -0.126816        1 untestable     NaN         NaN
+          crnn         resnet af-classification  unified-af -0.030540 -0.121101        1 untestable     NaN         NaN
+     medformer         resnet af-classification  unified-af -0.276539  0.005715        1 untestable     NaN         NaN
+   convnext-v2           crnn       mitbih-afdb       ptbxl -0.978790  0.009154        1 untestable     NaN         NaN
+   convnext-v2 inception-time       mitbih-afdb       ptbxl -0.961591 -0.015135        1 untestable     NaN         NaN
+   convnext-v2          mamba       mitbih-afdb       ptbxl -0.920095  0.018724        1 untestable     NaN         NaN
+   convnext-v2      medformer       mitbih-afdb       ptbxl -0.851686  0.016960        1 untestable     NaN         NaN
+   convnext-v2         resnet       mitbih-afdb       ptbxl -0.949953 -0.010899        1 untestable     NaN         NaN
+   convnext-v2      se-resnet       mitbih-afdb       ptbxl -0.974069 -0.006841        1 untestable     NaN         NaN
+          crnn inception-time       mitbih-afdb       ptbxl  0.017199 -0.024289        1 untestable     NaN         NaN
+          crnn          mamba       mitbih-afdb       ptbxl  0.058695  0.009571        1 untestable     NaN         NaN
+          crnn      medformer       mitbih-afdb       ptbxl  0.127104  0.007807        1 untestable     NaN         NaN
+          crnn         resnet       mitbih-afdb       ptbxl  0.028837 -0.020053        1 untestable     NaN         NaN
+          crnn      se-resnet       mitbih-afdb       ptbxl  0.004721 -0.015994        1 untestable     NaN         NaN
+inception-time          mamba       mitbih-afdb       ptbxl  0.041496  0.033859        1 untestable     NaN         NaN
+inception-time      medformer       mitbih-afdb       ptbxl  0.109905  0.032095        1 untestable     NaN         NaN
+inception-time         resnet       mitbih-afdb       ptbxl  0.011638  0.004236        1 untestable     NaN         NaN
+inception-time      se-resnet       mitbih-afdb       ptbxl -0.012478  0.008294        1 untestable     NaN         NaN
+         mamba      medformer       mitbih-afdb       ptbxl  0.068409 -0.001764        1 untestable     NaN         NaN
+         mamba         resnet       mitbih-afdb       ptbxl -0.029858 -0.029623        1 untestable     NaN         NaN
+         mamba      se-resnet       mitbih-afdb       ptbxl -0.053974 -0.025565        1 untestable     NaN         NaN
+     medformer         resnet       mitbih-afdb       ptbxl -0.098267 -0.027859        1 untestable     NaN         NaN
+     medformer      se-resnet       mitbih-afdb       ptbxl -0.122383 -0.023801        1 untestable     NaN         NaN
+        resnet      se-resnet       mitbih-afdb       ptbxl -0.024116  0.004058        1 untestable     NaN         NaN
+   convnext-v2           crnn       mitbih-afdb  unified-af -0.978790  0.144972        1 untestable     NaN         NaN
+   convnext-v2      medformer       mitbih-afdb  unified-af -0.851686  0.018156        1 untestable     NaN         NaN
+   convnext-v2         resnet       mitbih-afdb  unified-af -0.949953  0.023871        1 untestable     NaN         NaN
+          crnn      medformer       mitbih-afdb  unified-af  0.127104 -0.126816        1 untestable     NaN         NaN
+          crnn         resnet       mitbih-afdb  unified-af  0.028837 -0.121101        1 untestable     NaN         NaN
+     medformer         resnet       mitbih-afdb  unified-af -0.098267  0.005715        1 untestable     NaN         NaN
+   convnext-v2           crnn             ptbxl  unified-af  0.009154  0.144972        1 untestable     NaN         NaN
+   convnext-v2      medformer             ptbxl  unified-af  0.016960  0.018156        1 untestable     NaN         NaN
+   convnext-v2         resnet             ptbxl  unified-af -0.010899  0.023871        1 untestable     NaN         NaN
+          crnn      medformer             ptbxl  unified-af  0.007807 -0.126816        1 untestable     NaN         NaN
+          crnn         resnet             ptbxl  unified-af -0.020053 -0.121101        1 untestable     NaN         NaN
+     medformer         resnet             ptbxl  unified-af -0.027859  0.005715        1 untestable     NaN         NaN
+
+Verdicts: untestable=66
+
+Wrote 7 file(s) to results/snapshots/2026-cbms-preliminary:
+  seed_ranks.csv
+  rank_distribution.csv
+  kendall_tau.csv
+  flip_tests.csv
+  flip_survival.tex
+  kendall_tau.tex
+  rank_distribution.tex

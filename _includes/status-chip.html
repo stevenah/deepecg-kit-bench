@@ -1,0 +1,11 @@
+{%- comment -%}
+One chip renderer, used by every table and every page. Colour comes from a generated custom
+property (--status-KEY) so the swatch, the chip and the SVG cell cannot disagree; the glyph is
+mandatory, so status is never conveyed by colour alone.
+
+Takes exactly one parameter, `key`. Optional include parameters are avoided deliberately: under
+`strict_variables` an unpassed one is a build error, and a chip that renders differently
+depending on its caller is harder to reason about than a separate replicate column.
+{%- endcomment -%}
+{%- assign st = site.data.statuses[include.key] -%}
+<span class="chip" style="color: var(--status-{{ include.key }})" title="{{ st.blurb }}"><span class="chip-glyph" aria-hidden="true">{{ st.glyph }}</span>{{ st.label }}</span>

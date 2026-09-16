@@ -1,0 +1,19 @@
+{%- comment -%}
+Rendered adjacent to every table of numbers on every page. The reader must never have to
+scroll away from a number to find out what produced it, how many replicates it averages,
+or how old it is.
+{%- endcomment -%}
+{%- assign ev = site.data.generated.evidence -%}
+<div class="provenance" style="max-width:none" data-generated-utc="{{ ev.generated_utc }}">
+  <span>snapshot <b>{{ ev.snapshot_id }}</b></span>
+  <span class="sep">&middot;</span>
+  <span><b>{{ ev.snapshot_status }}</b></span>
+  <span class="sep">&middot;</span>
+  <span>deepecgkit <b>{{ ev.kit_version }}</b>{% if ev.kit_git_sha %} <code>{{ ev.kit_git_sha }}</code>{% endif %}</span>
+  <span class="sep">&middot;</span>
+  <span>median <b>{{ ev.median_replicates }}</b> replicate{% if ev.median_replicates != 1 %}s{% endif %} per cell</span>
+  <span class="sep">&middot;</span>
+  <span><span data-age-text>&mdash;</span></span>
+  <span class="sep">&middot;</span>
+  <a href="{{ '/snapshots/' | append: ev.snapshot_id | append: '/' | relative_url }}">provenance</a>
+</div>

@@ -1,0 +1,199 @@
+---
+layout: default
+title: Architectures and benchmarks for DeepECG-Kit
+needs_filter: true
+---
+{%- assign cat = site.data.generated.catalogue -%}
+{%- assign ev = site.data.generated.evidence -%}
+{%- assign cov = site.data.generated.coverage -%}
+
+<header class="hero" data-generated-utc="{{ ev.generated_utc }}"><div class="wrap">
+  <h1>DeepECG-Bench</h1>
+  <p class="lede">
+    Every architecture registered in DeepECG-Kit alongside the wider field, and an honest account
+    of what has actually been measured on each one. The catalogue is complete; the benchmark is
+    not, and the site says which is which on every page.
+  </p>
+  <div class="hero-links">
+    <a href="{{ site.repo }}">{% include icons.html name='github' %} GitHub</a>
+    <a href="{{ site.kit_repo }}">{% include icons.html name='package' %} DeepECG-Kit</a>
+    <a href="{{ site.kit_docs }}">{% include icons.html name='book' %} Library docs</a>
+    <a href="{{ '/leaderboard/' | relative_url }}">{% include icons.html name='chart' %} Results</a>
+    <a href="{{ '/coverage/' | relative_url }}">{% include icons.html name='grid' %} Coverage</a>
+    <a href="{{ '/methodology/' | relative_url }}">{% include icons.html name='info' %} Methodology</a>
+    <a href="https://vajira.info/ECGBench/">{% include icons.html name='database' %} ECGBench (datasets)</a>
+  </div>
+</div></header>
+
+
+
+<section class="band">
+  <div class="band-title">Installation</div>
+  <div class="card-grid">
+    <div class="card">
+      <h3>From PyPI</h3>
+      <pre class="code-block"><span class="comment"># Using pip</span>
+pip install deepecgkit
+
+<span class="comment"># Using uv</span>
+uv pip install deepecgkit</pre>
+    </div>
+    <div class="card">
+      <h3>From source</h3>
+      <pre class="code-block">git clone {{ site.kit_repo }}.git
+cd deepecg-kit
+uv sync --group dev</pre>
+    </div>
+  </div>
+  <div class="callout" style="margin-left:0;margin-right:0">
+    <h3>Version caveat</h3>
+    <p>This page describes the registry exported from deepecgkit <b>{{ ev.kit_version }}</b>{% if ev.kit_git_sha %}
+      at <code>{{ ev.kit_git_sha }}</code>{% endif %}, which registers <b>{{ ev.n_models }}</b> architectures.
+      A release on PyPI may register a different set. The number is read from the export, never typed.</p>
+  </div>
+</section>
+
+<section class="band" style="padding-top:0">
+  <div class="band-title">Quick start</div>
+  <div class="card">
+    <h3>See what is registered</h3>
+    <pre class="code-block">deepecg list-models
+deepecg list-datasets
+deepecg info -m se-resnet</pre>
+  </div>
+  <div class="card">
+    <h3>Train one architecture</h3>
+    <pre class="code-block"><span class="comment"># PTB-XL, multi-label over 5 diagnostic superclasses</span>
+deepecg train -m se-resnet -d ptbxl --multi-label --seed 42</pre>
+  </div>
+  <div class="card">
+    <h3>Aggregate finished runs into a snapshot</h3>
+    <pre class="code-block">deepecg aggregate --runs-dir runs --output-dir analysis --emit-latex
+deepecg rank --runs-dir runs --metric f1</pre>
+  </div>
+</section>
+
+<div class="section-header" id="catalogue">
+  <h2>Architecture catalogue</h2>
+</div>
+
+<div class="controls">
+  <div class="search-wrap">
+    {% include icons.html name='search' %}
+    <input type="search" id="search" placeholder="Search name, family, paper, keywords&hellip;" aria-label="Search architectures">
+  </div>
+  <span class="filter-count" id="filter-count"></span>
+</div>
+
+{% for fam in cat.families %}
+{% if fam.count > 0 %}
+{% assign rows = cat.survey | where: "family", fam.key %}
+<div data-group-block>
+  <div class="section-header">
+    <h2>{{ fam.label }} architectures</h2>
+  </div>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>#</th><th>Architecture</th><th class="num">Year</th>
+          <th class="num">Params (M)</th><th class="center">In DeepECG-Kit</th>
+          <th class="num">Tasks measured</th><th>Paper</th>
+        </tr>
+      </thead>
+      <tbody>
+      {% for m in rows %}
+        <tr data-row data-family="{{ m.family }}"
+            data-implemented="{% if m.implemented %}yes{% else %}no{% endif %}"
+            data-measured="{{ m.tasks_measured | default: 0 }}"
+            data-text="{{ m.slug }} {{ m.title }} {{ m.family_label }} {{ m.one_liner }} {{ m.search_keywords }} {{ m.origin.paper_title }} {{ m.origin.authors }} {{ m.origin.venue }}">
+          <td class="num-cell">{{ forloop.index }}</td>
+          <td>
+            {% if m.implemented %}
+              <a class="row-name" href="{{ '/models/' | append: m.registry_name | append: '/' | relative_url }}">{{ m.title }}</a>
+            {% else %}
+              <span class="row-name">{{ m.title }}</span>
+            {% endif %}
+            <span class="row-sub">{{ m.one_liner }}</span>
+          </td>
+          <td class="num muted">{% if m.year %}{{ m.year }}{% else %}&mdash;{% endif %}</td>
+          <td class="num">
+            {%- if m.params_m -%}
+              {{ m.params_m }}{% if m.params_kind == 'reported' %}<span class="muted" title="Reported by the authors, not measured under this protocol">&dagger;</span>{% endif %}
+            {%- else -%}<span class="muted">&mdash;</span>{%- endif -%}
+          </td>
+          <td class="center">
+            {%- if m.implemented -%}&#10003;
+            {%- else -%}<span class="muted">&mdash;</span>{%- endif -%}
+          </td>
+          <td class="num">
+            {%- if m.implemented -%}
+              {%- if m.tasks_measured > 0 -%}{{ m.tasks_measured }}<span class="muted">/{{ cov.n_tasks }}</span>
+              {%- else -%}<span class="muted">0</span>{%- endif -%}
+            {%- else -%}<span class="muted" title="Not implemented, so nothing can be measured">n/a</span>{%- endif -%}
+          </td>
+          <td>
+            {%- if m.origin.doi -%}
+              <a class="paper-link" href="{% if m.origin.doi contains 'arXiv:' %}https://arxiv.org/abs/{{ m.origin.doi | remove: 'arXiv:' }}{% else %}https://doi.org/{{ m.origin.doi }}{% endif %}">{% if m.origin.venue %}{{ m.origin.venue }}{% elsif m.origin.doi contains 'arXiv:' %}arXiv{% else %}Paper{% endif %} {{ m.origin.year }}</a>
+            {%- elsif m.origin.paper_title or m.origin.venue -%}
+              <span class="muted" style="font-size:.8rem">{{ m.origin.venue | default: "" }} {{ m.origin.year }}</span>
+            {%- else -%}<span class="muted" style="font-size:.8rem">no paper</span>{%- endif -%}
+            {%- if m.origin.code_url %} &middot; <a class="paper-link" href="{{ m.origin.code_url }}">code</a>{% endif -%}
+          </td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endif %}
+{% endfor %}
+<p class="table-note">
+  Parameter counts for implemented rows are measured by instantiating the model at
+  <code>{{ cat.canonical_probe }}</code>; a dagger (&dagger;) marks a count reported by the authors
+  rather than measured here. Field-survey rows carry no maturity, feature-dimension or input-length
+  facts because this site has nothing to measure them on.
+</p>
+
+<div class="section-header">
+  <h2>Coverage</h2>
+</div>
+<section class="charts-section">
+  <figure class="chart-card">
+    {{ site.data.generated.charts.coverage_matrix }}
+    {% include coverage-legend.html %}
+    <figcaption class="chart-caption muted" style="font-size:.8rem;margin-top:8px">
+      Measured value where one exists, otherwise the reason there is none.
+    </figcaption>
+  </figure>
+  <p style="margin-top:14px"><a href="{{ '/coverage/' | relative_url }}">Every cell, with its reason &rarr;</a></p>
+</section>
+
+<div class="section-header">
+  <h2>Statistics</h2>
+</div>
+<section class="charts-section">
+  <div class="charts-grid charts-grid-2">
+    <figure class="chart-card">
+      <h3>Architectures by family</h3>
+      <p>All {{ cat.n_survey }} catalogued architectures. Filled bars are implemented in DeepECG-Kit; outlined bars are field-survey entries.</p>
+      {{ site.data.generated.charts.stats_family }}
+    </figure>
+    <figure class="chart-card">
+      <h3>Architectures by publication year</h3>
+      <p>Filled bars implemented, outlined bars field survey. Undated entries are omitted from this chart only.</p>
+      {{ site.data.generated.charts.stats_year }}
+    </figure>
+    <figure class="chart-card">
+      <h3>Measured parameter counts</h3>
+      <p>Implemented architectures at {{ cat.canonical_probe }}, log scale. Field-survey rows are
+        absent because nothing about them is measured here.</p>
+      {{ site.data.generated.charts.stats_params }}
+    </figure>
+    <figure class="chart-card">
+      <h3>Snapshot cells by status</h3>
+      <p>The {{ ev.cells_total }} model&times;task cells of the current snapshot.</p>
+      {{ site.data.generated.charts.stats_status }}
+    </figure>
+  </div>
+</section>

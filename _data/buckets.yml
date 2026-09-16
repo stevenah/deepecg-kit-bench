@@ -1,0 +1,36 @@
+# The three legend buckets. Every status in _data/statuses.yml declares exactly one.
+#
+# Statuses stay fine-grained -- they carry the per-cell glyph and the specific reason a cell
+# holds no number -- but the LEGEND groups them into these three, because a nine-item legend
+# is not a legend.
+#
+# Colour is carried by the bucket, and tools/validate.py refuses a status whose colours
+# disagree with its bucket's. That is what makes the legend truthful: two cells rendered the
+# same colour always belong to the same bucket. The per-status GLYPH remains the thing that
+# distinguishes them, which is also what keeps the tables legible in print and to
+# colour-blind readers -- the same reason `glyph` is mandatory on a status.
+kit:
+  label: "Measured with DeepECG-Kit"
+  order: 1
+  glyph: "●"
+  color_light: "#1B7F4B"
+  color_dark: "#22c55e"
+  blurb: "Trained and evaluated by this site under the protocol described on /methodology/."
+reported:
+  label: "Reported by paper"
+  order: 2
+  glyph: "◆"
+  # Yellow. The two hexes are the same hue at the lightness each theme needs: chips render
+  # this as TEXT on --surface, so the light one has to be dark enough to clear 3:1 there
+  # (#8A6D00 is 4.6:1) and a bright yellow like #facc15 would be 1.4:1 and unreadable.
+  # tools/tests/test_theme.py::test_status_colours_are_legible enforces the bound.
+  color_light: "#8A6D00"
+  color_dark: "#facc15"
+  blurb: "Value as published by the original authors. Never measured here, and the protocol behind it is not this site's, so it is not comparable with a green cell."
+none:
+  label: "Not measured"
+  order: 3
+  glyph: "—"
+  color_light: "#808A9E"
+  color_dark: "#636B83"
+  blurb: "No value: the pair was never trained, or the metric does not apply to this task."

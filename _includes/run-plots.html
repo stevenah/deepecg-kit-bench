@@ -1,0 +1,23 @@
+{%- comment -%}
+Diagnostic plots for one model x task cell. Takes `cellkey` ("<task>|<model>").
+
+These are matplotlib PNGs with colours baked in, so they render on a FIXED WHITE CARD in
+both themes. Tinting or inverting a plot misrepresents it, and a dark-mode filter over a
+confusion matrix changes what the reader thinks the numbers are.
+{%- endcomment -%}
+{%- assign plots = site.data.generated.plots[include.cellkey] -%}
+{%- if plots.size > 0 -%}
+<div class="plot-grid" style="margin-top:14px">
+  {% for p in plots %}
+    <figure class="plot-card">
+      <img src="{{ p.file | relative_url }}" alt="{{ p.label }}" loading="lazy" decoding="async">
+      <figcaption><b>{{ p.label }}.</b> {{ p.caption }}</figcaption>
+    </figure>
+  {% endfor %}
+</div>
+<p class="muted" style="font-size:.8rem;margin-top:8px">
+  Plots come from the run directory that produced this cell. They are rendered on a white
+  card in both themes because their colours are baked in &mdash; see
+  <a href="{{ '/methodology/#images' | relative_url }}">Methodology</a>.
+</p>
+{%- endif -%}

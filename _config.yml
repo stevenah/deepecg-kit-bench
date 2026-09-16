@@ -1,0 +1,66 @@
+title: DeepECG-Bench
+description: >-
+  A catalogue of every architecture registered in DeepECG-Kit, and a benchmark of what
+  has actually been measured on each of them.
+url: "https://stevenah.github.io"
+baseurl: "/deepecg-kit-bench"
+
+repo: "https://github.com/stevenah/deepecg-kit-bench"
+kit_repo: "https://github.com/stevenah/deepecg-kit"
+kit_docs: "https://stevenah.github.io/deepecg-kit/"
+
+# Strict Liquid is a load-bearing gate, not a preference. Without strict_variables a
+# template typo renders nil as an empty string, which looks exactly like a legitimately
+# empty cell -- and every JSON validator upstream stays green while the page lies.
+liquid:
+  error_mode: strict
+  strict_variables: true
+  strict_filters: true
+
+collections:
+  models:
+    output: true
+    permalink: /models/:name/
+  tasks:
+    output: true
+    permalink: /tasks/:name/
+  snapshots:
+    output: true
+    permalink: /snapshots/:name/
+
+defaults:
+  # Liquid runs with strict_variables, so any key a template reads must exist on every page.
+  # Declaring site-wide optional keys here beats repeating them in 30 front matters, and it
+  # keeps the strictness where it is useful -- on the data schema, not on page boilerplate.
+  - scope: { path: "" }
+    values:
+      description: ""
+      needs_filter: false
+  - scope: { path: "", type: models }
+    values: { layout: model }
+  - scope: { path: "", type: tasks }
+    values: { layout: task }
+  - scope: { path: "", type: snapshots }
+    values: { layout: snapshot }
+
+# No plugins. jekyll-sitemap's own template is not strict_variables-safe (it reads
+# page.sitemap and page.last_modified_at, which pages do not define), and chasing a
+# third-party template's key set is a losing game. sitemap.xml below is ours and is strict
+# by construction. Staying plugin-free also keeps the site buildable by GitHub Pages'
+# safe-mode Jekyll if we ever want to move back.
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - Makefile
+  - pyproject.toml
+  - uv.lock
+  - tools
+  - schemas
+  - README.md
+  - MAINTAINING.md
+  - vendor
+  - .venv
+
+sass:
+  style: compressed

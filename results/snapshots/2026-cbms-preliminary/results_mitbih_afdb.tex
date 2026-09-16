@@ -1,0 +1,23 @@
+\begin{table}[ht]
+\centering
+\caption{MIT-BIH AFDB results, mean over $n$ random seeds. Each seed redraws the patient-level split and reinitialises the weights, so brackets give two-sided 95\% Student-$t$ intervals over that combined variation. The interval is a within-corpus statement and is not a generalisation interval.}
+\label{tab:seed_mitbih_afdb}
+\small
+\begin{tabular}{lcccc}
+\toprule
+Model & F1 & Prec. & Recall & $n$ \\
+\midrule
+CRNN & $0.979$ & $0.997$ & $0.961$ & 1 \\
+SE-ResNet1D & $0.974$ & $0.985$ & $0.963$ & 1 \\
+InceptionTime & $0.962$ & $0.972$ & $0.951$ & 1 \\
+ResNet1D & $0.950$ & $0.931$ & $0.970$ & 1 \\
+Mamba & $0.920$ & $0.875$ & $0.970$ & 1 \\
+Medformer & $0.852$ & $0.769$ & $0.954$ & 1 \\
+ConvNeXt-V2 & $0.000$ & $0.000$ & $0.000$ & 1 \\
+\midrule
+\multicolumn{5}{l}{\footnotesize Intervals describe how much each model moves when the split and the initialisation} \\
+\multicolumn{5}{l}{\footnotesize are redrawn; they are not a pairwise test. See Table~\ref{tab:flip_survival}.} \\
+\multicolumn{5}{l}{\footnotesize Averaging: unknown.} \\
+\bottomrule
+\end{tabular}
+\end{table}

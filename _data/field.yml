@@ -1,0 +1,2279 @@
+# The field survey: notable ECG deep-learning architectures NOT implemented in DeepECG-Kit.
+#
+# Hand-curated. Every fact here is AS REPORTED IN THE LITERATURE, never measured by this
+# site -- which is why these entries live in a separate file with a separate vocabulary:
+# tools/validate.py refuses a survey entry carrying a measured-fact key (params_total,
+# feature_dim, ...), and refuses one whose slug matches a registered model. When an entry
+# gets implemented upstream, the build fails until it is deleted here and written up as
+# _models/<name>.md instead, so a model can never appear twice with two sets of facts.
+#
+# Identifier policy, same as _models/: a DOI or arXiv id appears only when we are certain
+# of it. An invented identifier on a research site is worse than an absent one. Every
+# identifier below was resolved against api.crossref.org or the arXiv API and the returned
+# title matched against paper_title; anything that failed was dropped rather than guessed.
+# Two traps worth remembering if you add a row: PMLR, NeurIPS and OpenReview mint no DOI,
+# so those papers carry an arXiv id or nothing; and a plausible-looking guessed DOI usually
+# resolves to a REAL but unrelated paper, which no gate here can detect.
+#
+# SCOPE. The survey covers the field, not only what this site benchmarks, so it includes
+# delineation and generative models that could never hold a result cell. `family` names the
+# architectural trunk, except for `segmentation` and `generative`, which name what the model
+# outputs -- a positional map over samples, or a signal. Rows are ordered by family, then
+# publication year, then slug.
+#
+# Sorted and emitted in bulk; keep new rows in family/year order.
+
+- slug: kiranyaz-1d-cnn
+  title: "Kiranyaz Patient-Specific 1-D CNN"
+  family: cnn
+  one_liner: "Patient-specific 1-D CNN trained on a common beat set plus a short block of the patient's own beats."
+  params_m_reported: null
+  search_keywords: "Kiranyaz patient-specific 1D CNN ECG, adaptive convolutional neural network MIT-BIH, VEB SVEB beat classification, real-time ECG monitoring"
+  origin:
+    paper_title: "Real-Time Patient-Specific ECG Classification by 1-D Convolutional Neural Networks"
+    authors: "Serkan Kiranyaz, Turker Ince, Moncef Gabbouj"
+    venue: "IEEE TBME"
+    year: 2016
+    doi: "10.1109/TBME.2015.2468589"
+    code_url: null
+    adapted_from: null
+- slug: acharya-cad-cnn
+  title: "Acharya CAD-CNN"
+  family: cnn
+  one_liner: "Convolutional network detecting coronary artery disease from raw ECG segments of differing durations."
+  params_m_reported: null
+  search_keywords: "Acharya coronary artery disease CNN ECG segment duration Knowledge-Based Systems 2017, automated CAD detection convolutional neural network ECG segments"
+  origin:
+    paper_title: "Automated detection of coronary artery disease using different durations of ECG segments with convolutional neural network"
+    authors: "U. Rajendra Acharya et al."
+    venue: "Knowledge-Based Systems"
+    year: 2017
+    doi: "10.1016/j.knosys.2017.06.003"
+    code_url: null
+    adapted_from: null
+- slug: acharya-cnn
+  title: "Acharya 9-layer CNN"
+  family: cnn
+  one_liner: "Nine-layer CNN classifying five heartbeat types directly from the raw signal."
+  params_m_reported: null
+  search_keywords: "Acharya nine-layer deep CNN heartbeat classification MIT-BIH arrhythmia five classes ECG"
+  origin:
+    paper_title: "A deep convolutional neural network model to classify heartbeats"
+    authors: "Acharya et al."
+    venue: "Computers in Biology and Medicine"
+    year: 2017
+    doi: "10.1016/j.compbiomed.2017.08.022"
+    code_url: null
+    adapted_from: null
+- slug: acharya-mi-cnn
+  title: "Acharya MI-CNN"
+  family: cnn
+  one_liner: "Deep convolutional network detecting myocardial infarction directly from the ECG signal."
+  params_m_reported: null
+  search_keywords: "acharya myocardial infarction cnn 2017 information sciences, PTB diagnostic ECG database MI detection, deep convolutional network infarction beats"
+  origin:
+    paper_title: "Application of deep convolutional neural network for automated detection of myocardial infarction using ECG signals"
+    authors: "Acharya et al."
+    venue: "Information Sciences"
+    year: 2017
+    doi: "10.1016/j.ins.2017.06.027"
+    code_url: null
+    adapted_from: null
+- slug: al-rahhal-cwt-cnn
+  title: "Al Rahhal CWT-CNN"
+  family: cnn
+  one_liner: "Wavelet time-frequency images of the ECG feed an ImageNet-pretrained CNN whose features train a fully connected head."
+  params_m_reported: null
+  search_keywords: "Al Rahhal Bazi convolutional neural networks electrocardiogram classification JMBE 2018, continuous wavelet transform ImageNet transfer learning ECG, cross-database arrhythmia VEB SVEB MIT-BIH INCART SVDB"
+  origin:
+    paper_title: "Convolutional Neural Networks for Electrocardiogram Classification"
+    authors: "Mohamad M. Al Rahhal et al."
+    venue: "Journal of Medical and Biological Engineering"
+    year: 2018
+    doi: "10.1007/s40846-018-0389-7"
+    code_url: null
+    adapted_from: null
+- slug: jun-2d-cnn
+  title: "Jun 2-D Beat-Image CNN"
+  family: cnn
+  one_liner: "Every heartbeat is rendered as a grayscale image and classified by a two-dimensional CNN."
+  params_m_reported: null
+  search_keywords: "Jun ECG arrhythmia 2-D convolutional neural network beat image, grayscale heartbeat image MIT-BIH, two-dimensional CNN ECG classification 2018"
+  origin:
+    paper_title: "ECG arrhythmia classification using a 2-D convolutional neural network"
+    authors: "Tae Joon Jun et al."
+    venue: "arXiv"
+    year: 2018
+    doi: "arXiv:1804.06812"
+    code_url: null
+    adapted_from: null
+- slug: kachuee-transferable-cnn
+  title: "Kachuee Transferable Heartbeat CNN"
+  family: cnn
+  one_liner: "Residual 1-D CNN on segmented heartbeats, pretrained for arrhythmia and transferred to myocardial infarction."
+  params_m_reported: null
+  search_keywords: "Kachuee ECG heartbeat classification deep transferable representation, residual 1D CNN MIT-BIH PTB transfer learning, AAMI EC57 five heartbeat classes, myocardial infarction transfer ICHI 2018"
+  origin:
+    paper_title: "ECG Heartbeat Classification: A Deep Transferable Representation"
+    authors: "Mohammad Kachuee, Shayan Fazeli, Majid Sarrafzadeh"
+    venue: "IEEE ICHI"
+    year: 2018
+    doi: "10.1109/ICHI.2018.00092"
+    code_url: null
+    adapted_from: null
+- slug: parvaneh-dense-cnn
+  title: "Parvaneh dense CNN"
+  family: cnn
+  one_liner: "Densely connected convolutional network on single-lead short recordings with feature-based post-processing."
+  params_m_reported: null
+  search_keywords: "Parvaneh dense convolutional neural network single-lead short ECG atrial fibrillation feature-based post-processing DenseNet"
+  origin:
+    paper_title: "Analyzing single-lead short ECG recordings using dense convolutional neural networks and feature-based post-processing to detect atrial fibrillation"
+    authors: "Parvaneh, Rubin, Rahman, Conroy, Babaeizadeh"
+    venue: "Physiological Measurement"
+    year: 2018
+    doi: "10.1088/1361-6579/aad5bd"
+    code_url: null
+    adapted_from: null
+- slug: attia-af-sinus-cnn
+  title: "Mayo AF-during-sinus-rhythm network"
+  family: cnn
+  one_liner: "Convolutional network detecting paroxysmal atrial fibrillation from a twelve-lead ECG recorded in sinus rhythm."
+  params_m_reported: null
+  search_keywords: "Attia Noseworthy artificial intelligence enabled ECG atrial fibrillation sinus rhythm Lancet retrospective outcome prediction"
+  origin:
+    paper_title: "An artificial intelligence-enabled ECG algorithm for the identification of patients with atrial fibrillation during sinus rhythm: a retrospective analysis of outcome prediction"
+    authors: "Attia, Noseworthy, Lopez-Jimenez et al."
+    venue: "The Lancet"
+    year: 2019
+    doi: "10.1016/S0140-6736(19)31721-0"
+    code_url: null
+    adapted_from: null
+- slug: attia-lvsd-cnn
+  title: "Mayo AI-ECG low-EF network"
+  family: cnn
+  one_liner: "Convolutional network over ten-second twelve-lead ECG screening for left ventricular ejection fraction at or below 35 per cent."
+  params_m_reported: null
+  search_keywords: "Attia Mayo artificial intelligence enabled electrocardiogram cardiac contractile dysfunction low ejection fraction screening Nature Medicine"
+  origin:
+    paper_title: "Screening for cardiac contractile dysfunction using an artificial intelligence-enabled electrocardiogram"
+    authors: "Attia et al."
+    venue: "Nature Medicine"
+    year: 2019
+    doi: "10.1038/s41591-018-0240-2"
+    code_url: null
+    adapted_from: null
+- slug: galloway-hyperkalemia-cnn
+  title: "Galloway hyperkalemia DNN"
+  family: cnn
+  one_liner: "Convolutional network over selected leads trained on ECGs paired with serum potassium to screen for hyperkalemia."
+  params_m_reported: null
+  search_keywords: "Galloway hyperkalemia deep learning model screen electrocardiogram serum potassium JAMA Cardiology Mayo"
+  origin:
+    paper_title: "Development and Validation of a Deep-Learning Model to Screen for Hyperkalemia From the Electrocardiogram"
+    authors: "Galloway, Valys, Shreibati et al."
+    venue: "JAMA Cardiology"
+    year: 2019
+    doi: "10.1001/jamacardio.2019.0640"
+    code_url: null
+    adapted_from: null
+- slug: hannun-rajpurkar-cnn
+  title: "Hannun-Rajpurkar CNN"
+  family: cnn
+  one_liner: "Deep residual CNN classifying twelve rhythm classes from more than 91,000 single-lead ambulatory ECGs."
+  params_m_reported: null
+  search_keywords: "Hannun Rajpurkar deep neural network arrhythmia single-lead ambulatory ECG Zio patch cardiologist-level Nature Medicine 2019 residual CNN"
+  origin:
+    paper_title: "Cardiologist-level arrhythmia detection and classification in ambulatory electrocardiograms using a deep neural network"
+    authors: "Hannun, Rajpurkar, Haghpanahi, Tison, Bourn, Turakhia, Ng"
+    venue: "Nature Medicine"
+    year: 2019
+    doi: "10.1038/s41591-018-0268-3"
+    code_url: "https://github.com/awni/ecg"
+    adapted_from: null
+- slug: strodthoff-mi-fcn
+  title: "Strodthoff MI-FCN"
+  family: cnn
+  one_liner: "Ensemble of fully convolutional networks detecting myocardial infarction in the PTB records, with attribution analysis."
+  params_m_reported: null
+  search_keywords: "Strodthoff detecting interpreting myocardial infarction fully convolutional neural networks, PTB ECG ensemble FCN attribution, Physiological Measurement 2019, arXiv 1806.07385"
+  origin:
+    paper_title: "Detecting and interpreting myocardial infarction using fully convolutional neural networks"
+    authors: "Nils Strodthoff, Claas Strodthoff"
+    venue: "Physiological Measurement"
+    year: 2019
+    doi: "10.1088/1361-6579/aaf34d"
+    code_url: null
+    adapted_from: null
+- slug: raghunath-mortality-cnn
+  title: "Geisinger mortality DNN"
+  family: cnn
+  one_liner: "Convolutional network on raw twelve-lead voltage traces predicting one-year all-cause mortality."
+  params_m_reported: null
+  search_keywords: "Raghunath Geisinger prediction mortality 12-lead electrocardiogram voltage data deep neural network Nature Medicine"
+  origin:
+    paper_title: "Prediction of mortality from 12-lead electrocardiogram voltage data using a deep neural network"
+    authors: "Raghunath et al."
+    venue: "Nature Medicine"
+    year: 2020
+    doi: "10.1038/s41591-020-0870-z"
+    code_url: null
+    adapted_from: null
+- slug: ribeiro-code-resnet
+  title: "CODE ResNet (Ribeiro)"
+  family: cnn
+  one_liner: "Residual network trained on more than two million 12-lead exams from the Brazilian CODE cohort."
+  params_m_reported: null
+  search_keywords: "CODE ResNet Ribeiro automatic diagnosis 12-lead ECG deep neural network Nature Communications 2020 residual network CODE cohort Telehealth Minas Gerais"
+  origin:
+    paper_title: "Automatic diagnosis of the 12-lead ECG using a deep neural network"
+    authors: "Antônio H. Ribeiro et al."
+    venue: "Nature Communications"
+    year: 2020
+    doi: "10.1038/s41467-020-15432-4"
+    code_url: "https://github.com/antonior92/automatic-ecg-diagnosis"
+    adapted_from: null
+- slug: se-ecgnet
+  title: "SE-ECGNet"
+  family: cnn
+  one_liner: "Multi-scale residual trunk with squeeze-and-excitation blocks treating the twelve leads as a two-dimensional input."
+  params_m_reported: null
+  search_keywords: "SE-ECGNet multi-scale deep residual network squeeze and excitation 12-lead ECG classification Zhang Zhao Liu"
+  origin:
+    paper_title: "SE-ECGNet: A Multi-scale Deep Residual Network with Squeeze-and-Excitation Module for ECG Signal Classification"
+    authors: "Zhang, Zhao, Liu"
+    venue: "IEEE BIBM"
+    year: 2020
+    doi: "10.1109/BIBM49941.2020.9313548"
+    code_url: null
+    adapted_from: null
+- slug: zhu-lancet-resnet
+  title: "Zhu Multilabel ECG ResNet"
+  family: cnn
+  one_liner: "Residual 1-D CNN assigning 21 multilabel rhythm and conduction diagnoses from 180,000 twelve-lead ECGs."
+  params_m_reported: null
+  search_keywords: "Zhu multilabel electrocardiogram deep learning cohort study Lancet Digital Health 2020, residual 1-D CNN 12-lead 21 rhythm classes, Tongji Hospital 180112 ECGs, HAIRLAB ECG code"
+  origin:
+    paper_title: "Automatic multilabel electrocardiogram diagnosis of heart rhythm or conduction abnormalities with deep learning: a cohort study"
+    authors: "Hongling Zhu et al."
+    venue: "Lancet Digital Health"
+    year: 2020
+    doi: "10.1016/S2589-7500(20)30107-2"
+    code_url: "https://github.com/HAIRLAB/ECG"
+    adapted_from: null
+- slug: dsail-snu-ecg
+  title: "DSAIL-SNU generalisation model"
+  family: cnn
+  one_liner: "Squeeze-and-excitation residual CNN trained with mixup and distillation from a twelve-lead teacher into reduced-lead students."
+  params_m_reported: null
+  search_keywords: "DSAIL SNU generalization performance electrocardiogram classification PhysioNet CinC 2021 knowledge distillation reduced lead"
+  origin:
+    paper_title: "Towards High Generalization Performance on Electrocardiogram Classification"
+    authors: "Han et al."
+    venue: "Computing in Cardiology"
+    year: 2021
+    doi: "10.23919/CinC53138.2021.9662737"
+    code_url: null
+    adapted_from: null
+- slug: ecg-tcn
+  title: "ECG-TCN"
+  family: cnn
+  one_liner: "Temporal convolutional network for single-lead arrhythmia classification, sized for microcontroller deployment."
+  params_m_reported: null
+  search_keywords: "ECG-TCN wearable cardiac arrhythmia temporal convolutional network Ingolfsson Benini GAP8 AICAS 2021 ECG5000 embedded"
+  origin:
+    paper_title: "ECG-TCN: Wearable Cardiac Arrhythmia Detection with a Temporal Convolutional Network"
+    authors: "Thorir Mar Ingolfsson et al."
+    venue: "IEEE AICAS"
+    year: 2021
+    doi: "arXiv:2103.13740"
+    code_url: "https://github.com/pulp-platform/ECG-TCN"
+    adapted_from: null
+- slug: lima-ecg-age
+  title: "CODE ECG-age network"
+  family: cnn
+  one_liner: "Residual network trained on the Brazilian CODE cohort to estimate age from the ECG, with the residual used as a risk marker."
+  params_m_reported: null
+  search_keywords: "Lima Ribeiro deep neural network estimated age electrocardiogram mortality CODE cohort Nature Communications ECG age gap"
+  origin:
+    paper_title: "Deep neural network-estimated electrocardiographic age as a mortality predictor"
+    authors: "Lima et al."
+    venue: "Nature Communications"
+    year: 2021
+    doi: "10.1038/s41467-021-25351-7"
+    code_url: null
+    adapted_from: null
+- slug: zhang-interpretable-ecg
+  title: "Interpretable 12-lead SE-ResNet (Zhang)"
+  family: cnn
+  one_liner: "Residual convolutional network with squeeze-and-excitation blocks paired with SHAP attribution for multi-label diagnosis."
+  params_m_reported: null
+  search_keywords: "Zhang interpretable deep learning automatic diagnosis 12-lead electrocardiogram SHAP CPSC 2018 iScience"
+  origin:
+    paper_title: "Interpretable deep learning for automatic diagnosis of 12-lead electrocardiogram"
+    authors: "Zhang, Yuan, Zhang"
+    venue: "iScience"
+    year: 2021
+    doi: "10.1016/j.isci.2021.102373"
+    code_url: "https://github.com/onlyzdd/ecg-diagnosis"
+    adapted_from: null
+- slug: ecg-dx
+  title: "ECG Dx"
+  family: cnn
+  one_liner: "EfficientNet-B3 classifier reading 12-lead ECG images in four lead layouts, trained on the Brazilian CODE cohort."
+  params_m_reported: null
+  search_keywords: "ECG Dx Sangha Khera automated multilabel diagnosis electrocardiographic images EfficientNet-B3 CODE Brazil CarDS Lab Yale"
+  origin:
+    paper_title: "Automated multilabel diagnosis on electrocardiographic images and signals"
+    authors: "Veer Sangha et al."
+    venue: "Nature Communications"
+    year: 2022
+    doi: "10.1038/s41467-022-29153-3"
+    code_url: null
+    adapted_from: null
+- slug: aire
+  title: "AIRE"
+  family: cnn
+  one_liner: "Residual convolutional network with a discrete-time survival head producing a patient-specific risk curve from one ECG."
+  params_m_reported: null
+  search_keywords: "AIRE AI-ECG risk estimator discrete-time survival residual CNN BIDMC all-cause mortality Sau Ng Lancet Digital Health 2024"
+  origin:
+    paper_title: "Artificial intelligence-enabled electrocardiogram for mortality and cardiovascular risk estimation: a model development and validation study"
+    authors: "Arunashis Sau et al."
+    venue: "Lancet Digital Health"
+    year: 2024
+    doi: "10.1016/S2589-7500(24)00172-9"
+    code_url: null
+    adapted_from: null
+- slug: smolk
+  title: "SMoLK (Sparse Mixture of Learned Kernels)"
+  family: cnn
+  one_liner: "Single layer of sparse learned kernels detecting atrial fibrillation in single-lead ECG on low-power devices."
+  params_m_reported: null
+  search_keywords: "SMoLK sparse mixture of learned kernels interpretable efficient medical time series single-lead ECG atrial fibrillation PPG artifact detection Chen Rudin"
+  origin:
+    paper_title: "Sparse learned kernels for interpretable and efficient medical time series processing"
+    authors: "Sully F. Chen et al."
+    venue: "Nature Machine Intelligence"
+    year: 2024
+    doi: "10.1038/s42256-024-00898-4"
+    code_url: "https://github.com/SullyChen/SMoLK"
+    adapted_from: null
+- slug: aitia-lvsd
+  title: "AiTiALVSD"
+  family: cnn
+  one_liner: "One-dimensional residual network scoring 12-lead ECGs for left ventricular systolic dysfunction."
+  params_m_reported: null
+  search_keywords: "AiTiALVSD AI-ECG left ventricular systolic dysfunction 1D residual network software as a medical device TCAV concept activation vectors Medical AI Korea"
+  origin:
+    paper_title: "Transparent and Robust Artificial Intelligence-Driven Electrocardiogram Model for Left Ventricular Systolic Dysfunction"
+    authors: "Min Sung Lee et al."
+    venue: "Diagnostics"
+    year: 2025
+    doi: "10.3390/diagnostics15151837"
+    code_url: "https://github.com/medicalai-research/TCAV_ECG"
+    adapted_from: null
+- slug: ecg-smart-net
+  title: "ECG-SMART-NET"
+  family: cnn
+  one_liner: "ResNet-18 modified with per-lead temporal filters and a cross-lead spatial convolution to detect occlusion MI."
+  params_m_reported: null
+  search_keywords: "ECG-SMART-NET occlusion myocardial infarction OMI ResNet-18 temporal spatial convolution Riek Al-Zaiti IEEE TBME"
+  origin:
+    paper_title: "ECG-SMART-NET: A Deep Learning Architecture for Precise ECG Diagnosis of Occlusion Myocardial Infarction"
+    authors: "Nathan T. Riek et al."
+    venue: "IEEE TBME"
+    year: 2025
+    doi: "10.1109/TBME.2025.3573581"
+    code_url: null
+    adapted_from: null
+- slug: ecg-xplaim
+  title: "ECG-XPLAIM"
+  family: cnn
+  one_liner: "Inception-style one-dimensional CNN for multi-label arrhythmia detection trained on more than 800,000 MIMIC-IV ECGs."
+  params_m_reported: null
+  search_keywords: "ECG-XPLAIM explainable locally-adaptive inception residual CNN MIMIC-IV-ECG arrhythmia Grad-CAM Pantelidis"
+  origin:
+    paper_title: "ECG-XPLAIM: eXPlainable Locally-adaptive Artificial Intelligence Model for arrhythmia detection from large-scale electrocardiogram data"
+    authors: "Pantelidis et al."
+    venue: "Frontiers in Cardiovascular Medicine"
+    year: 2025
+    doi: "10.3389/fcvm.2025.1659971"
+    code_url: "https://github.com/ppantele/ECG-XPLAIM"
+    adapted_from: null
+- slug: echonext
+  title: "EchoNext"
+  family: cnn
+  one_liner: "Convolutional network trained on 1.2 million paired ECG-echocardiogram exams to detect structural heart disease."
+  params_m_reported: null
+  search_keywords: "EchoNext structural heart disease ECG echocardiogram pairs Poterucha Elias Columbia NewYork-Presbyterian deep learning screening"
+  origin:
+    paper_title: "Detecting structural heart disease from electrocardiograms using AI"
+    authors: "Poterucha et al."
+    venue: "Nature"
+    year: 2025
+    doi: "10.1038/s41586-025-09227-0"
+    code_url: "https://github.com/PierreElias/IntroECG"
+    adapted_from: null
+- slug: protoecgnet
+  title: "ProtoECGNet"
+  family: cnn
+  one_liner: "Case-based prototype learning over a convolutional trunk, classifying by similarity to learned ECG prototypes."
+  params_m_reported: null
+  search_keywords: "ProtoECGNet Sethi case-based interpretable deep learning multi-label ECG prototype PTB-XL"
+  origin:
+    paper_title: "ProtoECGNet: Case-Based Interpretable Deep Learning for Multi-Label ECG Classification with Contrastive Learning"
+    authors: "Sethi et al."
+    venue: "arXiv"
+    year: 2025
+    doi: "arXiv:2504.08713"
+    code_url: null
+    adapted_from: null
+- slug: chauhan-vig-lstm
+  title: "Deep LSTM ECG Anomaly Detector"
+  family: rnn
+  one_liner: "Deep stacked LSTM trained to predict normal ECG, scoring anomalies from the distribution of prediction errors."
+  params_m_reported: null
+  search_keywords: "Chauhan Vig anomaly detection ECG time signals deep long short-term memory networks DSAA 2015 stacked LSTM prediction error"
+  origin:
+    paper_title: "Anomaly detection in ECG time signals via deep long short-term memory networks"
+    authors: "Sucheta Chauhan, Lovekesh Vig"
+    venue: "IEEE DSAA"
+    year: 2015
+    doi: "10.1109/DSAA.2015.7344872"
+    code_url: null
+    adapted_from: null
+- slug: maknickas-qrs-lstm
+  title: "Maknickas QRS-Feature LSTM"
+  family: rnn
+  one_liner: "Three-layer LSTM classifying atrial fibrillation from 23 per-beat QRS complex features, totalling 1791 parameters."
+  params_m_reported: 0.001791
+  search_keywords: "Maknickas atrial fibrillation QRS complex features LSTM Computing in Cardiology 2017 PhysioNet Challenge lightweight recurrent ECG classifier"
+  origin:
+    paper_title: "Atrial Fibrillation Classification Using QRS Complex Features and LSTM"
+    authors: "Vykintas Maknickas, Algirdas Maknickas"
+    venue: "Computing in Cardiology"
+    year: 2017
+    doi: "10.22489/CinC.2017.350-114"
+    code_url: null
+    adapted_from: null
+- slug: salloum-ecg-rnn
+  title: "Salloum ECG Biometric RNN"
+  family: rnn
+  one_liner: "Recurrent network trained on ECG sequences for biometric recognition of individual subjects."
+  params_m_reported: null
+  search_keywords: "Salloum Kuo ECG-based biometrics using recurrent neural networks ICASSP 2017 subject identification LSTM GRU"
+  origin:
+    paper_title: "ECG-based biometrics using recurrent neural networks"
+    authors: "Ronald Salloum, C.-C. Jay Kuo"
+    venue: "ICASSP"
+    year: 2017
+    doi: "10.1109/ICASSP.2017.7952519"
+    code_url: null
+    adapted_from: null
+- slug: schwab-beat-rnn
+  title: "Beat-by-Beat RNN Ensemble"
+  family: rnn
+  one_liner: "Ensemble of recurrent networks over per-heartbeat features, with soft attention marking the decisive beats."
+  params_m_reported: null
+  search_keywords: "Schwab beat by beat classifying cardiac arrhythmias recurrent neural networks attention ensemble GRU BLSTM CinC 2017 PhysioNet challenge"
+  origin:
+    paper_title: "Beat by Beat: Classifying Cardiac Arrhythmias with Recurrent Neural Networks"
+    authors: "Patrick Schwab et al."
+    venue: "Computing in Cardiology"
+    year: 2017
+    doi: "10.22489/CinC.2017.363-223"
+    code_url: null
+    adapted_from: null
+- slug: teijeiro-abductive-rnn
+  title: "Teijeiro Abductive RNN"
+  family: rnn
+  one_liner: "Abductive interpretation supplies per-beat features to a recurrent classifier stacked with a record-level model."
+  params_m_reported: null
+  search_keywords: "Teijeiro Garcia Castro Felix abductive interpretation short single-lead ECG arrhythmia classification recurrent neural network stacking construe CinC 2017 challenge winner atrial fibrillation"
+  origin:
+    paper_title: "Arrhythmia Classification from the Abductive Interpretation of Short Single-Lead ECG Records"
+    authors: "Tomás Teijeiro, Constantino A. García, Daniel Castro, Paulo Félix"
+    venue: "Computing in Cardiology"
+    year: 2017
+    doi: "10.22489/CinC.2017.166-054"
+    code_url: "https://github.com/citiususc/construe"
+    adapted_from: null
+- slug: faust-rr-lstm
+  title: "Faust RR-Interval LSTM"
+  family: rnn
+  one_liner: "LSTM network detecting atrial fibrillation from RR-interval sequences rather than the raw waveform."
+  params_m_reported: null
+  search_keywords: "Faust Shenfield Kareem automated detection atrial fibrillation long short-term memory LSTM RR interval signals ECG"
+  origin:
+    paper_title: "Automated detection of atrial fibrillation using long short-term memory network with RR interval signals"
+    authors: "Oliver Faust et al."
+    venue: "Computers in Biology and Medicine"
+    year: 2018
+    doi: "10.1016/j.compbiomed.2018.07.001"
+    code_url: null
+    adapted_from: null
+- slug: yildirim-bilstm
+  title: "Yildirim wavelet BiLSTM"
+  family: rnn
+  one_liner: "Deep bidirectional LSTM over wavelet sub-band sequences, classifying five heartbeat types from MIT-BIH."
+  params_m_reported: null
+  search_keywords: "DBLSTM-WS wavelet sequence deep bidirectional LSTM ECG classification Yildirim MIT-BIH arrhythmia"
+  origin:
+    paper_title: "A novel wavelet sequence based on deep bidirectional LSTM network model for ECG signal classification"
+    authors: "Özal Yildirim"
+    venue: "Computers in Biology and Medicine"
+    year: 2018
+    doi: "10.1016/j.compbiomed.2018.03.016"
+    code_url: null
+    adapted_from: null
+- slug: mousavi-seq2seq
+  title: "Mousavi sequence-to-sequence beat classifier"
+  family: rnn
+  one_liner: "Encoder-decoder recurrent network mapping a beat sequence to a label sequence under the inter-patient paradigm."
+  params_m_reported: null
+  search_keywords: "Mousavi Afghah inter-patient ECG heartbeat classification sequence to sequence deep learning MIT-BIH ICASSP"
+  origin:
+    paper_title: "Inter- and Intra-Patient ECG Heartbeat Classification for Arrhythmia Detection: A Sequence to Sequence Deep Learning Approach"
+    authors: "Mousavi, Afghah"
+    venue: "IEEE ICASSP"
+    year: 2019
+    doi: "10.1109/ICASSP.2019.8683140"
+    code_url: null
+    adapted_from: null
+- slug: han-ecg
+  title: "HAN-ECG"
+  family: rnn
+  one_liner: "Hierarchical wave-, heartbeat- and window-level attention over bidirectional RNNs for atrial fibrillation detection."
+  params_m_reported: null
+  search_keywords: "HAN-ECG hierarchical attention network atrial fibrillation detection Mousavi Afghah Acharya bidirectional RNN interpretable ECG"
+  origin:
+    paper_title: "HAN-ECG: An interpretable atrial fibrillation detection model using hierarchical attention networks"
+    authors: "Sajad Mousavi, Fatemeh Afghah, U. Rajendra Acharya"
+    venue: "Computers in Biology and Medicine"
+    year: 2020
+    doi: "10.1016/j.compbiomed.2020.104057"
+    code_url: null
+    adapted_from: null
+- slug: hou-lstm-ae
+  title: "LSTM Auto-Encoder ECG Classifier"
+  family: rnn
+  one_liner: "LSTM autoencoder learns beat features without labels, and a support vector machine classifies five heartbeat types."
+  params_m_reported: null
+  search_keywords: "Hou LSTM-based auto-encoder ECG arrhythmia classification SVM MIT-BIH IEEE Transactions on Instrumentation and Measurement 2020"
+  origin:
+    paper_title: "LSTM-Based Auto-Encoder Model for ECG Arrhythmias Classification"
+    authors: "Borui Hou et al."
+    venue: "IEEE TIM"
+    year: 2020
+    doi: "10.1109/TIM.2019.2910342"
+    code_url: null
+    adapted_from: null
+- slug: saadatnejad-lstm
+  title: "Saadatnejad Wavelet-LSTM"
+  family: rnn
+  one_liner: "Wavelet transform feeding multiple LSTM networks for real-time heartbeat classification on wearable devices."
+  params_m_reported: null
+  search_keywords: "Saadatnejad Oveisi Hashemi LSTM ECG classification wearable continuous monitoring wavelet multiple LSTM MIT-BIH"
+  origin:
+    paper_title: "LSTM-Based ECG Classification for Continuous Monitoring on Personal Wearable Devices"
+    authors: "Saeed Saadatnejad, Mohammadhosein Oveisi, Matin Hashemi"
+    venue: "IEEE JBHI"
+    year: 2020
+    doi: "10.1109/JBHI.2019.2911367"
+    code_url: null
+    adapted_from: null
+- slug: arnet-ecg
+  title: "ArNet-ECG"
+  family: rnn
+  one_liner: "Recurrent network estimating atrial fibrillation burden over long continuous single-lead recordings."
+  params_m_reported: null
+  search_keywords: "ArNet-ECG Ben-Moshe Behar atrial fibrillation burden long continuous recordings deep learning Computing in Cardiology"
+  origin:
+    paper_title: "ArNet-ECG: Deep Learning for the Detection of Atrial Fibrillation from the Raw Electrocardiogram"
+    authors: "Ben-Moshe et al."
+    venue: "Computing in Cardiology"
+    year: 2022
+    doi: "10.22489/CinC.2022.061"
+    code_url: null
+    adapted_from: null
+- slug: xlstm-ecg
+  title: "xLSTM-ECG"
+  family: rnn
+  one_liner: "Scalar and matrix LSTM streams fused at every layer over short-time Fourier features of the 12 leads."
+  params_m_reported: null
+  search_keywords: "xLSTM-ECG multi-label ECG classification feature fusion xLSTM sLSTM mLSTM PTB-XL Georgia 12-lead short-time Fourier transform Kang"
+  origin:
+    paper_title: "xLSTM-ECG: Multi-label ECG Classification via Feature Fusion with xLSTM"
+    authors: "Lei Kang et al."
+    venue: "arXiv"
+    year: 2025
+    doi: "arXiv:2504.16101"
+    code_url: null
+    adapted_from: null
+- slug: upvc-net
+  title: "uPVC-Net"
+  family: rnn
+  one_liner: "Bidirectional GRU over log-Mel spectrogram frames detecting premature ventricular contractions from any single lead."
+  params_m_reported: null
+  search_keywords: "uPVC-Net universal premature ventricular contraction detection single-lead Holter wearable patch Bi-GRU mel-spectrogram Hamami Behar"
+  origin:
+    paper_title: "uPVC-Net: A Universal Premature Ventricular Contraction Detection Deep Learning Algorithm"
+    authors: "Hagai Hamami et al."
+    venue: "IEEE TBME"
+    year: 2026
+    doi: "10.1109/TBME.2026.3655531"
+    code_url: null
+    adapted_from: null
+- slug: hu-moe-1997
+  title: "Hu mixture-of-experts beat classifier"
+  family: hybrid
+  one_liner: "Patient-adaptable mixture of experts blending a global classifier with a locally trained one for beat classification."
+  params_m_reported: null
+  search_keywords: "Hu Palreddy Tompkins patient-adaptable ECG beat classifier mixture of experts approach 1997 IEEE TBME"
+  origin:
+    paper_title: "A patient-adaptable ECG beat classifier using a mixture of experts approach"
+    authors: "Hu, Palreddy, Tompkins"
+    venue: "IEEE Transactions on Biomedical Engineering"
+    year: 1997
+    doi: "10.1109/10.623058"
+    code_url: null
+    adapted_from: null
+- slug: encase
+  title: "ENCASE"
+  family: hybrid
+  one_liner: "Gradient-boosted tree ensemble over expert features plus deep features from a residual CNN and an LSTM."
+  params_m_reported: null
+  search_keywords: "ENCASE ensemble classifier ECG expert features deep neural networks Hong PhysioNet CinC Challenge 2017 centerwave XGBoost atrial fibrillation single-lead"
+  origin:
+    paper_title: "ENCASE: an ENsemble ClASsifiEr for ECG Classification Using Expert Features and Deep Neural Networks"
+    authors: "Shenda Hong et al."
+    venue: "Computing in Cardiology"
+    year: 2017
+    doi: "10.22489/CinC.2017.178-245"
+    code_url: "https://github.com/hsd1503/ENCASE"
+    adapted_from: null
+- slug: warrick-homsi-cnn-lstm
+  title: "Warrick & Homsi CNN-LSTM"
+  family: hybrid
+  one_liner: "Convolutional layers feeding a sequence of LSTM units for rhythm classification of single-lead ECG."
+  params_m_reported: null
+  search_keywords: "Warrick Homsi cardiac arrhythmia detection ECG convolutional long short-term memory PhysioNet CinC Challenge 2017 atrial fibrillation single-lead"
+  origin:
+    paper_title: "Cardiac Arrhythmia Detection from ECG Combining Convolutional and Long Short-Term Memory Networks"
+    authors: "Philip Warrick, Masun Nabhan Homsi"
+    venue: "Computing in Cardiology"
+    year: 2017
+    doi: "arXiv:1801.10033"
+    code_url: null
+    adapted_from: null
+- slug: zihlmann-crnn
+  title: "Zihlmann Convolutional Recurrent Network"
+  family: hybrid
+  one_liner: "Convolutional feature extraction with LSTM aggregation over variable-length single-lead recordings."
+  params_m_reported: null
+  search_keywords: "Zihlmann Perekrestenko Tschannen convolutional recurrent neural networks electrocardiogram classification CinC 2017 PhysioNet challenge atrial fibrillation LSTM logarithmic spectrogram data augmentation"
+  origin:
+    paper_title: "Convolutional Recurrent Neural Networks for Electrocardiogram Classification"
+    authors: "Martin Zihlmann, Dmytro Perekrestenko, Michael Tschannen"
+    venue: "Computing in Cardiology"
+    year: 2017
+    doi: "arXiv:1710.06122"
+    code_url: null
+    adapted_from: null
+- slug: ecgnet-murugesan
+  title: "ECGNet"
+  family: hybrid
+  one_liner: "Multi-kernel CNN, LSTM and combined CNN-LSTM classifiers trained end-to-end on raw arrhythmia beats."
+  params_m_reported: null
+  search_keywords: "ECGNet deep network arrhythmia classification Murugesan MeMeA 2018, CLSTM multi-kernel CNN LSTM end-to-end, MITDB normal PVC PAC beat classification transfer learning"
+  origin:
+    paper_title: "ECGNet: Deep Network for Arrhythmia Classification"
+    authors: "Balamurali Murugesan et al."
+    venue: "IEEE MeMeA"
+    year: 2018
+    doi: "10.1109/MeMeA.2018.8438739"
+    code_url: null
+    adapted_from: null
+- slug: oh-cnn-lstm
+  title: "Oh CNN-LSTM"
+  family: hybrid
+  one_liner: "Convolutional layers feeding LSTM units over variable-length heartbeat segments to label five arrhythmia classes."
+  params_m_reported: null
+  search_keywords: "Oh Ng Tan Acharya automated diagnosis arrhythmia combination CNN LSTM variable length heart beats MIT-BIH LBBB RBBB APB PVC"
+  origin:
+    paper_title: "Automated diagnosis of arrhythmia using combination of CNN and LSTM techniques with variable length heart beats"
+    authors: "Shu Lih Oh et al."
+    venue: "Computers in Biology and Medicine"
+    year: 2018
+    doi: "10.1016/j.compbiomed.2018.06.002"
+    code_url: null
+    adapted_from: null
+- slug: rhythmnet-xiong
+  title: "RhythmNet"
+  family: hybrid
+  one_liner: "Twenty-one-layer network with sixteen residual convolutions feeding three recurrent layers over raw single-lead ECG."
+  params_m_reported: null
+  search_keywords: "RhythmNet Xiong Zhao ECG convolutional recurrent neural network cardiac arrhythmia detection atrial fibrillation PhysioNet CinC 2017 Challenge single-lead Physiological Measurement"
+  origin:
+    paper_title: "ECG signal classification for the detection of cardiac arrhythmias using a convolutional recurrent neural network"
+    authors: "Zhaohan Xiong et al."
+    venue: "Physiological Measurement"
+    year: 2018
+    doi: "10.1088/1361-6579/aad9ed"
+    code_url: null
+    adapted_from: null
+- slug: andersen-cnn-lstm-af
+  title: "Andersen real-time AF detector"
+  family: hybrid
+  one_liner: "Convolutional layers over RR-interval segments feeding an LSTM for low-latency atrial fibrillation detection."
+  params_m_reported: null
+  search_keywords: "Andersen Peimankar Puthusserypady real-time atrial fibrillation deep learning RR interval CNN LSTM"
+  origin:
+    paper_title: "A deep learning approach for real-time detection of atrial fibrillation"
+    authors: "Andersen, Peimankar, Puthusserypady"
+    venue: "Expert Systems with Applications"
+    year: 2019
+    doi: "10.1016/j.eswa.2018.08.011"
+    code_url: null
+    adapted_from: null
+- slug: mina-hong
+  title: "MINA"
+  family: hybrid
+  one_liner: "Convolutional and bidirectional recurrent trunk with attention guided by beat, rhythm and frequency-level knowledge."
+  params_m_reported: null
+  search_keywords: "MINA multilevel knowledge-guided attention modeling electrocardiography signals Hong Xiao Ma Li Sun IJCAI 2019 interpretable beat rhythm frequency"
+  origin:
+    paper_title: "MINA: Multilevel Knowledge-Guided Attention for Modeling Electrocardiography Signals"
+    authors: "Shenda Hong et al."
+    venue: "IJCAI"
+    year: 2019
+    doi: "10.24963/ijcai.2019/816"
+    code_url: "https://github.com/hsd1503/MINA"
+    adapted_from: null
+- slug: ati-cnn
+  title: "ATI-CNN"
+  family: hybrid
+  one_liner: "Convolutional spatial fusion then LSTM and attention layers classifying arrhythmias from varied-length 12-lead ECG."
+  params_m_reported: null
+  search_keywords: "ATI-CNN attention-based time-incremental convolutional neural network multi-class arrhythmia detection 12-lead varied-length ECG Qihang Yao Information Fusion 2020"
+  origin:
+    paper_title: "Multi-class Arrhythmia detection from 12-lead varied-length ECG using Attention-based Time-Incremental Convolutional Neural Network"
+    authors: "Qihang Yao et al."
+    venue: "Information Fusion"
+    year: 2020
+    doi: "10.1016/j.inffus.2019.06.024"
+    code_url: null
+    adapted_from: null
+- slug: chen-cpsc-hybrid
+  title: "Chen CPSC-2018 network"
+  family: hybrid
+  one_liner: "Five stacked convolutional blocks feeding a bidirectional GRU for nine-class multi-label 12-lead classification."
+  params_m_reported: null
+  search_keywords: "Chen challenge-best deep learning neural network CPSC 2018 winner iScience cardiac arrhythmia 12-lead BiGRU"
+  origin:
+    paper_title: "Detection and Classification of Cardiac Arrhythmias by a Challenge-Best Deep Learning Neural Network Model"
+    authors: "Chen et al."
+    venue: "iScience"
+    year: 2020
+    doi: "10.1016/j.isci.2020.100886"
+    code_url: null
+    adapted_from: null
+- slug: sta-crnn
+  title: "STA-CRNN"
+  family: hybrid
+  one_liner: "Convolutional trunk with spatio-temporal attention modules feeding a recurrent subnetwork over 12 leads."
+  params_m_reported: null
+  search_keywords: "STA-CRNN spatio-temporal attention convolutional recurrent neural network multi-class arrhythmia detection 12-lead ECG"
+  origin:
+    paper_title: "ECG-based multi-class arrhythmia detection using spatio-temporal attention-based convolutional recurrent neural network"
+    authors: "Jing Zhang et al."
+    venue: "Artificial Intelligence in Medicine"
+    year: 2020
+    doi: "10.1016/j.artmed.2020.101856"
+    code_url: null
+    adapted_from: null
+- slug: constrained-transformer-che
+  title: "Constrained Transformer Network"
+  family: hybrid
+  one_liner: "Convolutional feature extractor feeding a transformer, with a link constraint that tightens same-class embeddings."
+  params_m_reported: null
+  search_keywords: "constrained transformer network ECG arrhythmia classification CNN_Transformer_LC link constraint Che Zhang Zhu Qu Jin BMC Medical Informatics Decision Making"
+  origin:
+    paper_title: "Constrained transformer network for ECG signal processing and arrhythmia classification"
+    authors: "Chao Che et al."
+    venue: "BMC Med Inform Decis Mak"
+    year: 2021
+    doi: "10.1186/s12911-021-01546-2"
+    code_url: null
+    adapted_from: null
+- slug: imle-net
+  title: "IMLE-Net"
+  family: hybrid
+  one_liner: "Convolutional beat features aggregated by attention at the beat, rhythm and channel levels of the 12 leads."
+  params_m_reported: null
+  search_keywords: "IMLE-Net interpretable multi-level multi-channel ECG classification PTB-XL beat rhythm channel attention IEEE SMC 2021 Likith Reddy"
+  origin:
+    paper_title: "IMLE-Net: An Interpretable Multi-level Multi-channel Model for ECG Classification"
+    authors: "Likith Reddy et al."
+    venue: "IEEE SMC"
+    year: 2021
+    doi: "10.1109/SMC52423.2021.9658706"
+    code_url: "https://github.com/likith012/IMLE-Net"
+    adapted_from: null
+- slug: mlbf-net
+  title: "MLBF-Net"
+  family: hybrid
+  one_liner: "Twelve lead-specific CNN, BiGRU and attention branches concatenated for cross-lead fusion under a multi-loss objective."
+  params_m_reported: null
+  search_keywords: "MLBF-Net multi lead branch fusion network CPSC 2018 multi-class arrhythmia 12-lead Zhang"
+  origin:
+    paper_title: "MLBF-Net: A Multi-Lead-Branch Fusion Network for Multi-Class Arrhythmia Classification Using 12-Lead ECG"
+    authors: "Zhang, Liang, Liu, Gao, Chen, Zhang, Chen"
+    venue: "IEEE Journal of Translational Engineering in Health and Medicine"
+    year: 2021
+    doi: "10.1109/JTEHM.2021.3064675"
+    code_url: null
+    adapted_from: null
+- slug: crt-net
+  title: "CRT-Net"
+  family: hybrid
+  one_liner: "Convolutional blocks feed a bidirectional GRU and transformer encoders, handling variable lead counts and lengths."
+  params_m_reported: null
+  search_keywords: "CRT-Net CNN bidirectional GRU transformer encoder ECG computer-aided diagnosis Liu Li Applied Soft Computing 2022 generalized scalable framework variable lead count"
+  origin:
+    paper_title: "CRT-Net: A generalized and scalable framework for the computer-aided diagnosis of Electrocardiogram signals"
+    authors: "Jingyi Liu et al."
+    venue: "Applied Soft Computing"
+    year: 2022
+    doi: "10.1016/j.asoc.2022.109481"
+    code_url: null
+    adapted_from: null
+- slug: nejedly-resnet-attention
+  title: "ISIBrno-AIMT residual CNN ensemble"
+  family: hybrid
+  one_liner: "Ensemble of residual convolutional networks with a multi-head attention block, supporting twelve down to two leads."
+  params_m_reported: null
+  search_keywords: "Nejedly ISIBrno AIMT ensemble residual CNN attention PhysioNet CinC Challenge 2021 winner reduced lead"
+  origin:
+    paper_title: "Classification of ECG using ensemble of residual CNNs with or without attention mechanism"
+    authors: "Nejedly, Ivora, Smisek, Viscor, Koscova, Jurak, Plesinger"
+    venue: "Physiological Measurement"
+    year: 2022
+    doi: "10.1088/1361-6579/ac647c"
+    code_url: null
+    adapted_from: null
+- slug: ecg-sl
+  title: "ECG-SL (ECG Segment Learning)"
+  family: hybrid
+  one_liner: "Per-heartbeat CNN encoder feeding a transformer over the segment sequence, with self-supervised pretraining."
+  params_m_reported: null
+  search_keywords: "ECG-SL ECG segment learning heartbeat segment structural encoder transformer Han Yu Huiyuan Yang Akane Sano self-supervised masked segment reconstruction"
+  origin:
+    paper_title: "ECG-SL: Electrocardiogram(ECG) Segment Learning, a deep learning method for ECG signal"
+    authors: "Han Yu, Huiyuan Yang, Akane Sano"
+    venue: "arXiv"
+    year: 2023
+    doi: "arXiv:2310.00818"
+    code_url: null
+    adapted_from: null
+- slug: cat-net
+  title: "CAT-Net"
+  family: hybrid
+  one_liner: "Convolutional blocks followed by attention and a transformer encoder for single-lead arrhythmia classification."
+  params_m_reported: null
+  search_keywords: "CAT-Net convolution attention transformer network single-lead ECG arrhythmia classification Islam Qaraqe Serpedin 2024 Biomedical Signal Processing and Control"
+  origin:
+    paper_title: "CAT-Net: Convolution, attention, and transformer based network for single-lead ECG arrhythmia classification"
+    authors: "Md Rabiul Islam et al."
+    venue: "Biomedical Signal Processing and Control"
+    year: 2024
+    doi: "10.1016/j.bspc.2024.106211"
+    code_url: null
+    adapted_from: null
+- slug: ecgtransform
+  title: "ECGTransForm"
+  family: hybrid
+  one_liner: "Multi-scale convolutions and channel recalibration feed a bidirectional transformer trained with a context-aware loss."
+  params_m_reported: null
+  search_keywords: "ECGTransForm bidirectional transformer multi-scale convolution channel recalibration context-aware loss ECG arrhythmia classification El-Ghaish Eldele Biomedical Signal Processing and Control 2024"
+  origin:
+    paper_title: "ECGTransForm: Empowering adaptive ECG arrhythmia classification framework with bidirectional transformer"
+    authors: "Hany El-Ghaish, Emadeldeen Eldele"
+    venue: "Biomedical Signal Processing and Control"
+    year: 2024
+    doi: "10.1016/j.bspc.2023.105714"
+    code_url: "https://github.com/emadeldeen24/ECGTransForm"
+    adapted_from: null
+- slug: rawecgnet
+  title: "RawECGNet"
+  family: hybrid
+  one_liner: "Residual convolutional trunk with a bidirectional GRU detecting atrial fibrillation and flutter in raw single-lead ECG."
+  params_m_reported: 2.5
+  search_keywords: "RawECGNet atrial fibrillation flutter raw single-lead ECG ResNet BiGRU domain shifts with uncertainty DSU generalization Ben-Moshe Sornmo Behar ArNet2"
+  origin:
+    paper_title: "RawECGNet: Deep Learning Generalization for Atrial Fibrillation Detection From the Raw ECG"
+    authors: "Noam Ben-Moshe et al."
+    venue: "IEEE JBHI"
+    year: 2024
+    doi: "10.1109/JBHI.2024.3404877"
+    code_url: null
+    adapted_from: null
+- slug: deeprhythmai
+  title: "DeepRhythmAI"
+  family: hybrid
+  one_liner: "Seven-model ensemble of convolutional and transformer networks annotating beats and rhythms in ambulatory ECG."
+  params_m_reported: null
+  search_keywords: "DeepRhythmAI Medicalgorithmics ambulatory electrocardiography ensemble CNN transformer arrhythmia detection direct-to-physician reporting Johnson Healey Nature Medicine 2025"
+  origin:
+    paper_title: "Artificial intelligence for direct-to-physician reporting of ambulatory electrocardiography"
+    authors: "L. S. Johnson et al."
+    venue: "Nature Medicine"
+    year: 2025
+    doi: "10.1038/s41591-025-03516-x"
+    code_url: null
+    adapted_from: null
+- slug: transecg-net
+  title: "TransECG-Net"
+  family: hybrid
+  one_liner: "Residual convolutional and transformer branches fused by a dimension-wise gate for five-class heartbeat classification."
+  params_m_reported: null
+  search_keywords: "TransECG-Net physiology-guided beat-level arrhythmia classification CNN transformer hybrid gated fusion MIT-BIH AAMI Frontiers in Cardiovascular Medicine 2026"
+  origin:
+    paper_title: "Physiology-guided beat-level arrhythmia classification from ECG using a CNN-transformer hybrid neural network"
+    authors: "Guangfeng Li et al."
+    venue: "Frontiers in Cardiovascular Medicine"
+    year: 2026
+    doi: "10.3389/fcvm.2026.1802210"
+    code_url: null
+    adapted_from: null
+- slug: yan-ecg-transformer
+  title: "Transformer with Temporal Features (Yan et al.)"
+  family: attention
+  one_liner: "Transformer encoder over segmented heartbeats, fused with handcrafted RR-interval features."
+  params_m_reported: null
+  search_keywords: "fusing transformer model temporal features ECG heartbeat classification Yan Liang Zhang Liu BIBM 2019 MIT-BIH RR intervals"
+  origin:
+    paper_title: "Fusing Transformer Model with Temporal Features for ECG Heartbeat Classification"
+    authors: "Genshen Yan et al."
+    venue: "IEEE BIBM"
+    year: 2019
+    doi: "10.1109/BIBM47256.2019.8983326"
+    code_url: null
+    adapted_from: null
+- slug: wide-deep-transformer-prna
+  title: "Wide and Deep Transformer (prna)"
+  family: attention
+  one_liner: "Transformer encoder over a convolutional embedding, fused with handcrafted features, that won PhysioNet/CinC 2020."
+  params_m_reported: 13.64
+  search_keywords: "wide and deep transformer 12-lead ECG Natarajan prna PhysioNet CinC 2020 winner Philips Research"
+  origin:
+    paper_title: "A Wide and Deep Transformer Neural Network for 12-Lead ECG Classification"
+    authors: "Annamalai Natarajan et al."
+    venue: "Computing in Cardiology"
+    year: 2020
+    doi: "10.22489/CinC.2020.107"
+    code_url: null
+    adapted_from: null
+- slug: convolution-free-waveform-transformer
+  title: "Convolution-Free Waveform Transformer"
+  family: attention
+  one_liner: "Transformer applied to raw waveform segments with no convolutional front end, for multi-lead ECG classification."
+  params_m_reported: null
+  search_keywords: "convolution-free waveform transformer multi-lead ECG classification Natarajan Boverman Chang Antonescu Rubin PhysioNet CinC 2021 Challenge arXiv 2109.15129"
+  origin:
+    paper_title: "Convolution-Free Waveform Transformers for Multi-Lead ECG Classification"
+    authors: "Annamalai Natarajan et al."
+    venue: "Computing in Cardiology"
+    year: 2021
+    doi: "arXiv:2109.15129"
+    code_url: null
+    adapted_from: null
+- slug: dltm-ecg
+  title: "DLTM-ECG"
+  family: attention
+  one_liner: "Transformer applying attention within and across the 12 leads at two patch scales, fused with patient metadata."
+  params_m_reported: 2.6
+  search_keywords: "DLTM-ECG dual-scale lead-separated transformer lead-orthogonal attention meta-information ECG classification PTB-XL Chapman Yang Li Guijin Wang Tsinghua"
+  origin:
+    paper_title: "A Dual-scale Lead-seperated Transformer With Lead-orthogonal Attention And Meta-information For ECG Classification"
+    authors: "Yang Li et al."
+    venue: "arXiv"
+    year: 2022
+    doi: "arXiv:2211.12777"
+    code_url: null
+    adapted_from: null
+- slug: ecg-detr
+  title: "ECG DETR"
+  family: attention
+  one_liner: "DETR-style transformer that predicts the positions and classes of all heartbeats in a continuous ECG segment."
+  params_m_reported: null
+  search_keywords: "ECG DETR set prediction transformer arrhythmia detection continuous single-lead ECG MIT-BIH Hu Chen Zhou Computers in Biology and Medicine 2022"
+  origin:
+    paper_title: "A transformer-based deep neural network for arrhythmia detection using continuous ECG signals"
+    authors: "Rui Hu, Jie Chen, Li Zhou"
+    venue: "Computers in Biology and Medicine"
+    year: 2022
+    doi: "10.1016/j.compbiomed.2022.105325"
+    code_url: "https://github.com/Hey-myfriends/ECG-arrhythmia-detection-based-on-DETR"
+    adapted_from: null
+- slug: crt
+  title: "Cross Reconstruction Transformer"
+  family: attention
+  one_liner: "Transformer trained by dropping and reconstructing across time, magnitude and phase domains of the signal."
+  params_m_reported: null
+  search_keywords: "Cross Reconstruction Transformer CRT Zhang Hong self-supervised time series FFT phase magnitude TNNLS"
+  origin:
+    paper_title: "Self-supervised Time Series Representation Learning via Cross Reconstruction Transformer"
+    authors: "Zhang, Yang, Geng, Hong"
+    venue: "IEEE Transactions on Neural Networks and Learning Systems"
+    year: 2023
+    doi: "arXiv:2205.09928"
+    code_url: "https://github.com/BobZwr/Cross-Reconstruction-Transformer"
+    adapted_from: null
+- slug: msw-transformer
+  title: "MSW-Transformer"
+  family: attention
+  one_liner: "Single-layer transformer restricting self-attention to shifted windows at several scales, then fusing them."
+  params_m_reported: null
+  search_keywords: "MSW-Transformer multi-scale shifted windows transformer 12-lead ECG classification PTB-XL Renjie Cheng Zhemin Zhuang"
+  origin:
+    paper_title: "MSW-Transformer: Multi-Scale Shifted Windows Transformer Networks for 12-Lead ECG Classification"
+    authors: "Renjie Cheng et al."
+    venue: "arXiv"
+    year: 2023
+    doi: "arXiv:2306.12098"
+    code_url: null
+    adapted_from: null
+- slug: cardioformer
+  title: "Cardioformer"
+  family: attention
+  one_liner: "Two-stage self-attention over cross-channel multi-granularity ECG patches, followed by residual blocks."
+  params_m_reported: null
+  search_keywords: "Cardioformer multi-granularity patching cross-channel ECG classification Mobin MIMIC-IV PTB-XL PTB 2025"
+  origin:
+    paper_title: "Cardioformer: Advancing AI in ECG Analysis with Multi-Granularity Patching and ResNet"
+    authors: "Md Kamrujjaman Mobin et al."
+    venue: "arXiv"
+    year: 2025
+    doi: "arXiv:2505.05538"
+    code_url: "https://github.com/KMobin555/Cardioformer"
+    adapted_from: null
+- slug: hierarchical-ecg-transformer
+  title: "Hierarchical ECG Transformer (3stageFormer)"
+  family: attention
+  one_liner: "Hierarchical transformer combining depth-wise convolutions, a multi-scale CLS token and an attention gate across leads."
+  params_m_reported: 16.78
+  search_keywords: "hierarchical transformer electrocardiogram diagnosis 3stageFormer Tang Tasdizen MIDL 2025 attention gate CLS token depth-wise convolution PhysioNet2020"
+  origin:
+    paper_title: "Hierarchical Transformer for Electrocardiogram Diagnosis"
+    authors: "Xiaoya Tang et al."
+    venue: "MIDL"
+    year: 2025
+    doi: "arXiv:2411.00755"
+    code_url: "https://github.com/xiaoyatang/3stageFormer"
+    adapted_from: null
+- slug: mmae-ecg
+  title: "MMAE-ECG"
+  family: attention
+  one_liner: "Multi-scale masked-autoencoder transformer detecting and localising ECG anomalies without heartbeat segmentation."
+  params_m_reported: 0.398
+  search_keywords: "MMAE-ECG multi-scale masked autoencoder electrocardiogram anomaly detection localization multi-scale attention positional embedding lightweight transformer PTB-XL"
+  origin:
+    paper_title: "A lightweight and robust method for electrocardiogram anomaly detection and localization using multi-scale masked autoencoder"
+    authors: "Ya Zhou et al."
+    venue: "PLOS ONE"
+    year: 2026
+    doi: "10.1371/journal.pone.0343571"
+    code_url: null
+    adapted_from: null
+- slug: s4-ecg-mehari
+  title: "S4 for ECG (Mehari-Strodthoff)"
+  family: ssm
+  one_liner: "Structured state space (S4) layers replacing convolutional trunks for 12-lead ECG classification."
+  params_m_reported: null
+  search_keywords: "mehari strodthoff structured state space model s4 ptb-xl ml4h 2022 ssm"
+  origin:
+    paper_title: "Advancing the State-of-the-Art for ECG Analysis through Structured State Space Models"
+    authors: "Mehari, Strodthoff"
+    venue: "ML4H"
+    year: 2022
+    doi: "arXiv:2211.07579"
+    code_url: "https://github.com/tmehari/ssm_ecg"
+    adapted_from: null
+- slug: ecgmamba
+  title: "ECGMamba"
+  family: ssm
+  one_liner: "Bidirectional selective state-space encoder used in place of a transformer for ECG signal classification."
+  params_m_reported: null
+  search_keywords: "ECGMamba BiSSM bidirectional selective state space model ECG classification Yupeng Qiang Xunde Dong"
+  origin:
+    paper_title: "ECGMamba: Towards Efficient ECG Classification with BiSSM"
+    authors: "Yupeng Qiang et al."
+    venue: "arXiv"
+    year: 2024
+    doi: "arXiv:2406.10098"
+    code_url: null
+    adapted_from: null
+- slug: mambacapsule
+  title: "MambaCapsule"
+  family: ssm
+  one_liner: "Mamba feature extractor feeding a capsule network that reports a confidence score with each arrhythmia prediction."
+  params_m_reported: null
+  search_keywords: "MambaCapsule Mamba capsule network transparent cardiac disease diagnosis electrocardiography arrhythmia MIT-BIH PTB AAMI"
+  origin:
+    paper_title: "MambaCapsule: Towards Transparent Cardiac Disease Diagnosis with Electrocardiography Using Mamba Capsule Network"
+    authors: "Yinlong Xu et al."
+    venue: "arXiv"
+    year: 2024
+    doi: "arXiv:2407.20893"
+    code_url: null
+    adapted_from: null
+- slug: s4d-ecg
+  title: "S4D-ECG"
+  family: ssm
+  one_liner: "Four stacked diagonal state-space (S4D) layers over raw 12-lead ECG with a single dense classification head."
+  params_m_reported: null
+  search_keywords: "S4D-ECG diagonal state space model shallow cardiac abnormality classification CPSC TNMG Huang Kavehei NeuroSyd"
+  origin:
+    paper_title: "S4D-ECG: A Shallow State-of-the-Art Model for Cardiac Abnormality Classification"
+    authors: "Zhaojing Huang et al."
+    venue: "Cardiovascular Engineering and Technology"
+    year: 2024
+    doi: "10.1007/s13239-024-00716-3"
+    code_url: "https://github.com/NeuroSyd/S4D-ECG"
+    adapted_from: null
+- slug: ecg-mamba-vim
+  title: "ECG-Mamba"
+  family: ssm
+  one_liner: "Bidirectional state-space encoder adapted from Vision Mamba, trained with non-uniform-mix augmentation on 12-lead ECGs."
+  params_m_reported: 26.09
+  search_keywords: "ECG-Mamba Vision Mamba Vim bidirectional SSM non-uniform-mix augmentation 12-lead cardiac abnormality classification PhysioNet CinC 2020 2021 Jiang Muhammad JTEHM"
+  origin:
+    paper_title: "ECG-Mamba: Cardiac Abnormality Classification With Non-Uniform-Mix Augmentation on 12-Lead ECGs"
+    authors: "Huawei Jiang, Husna Mutahira, Shibo Wei, Mannan Saeed Muhammad"
+    venue: "IEEE JTEHM"
+    year: 2025
+    doi: "10.1109/JTEHM.2025.3613609"
+    code_url: "https://huggingface.co/poult/ECGMambaVersionOfJTEHM2020-2021_final"
+    adapted_from: null
+- slug: s2m2ecg
+  title: "S2M2ECG"
+  family: ssm
+  one_liner: "Multi-branch bidirectional state space model that fuses intra-lead temporal and cross-lead spatial features."
+  params_m_reported: null
+  search_keywords: "S2M2ECG spatio-temporal bi-directional state space multi-branch Mamba multi-lead ECG Huaicheng Zhang"
+  origin:
+    paper_title: "S2M2ECG: Spatio-temporal bi-directional State Space Model Enabled Multi-branch Mamba for ECG"
+    authors: "Huaicheng Zhang et al."
+    venue: "arXiv"
+    year: 2025
+    doi: "arXiv:2509.03066"
+    code_url: null
+    adapted_from: null
+- slug: s4ecg
+  title: "S4ECG"
+  family: ssm
+  one_liner: "Structured state-space model classifying arrhythmias across consecutive ECG windows spanning up to twenty minutes."
+  params_m_reported: null
+  search_keywords: "S4ECG structured state space multi-window long-range dependencies arrhythmia atrial fibrillation atrial flutter Strodthoff AI4HealthUOL"
+  origin:
+    paper_title: "Multi-Window Temporal Analysis for Enhanced Arrhythmia Classification: Leveraging Long-Range Dependencies in Electrocardiogram Signals"
+    authors: "Tiezhi Wang, Wilhelm Haverkamp, Nils Strodthoff"
+    venue: "Physiological Measurement"
+    year: 2026
+    doi: "10.1088/1361-6579/ae3937"
+    code_url: "https://github.com/AI4HealthUOL/s4ecg"
+    adapted_from: null
+- slug: 3kg
+  title: "3KG"
+  family: foundation
+  one_liner: "Contrastive pretraining with positive views from 3D rotations and scalings of the vectorcardiogram, plus time masking."
+  params_m_reported: null
+  search_keywords: "3KG contrastive learning 12-lead ECG physiologically-inspired augmentations vectorcardiogram VCG rotation scaling time masking SimCG-L Gopal Rajpurkar ML4H 2021 PMLR 158"
+  origin:
+    paper_title: "3KG: Contrastive Learning of 12-Lead Electrocardiograms using Physiologically-Inspired Augmentations"
+    authors: "Bryan Gopal et al."
+    venue: "ML4H"
+    year: 2021
+    doi: "arXiv:2106.04452"
+    code_url: null
+    adapted_from: null
+- slug: clocs
+  title: "CLOCS"
+  family: foundation
+  one_liner: "Contrastive pretraining across space, time and patients for transferable ECG representations."
+  params_m_reported: null
+  search_keywords: "CLOCS contrastive learning cardiac signals patient-specific self-supervised pretraining ECG Kiyasseh ICML 2021"
+  origin:
+    paper_title: "CLOCS: Contrastive Learning of Cardiac Signals Across Space, Time, and Patients"
+    authors: "Kiyasseh, Zhu, Clifton"
+    venue: "ICML"
+    year: 2021
+    doi: "arXiv:2005.13249"
+    code_url: "https://github.com/danikiyasseh/CLOCS"
+    adapted_from: null
+- slug: isl-lan
+  title: "ISL (Intra-Inter Subject Learning)"
+  family: foundation
+  one_liner: "Self-supervised pretraining pairing a heartbeat stationarity test with contrastive learning across subjects."
+  params_m_reported: null
+  search_keywords: "ISL intra-inter subject self-supervised learning multivariate cardiac signals Xiang Lan Shenda Hong AAAI 2022 stationarity contrastive arrhythmia"
+  origin:
+    paper_title: "Intra-Inter Subject Self-Supervised Learning for Multivariate Cardiac Signals"
+    authors: "Xiang Lan, Dianwen Ng, Shenda Hong, Mengling Feng"
+    venue: "AAAI"
+    year: 2022
+    doi: "10.1609/aaai.v36i4.20376"
+    code_url: null
+    adapted_from: null
+- slug: pclr
+  title: "PCLR (Patient Contrastive Learning of Representations)"
+  family: foundation
+  one_liner: "Contrastive pretraining that treats two ECGs from the same patient as a positive pair, across 3.2 million records."
+  params_m_reported: null
+  search_keywords: "PCLR patient contrastive learning of representations ECG Diamant Batra Stultz PLOS Computational Biology self-supervised 12-lead MGH"
+  origin:
+    paper_title: "Patient contrastive learning: A performant, expressive, and practical approach to electrocardiogram modeling"
+    authors: "Nathaniel Diamant et al."
+    venue: "PLOS Computational Biology"
+    year: 2022
+    doi: "10.1371/journal.pcbi.1009862"
+    code_url: "https://github.com/broadinstitute/ml4h/tree/master/model_zoo/PCLR"
+    adapted_from: null
+- slug: ssl-12lead-mehari
+  title: "SSL for 12-lead ECG (Mehari-Strodthoff)"
+  family: foundation
+  one_liner: "Contrastive predictive coding and contrastive pretraining adapted to clinical 12-lead ECG recordings."
+  params_m_reported: null
+  search_keywords: "Mehari Strodthoff self-supervised 12-lead ECG; contrastive predictive coding ECG; CPC SimCLR BYOL SwAV ECG; ecg-selfsupervised hhi-aml; PTB-XL linear evaluation self-supervised"
+  origin:
+    paper_title: "Self-supervised representation learning from 12-lead ECG data"
+    authors: "Mehari, Strodthoff"
+    venue: "Computers in Biology and Medicine"
+    year: 2022
+    doi: "10.1016/j.compbiomed.2021.105114"
+    code_url: "https://github.com/hhi-aml/ecg-selfsupervised"
+    adapted_from: null
+- slug: ssl-ecg-sarkar
+  title: "SSL-ECG (Sarkar-Etemad)"
+  family: foundation
+  one_liner: "Multi-task self-supervision recognising six signal transformations as a pretext task for ECG representations."
+  params_m_reported: null
+  search_keywords: "Sarkar Etemad self-supervised ECG representation learning emotion recognition transformation recognition pretext multi-task"
+  origin:
+    paper_title: "Self-supervised ECG Representation Learning for Emotion Recognition"
+    authors: "Sarkar, Etemad"
+    venue: "IEEE Transactions on Affective Computing"
+    year: 2022
+    doi: "10.1109/TAFFC.2020.3014842"
+    code_url: "https://github.com/pritamqu/SSL-ECG"
+    adapted_from: null
+- slug: w2v-cmsc-rlm
+  title: "W2V+CMSC+RLM"
+  family: foundation
+  one_liner: "Wav2vec 2.0 pretraining combined with patient-level contrastive coding and random lead masking."
+  params_m_reported: null
+  search_keywords: "lead-agnostic self-supervised learning local and global representations electrocardiogram W2V CMSC RLM random lead masking wav2vec 2.0 ECG Jungwoo Oh Edward Choi CHIL 2022 fairseq-signals"
+  origin:
+    paper_title: "Lead-agnostic Self-supervised Learning for Local and Global Representations of Electrocardiogram"
+    authors: "Jungwoo Oh et al."
+    venue: "CHIL"
+    year: 2022
+    doi: "arXiv:2203.06889"
+    code_url: "https://github.com/Jwoo5/fairseq-signals"
+    adapted_from: null
+- slug: ecgbert
+  title: "ECGBERT"
+  family: foundation
+  one_liner: "BERT-style masked language modelling over ECG waves segmented and clustered into P-QRS-T beat sentences."
+  params_m_reported: null
+  search_keywords: "ECGBERT ECG language processing ELP self-supervised representation learning masked language model wave vocabulary beat sentence atrial fibrillation heartbeat classification"
+  origin:
+    paper_title: "ECGBERT: Understanding Hidden Language of ECGs with Self-Supervised Representation Learning"
+    authors: "Seokmin Choi et al."
+    venue: "arXiv"
+    year: 2023
+    doi: "arXiv:2306.06340"
+    code_url: null
+    adapted_from: null
+- slug: heartbeit
+  title: "HeartBEiT"
+  family: foundation
+  one_liner: "Vision transformer pretrained by masked image modelling on 8.5 million ECGs rendered as images."
+  params_m_reported: 86
+  search_keywords: "HeartBEiT vision transformer electrocardiogram masked image modeling BEiT Vaid Nadkarni foundational ECG"
+  origin:
+    paper_title: "A foundational vision transformer improves diagnostic performance for electrocardiograms"
+    authors: "Akhil Vaid et al."
+    venue: "npj Digital Medicine"
+    year: 2023
+    doi: "10.1038/s41746-023-00840-9"
+    code_url: "https://github.com/akhilvaid/HeartBEiT"
+    adapted_from: null
+- slug: maefe
+  title: "MaeFE"
+  family: foundation
+  one_liner: "Family of masked autoencoders for ECG, masking along time, across leads, or both, before fine-tuning."
+  params_m_reported: null
+  search_keywords: "MaeFE masked autoencoder family electrocardiogram MTAE MLAE MLTAE self-supervised pretraining transfer learning"
+  origin:
+    paper_title: "MaeFE: Masked Autoencoders Family of Electrocardiogram for Self-Supervised Pretraining and Transfer Learning"
+    authors: "Zhang et al."
+    venue: "IEEE TIM"
+    year: 2023
+    doi: "10.1109/TIM.2022.3228267"
+    code_url: null
+    adapted_from: null
+- slug: mets
+  title: "METS"
+  family: foundation
+  one_liner: "ECG encoder aligned against a frozen clinical language model over auto-generated reports for zero-shot classification."
+  params_m_reported: null
+  search_keywords: "METS frozen language model helps ECG zero-shot learning Li Liu Cheng Arcucci Hong MIDL report text supervision"
+  origin:
+    paper_title: "Frozen Language Model Helps ECG Zero-Shot Learning"
+    authors: "Li, Liu, Cheng, Arcucci, Hong"
+    venue: "MIDL"
+    year: 2023
+    doi: "arXiv:2303.12311"
+    code_url: null
+    adapted_from: null
+- slug: siamaf
+  title: "SiamAF"
+  family: foundation
+  one_liner: "Siamese network trained on paired ECG and PPG so either signal alone can detect atrial fibrillation."
+  params_m_reported: null
+  search_keywords: "SiamAF siamese network shared information ECG PPG atrial fibrillation Zhicheng Guo Cynthia Rudin joint learning loss"
+  origin:
+    paper_title: "SiamAF: Learning Shared Information from ECG and PPG Signals for Robust Atrial Fibrillation Detection"
+    authors: "Zhicheng Guo et al."
+    venue: "arXiv"
+    year: 2023
+    doi: "arXiv:2310.09203"
+    code_url: "https://github.com/chengstark/SiamAF"
+    adapted_from: null
+- slug: anyecg
+  title: "AnyECG"
+  family: foundation
+  one_liner: "Learned tokenizer maps fragments to discrete rhythm codes that a transformer models across heterogeneous sampling rates and lead sets."
+  params_m_reported: null
+  search_keywords: "AnyECG foundational models multitask cardiac analysis real-world settings Wang Chen discrete rhythm codes tokenizer"
+  origin:
+    paper_title: "AnyECG: Foundational Models for Multitask Cardiac Analysis in Real-World Settings"
+    authors: "Wang et al."
+    venue: "arXiv"
+    year: 2024
+    doi: "arXiv:2411.17711"
+    code_url: null
+    adapted_from: null
+- slug: apple-biosignal-fm
+  title: "Apple wearable biosignal models"
+  family: foundation
+  one_liner: "Participant-level contrastive pretraining on PPG and ECG from roughly 141,000 Apple Heart and Movement Study participants."
+  params_m_reported: null
+  search_keywords: "Apple large-scale training foundation models wearable biosignals Abbaspourazad AHMS ICLR participant contrastive PPG ECG"
+  origin:
+    paper_title: "Large-scale Training of Foundation Models for Wearable Biosignals"
+    authors: "Abbaspourazad, Elachqar, Miller, Emrani, Nallasamy, Shapiro"
+    venue: "ICLR"
+    year: 2024
+    doi: "arXiv:2312.05409"
+    code_url: null
+    adapted_from: null
+- slug: astcl
+  title: "ASTCL (Adversarial Spatiotemporal Contrastive Learning)"
+  family: foundation
+  one_liner: "Self-supervised ECG pretraining combining adversarial training with spatiotemporal prediction over patient-level pairs."
+  params_m_reported: null
+  search_keywords: "ASTCL adversarial spatiotemporal contrastive learning electrocardiogram self-supervised Ning Wang Panpan Feng TNNLS patient-level positive pairs ECG noise augmentation"
+  origin:
+    paper_title: "Adversarial Spatiotemporal Contrastive Learning for Electrocardiogram Signals"
+    authors: "Ning Wang et al."
+    venue: "IEEE TNNLS"
+    year: 2024
+    doi: "10.1109/TNNLS.2023.3272153"
+    code_url: null
+    adapted_from: null
+- slug: crema
+  title: "CREMA"
+  family: foundation
+  one_liner: "Masked-autoencoder pretraining of a signal transformer with a contrastive regularisation term for 12-lead ECG."
+  params_m_reported: null
+  search_keywords: "CREMA contrastive regularized masked autoencoder ECG foundation model signal transformer Junho Song Yong-Yeon Jo Medical AI clinical domain robustness"
+  origin:
+    paper_title: "CREMA: A Contrastive Regularized Masked Autoencoder for Robust ECG Diagnostics across Clinical Domains"
+    authors: "Junho Song, Jong-Hwan Jang, DongGyun Hong, Joon-myoung Kwon, Yong-Yeon Jo"
+    venue: "arXiv"
+    year: 2024
+    doi: "arXiv:2407.07110"
+    code_url: null
+    adapted_from: null
+- slug: ecg-fm
+  title: "ECG-FM"
+  family: foundation
+  one_liner: "Wav2vec 2.0 encoder pretrained with hybrid self-supervision on 1.5 million ECGs, with weights released openly."
+  params_m_reported: 90.9
+  search_keywords: "ECG-FM open electrocardiogram foundation model McKeen wav2vec 2.0 W2V+CMSC+RLM fairseq_signals bowang-lab MIMIC-IV-ECG self-supervised pretraining"
+  origin:
+    paper_title: "ECG-FM: An Open Electrocardiogram Foundation Model"
+    authors: "McKeen et al."
+    venue: "preprint"
+    year: 2024
+    doi: "arXiv:2408.05178"
+    code_url: "https://github.com/bowang-lab/ECG-FM"
+    adapted_from: null
+- slug: ecg-jepa
+  title: "ECG-JEPA"
+  family: foundation
+  one_liner: "Latent-space masked prediction for 12-lead ECG, with attention restricted to same-lead and same-time patches."
+  params_m_reported: null
+  search_keywords: "ECG-JEPA joint-embedding predictive architecture 12-lead ECG self-supervised Cross-Pattern Attention CroPA Sehun Kim latent masked prediction"
+  origin:
+    paper_title: "Learning General Representation of 12-Lead Electrocardiogram with a Joint-Embedding Predictive Architecture"
+    authors: "Sehun Kim"
+    venue: "arXiv"
+    year: 2024
+    doi: "arXiv:2410.08559"
+    code_url: "https://github.com/sehunfromdaegu/ECG_JEPA"
+    adapted_from: null
+- slug: ecg-jepa-weimann
+  title: "ECG-JEPA (Weimann & Conrad)"
+  family: foundation
+  one_liner: "Joint-embedding predictive pretraining of vision transformers on over a million records from ten ECG databases."
+  params_m_reported: 14.3
+  search_keywords: "JEPA ECG self-supervised pre-training Weimann Conrad vision transformer ViT-S PTB-XL 0.945 AUC"
+  origin:
+    paper_title: "Self-Supervised Pre-Training with Joint-Embedding Predictive Architecture Boosts ECG Classification Performance"
+    authors: "Kuba Weimann, Tim O. F. Conrad"
+    venue: "arXiv"
+    year: 2024
+    doi: "arXiv:2410.13867"
+    code_url: "https://github.com/kweimann/ECG-JEPA"
+    adapted_from: null
+- slug: ecg-semantic-integrator
+  title: "ESI (ECG Semantic Integrator)"
+  family: foundation
+  one_liner: "Contrastive and captioning pretraining that pairs ECG signals with LLM-generated cardiological text."
+  params_m_reported: null
+  search_keywords: "ECG Semantic Integrator ESI Cardio Query Assistant retrieval augmented generation ECG text multimodal contrastive captioning pretraining BioLinkBERT ConvNeXt Han Yu Akane Sano"
+  origin:
+    paper_title: "ECG Semantic Integrator (ESI): A Foundation ECG Model Pretrained with LLM-Enhanced Cardiological Text"
+    authors: "Han Yu, Peikun Guo, Akane Sano"
+    venue: "arXiv"
+    year: 2024
+    doi: "arXiv:2405.19366"
+    code_url: "https://github.com/comp-well-org/ESI"
+    adapted_from: null
+- slug: ecgfm-ked
+  title: "KED (ECGFM-KED)"
+  family: foundation
+  one_liner: "Signal encoder aligned with LLM-written label descriptions through a label query network for zero-shot ECG diagnosis."
+  params_m_reported: 163.7
+  search_keywords: "KED ECGFM-KED knowledge enhanced ECG diagnosis foundation model label query network augmented signal-text-label contrastive learning AugCL zero-shot ECG diagnosis XResNet1D-101 BioClinicalBERT LLM cardiological knowledge"
+  origin:
+    paper_title: "Foundation model of ECG diagnosis: Diagnostics and explanations of any form and rhythm on ECG"
+    authors: "Yuanyuan Tian et al."
+    venue: "Cell Reports Medicine"
+    year: 2024
+    doi: "10.1016/j.xcrm.2024.101875"
+    code_url: "https://github.com/control-spiderman/ECGFM-KED"
+    adapted_from: null
+- slug: hubert-ecg
+  title: "HuBERT-ECG"
+  family: foundation
+  one_liner: "HuBERT-style masked prediction of clustered latent units, pretrained on 9.1 million 12-lead ECGs in three sizes."
+  params_m_reported: null
+  search_keywords: "HuBERT-ECG, Coppola Signoroni, self-supervised ECG foundation model, masked unit prediction, 12-lead, medRxiv 2024.11.14.24317328"
+  origin:
+    paper_title: "HuBERT-ECG as a self-supervised foundation model for broad and scalable cardiac applications"
+    authors: "Coppola et al."
+    venue: "medRxiv"
+    year: 2024
+    doi: "10.1101/2024.11.14.24317328"
+    code_url: "https://github.com/Edoar-do/HuBERT-ECG"
+    adapted_from: null
+- slug: merl
+  title: "MERL"
+  family: foundation
+  one_liner: "Contrastive pretraining on paired 12-lead ECGs and clinical reports, with zero-shot classification from text prompts."
+  params_m_reported: null
+  search_keywords: "MERL multimodal ECG representation learning zero-shot ECG classification CKEPE clinical knowledge enhanced prompt engineering ECG-text contrastive MIMIC-IV-ECG reports"
+  origin:
+    paper_title: "Zero-Shot ECG Classification with Multimodal Learning and Test-time Clinical Knowledge Enhancement"
+    authors: "Che Liu et al."
+    venue: "ICML"
+    year: 2024
+    doi: "arXiv:2403.06659"
+    code_url: "https://github.com/cheliu-computation/MERL-ICML2024"
+    adapted_from: null
+- slug: pulse-ecg
+  title: "PULSE"
+  family: foundation
+  one_liner: "Multimodal LLM instruction-tuned on the ECGInstruct corpus to interpret and report on ECG images."
+  params_m_reported: null
+  search_keywords: "PULSE PULSE-7B ECGInstruct ECGBench ECG image multimodal LLM instruction tuning electrocardiographic image comprehension LLaVA"
+  origin:
+    paper_title: "Teach Multimodal LLMs to Comprehend Electrocardiographic Images"
+    authors: "Ruoqi Liu et al."
+    venue: "arXiv"
+    year: 2024
+    doi: "arXiv:2410.19008"
+    code_url: "https://github.com/AIMedLab/PULSE"
+    adapted_from: null
+- slug: st-mem
+  title: "ST-MEM"
+  family: foundation
+  one_liner: "Masked-autoencoder pretraining shaped around the spatio-temporal structure of the 12 leads."
+  params_m_reported: null
+  search_keywords: "ST-MEM, spatio-temporal masked electrocardiogram modeling, masked autoencoder ECG, self-supervised 12-lead ECG, arrhythmia classification SSL, lead-agnostic ECG pretraining, VUNO"
+  origin:
+    paper_title: "Guiding Masked Representation Learning to Capture Spatio-Temporal Relationship of Electrocardiogram"
+    authors: "Na et al."
+    venue: "ICLR"
+    year: 2024
+    doi: "arXiv:2402.09450"
+    code_url: "https://github.com/bakqui/ST-MEM"
+    adapted_from: null
+- slug: bmirc
+  title: "BMIRC"
+  family: foundation
+  one_liner: "Masked autoencoder over the 12-lead signal and its spectrum, with internal encoder-to-decoder connections."
+  params_m_reported: null
+  search_keywords: "BMIRC bimodal masked autoencoder internal representation connections electrocardiogram classification frequency spectrum self-supervised pretraining 12-lead"
+  origin:
+    paper_title: "Bimodal Masked Autoencoders with internal representation connections for electrocardiogram classification"
+    authors: "Yufeng Wei et al."
+    venue: "Pattern Recognition"
+    year: 2025
+    doi: "10.1016/j.patcog.2024.111311"
+    code_url: "https://github.com/Envy-Clouds/BMIRC"
+    adapted_from: null
+- slug: c-melt
+  title: "C-MELT"
+  family: foundation
+  one_liner: "Masked modelling on both ECG and report streams combined with a cross-modal contrastive objective."
+  params_m_reported: null
+  search_keywords: "C-MELT contrastive enhanced masked auto-encoders ECG language pre-training Pham Saeed Ma ICML discriminative learners"
+  origin:
+    paper_title: "Boosting Masked ECG-Text Auto-Encoders as Discriminative Learners"
+    authors: "Pham, Saeed, Ma"
+    venue: "ICML"
+    year: 2025
+    doi: "arXiv:2410.02131"
+    code_url: null
+    adapted_from: null
+- slug: ecg-byte
+  title: "ECG-Byte"
+  family: foundation
+  one_liner: "Byte-pair encoding tokenizer that maps ECG signals to discrete tokens for end-to-end generative language modeling."
+  params_m_reported: null
+  search_keywords: "ECG-Byte byte pair encoding tokenizer generative electrocardiogram language modeling end-to-end LLM ECG tokens Han MLHC 2025"
+  origin:
+    paper_title: "ECG-Byte: A Tokenizer for End-to-End Generative Electrocardiogram Language Modeling"
+    authors: "William Han et al."
+    venue: "MLHC"
+    year: 2025
+    doi: "arXiv:2412.14373"
+    code_url: "https://github.com/willxxy/ECG-Byte"
+    adapted_from: null
+- slug: ecg-chat
+  title: "ECG-Chat"
+  family: foundation
+  one_liner: "Waveform-report contrastive alignment feeding an LLM for ECG report generation and multi-turn dialogue."
+  params_m_reported: null
+  search_keywords: "ECG-Chat large ECG-language model cardiac disease diagnosis ECG report generation multi-turn dialogue LLaVA CoCa"
+  origin:
+    paper_title: "ECG-Chat: A Large ECG-Language Model for Cardiac Disease Diagnosis"
+    authors: "Yubao Zhao et al."
+    venue: "IEEE ICME"
+    year: 2025
+    doi: "arXiv:2408.08849"
+    code_url: "https://github.com/YubaoZhao/ECG-Chat"
+    adapted_from: null
+- slug: ecg-fm-reality-check
+  title: "ECG FM reality check"
+  family: foundation
+  one_liner: "Evaluation study re-testing published ECG foundation models against tuned supervised baselines across clinical tasks."
+  params_m_reported: null
+  search_keywords: "benchmarking ECG foundation models reality check clinical tasks Al-Masud Lopez Alcaraz Strodthoff evaluation"
+  origin:
+    paper_title: "Benchmarking ECG Foundational Models: A Reality Check Across Clinical Tasks"
+    authors: "Al-Masud, Lopez Alcaraz, Strodthoff"
+    venue: "arXiv"
+    year: 2025
+    doi: "arXiv:2509.25095"
+    code_url: null
+    adapted_from: null
+- slug: ecg-lm
+  title: "ECG-LM"
+  family: foundation
+  one_liner: "Biomedical language model coupled to an ECG encoder, trained on signal-text pairs built from clinical guidelines."
+  params_m_reported: null
+  search_keywords: "ECG-LM multimodal large language model electrocardiogram question answering BioMedGPT-LM-7B ResNet-18 ECG encoder Health Data Science"
+  origin:
+    paper_title: "ECG-LM: Understanding Electrocardiogram with a Large Language Model"
+    authors: "Kai Yang et al."
+    venue: "Health Data Science"
+    year: 2025
+    doi: "10.34133/hds.0221"
+    code_url: null
+    adapted_from: null
+- slug: ecg2tok
+  title: "ECG2TOK"
+  family: foundation
+  one_liner: "Self-distillation tokenizer clusters embeddings into discrete labels that a masked model then predicts instead of reconstructing waveforms."
+  params_m_reported: null
+  search_keywords: "ECG2TOK ECG pre-training self-distillation semantic tokenizers IJCAI discrete label prediction Yuan"
+  origin:
+    paper_title: "ECG2TOK: ECG Pre-Training with Self-Distillation Semantic Tokenizers"
+    authors: "Yuan, Wang, Liu, Chen, Hu"
+    venue: "IJCAI"
+    year: 2025
+    doi: "10.24963/ijcai.2025/1110"
+    code_url: null
+    adapted_from: null
+- slug: ecgflow-1dvit
+  title: "1dViT (ECGFlow)"
+  family: foundation
+  one_liner: "One-dimensional vision transformer pretrained by masked autoencoding on 800,035 MIMIC-IV-ECG recordings."
+  params_m_reported: 92.7
+  search_keywords: "1dViT ECGFlow masked autoencoder foundation model NEJM AI Moody Murthy MIMIC-IV-ECG PTB-XL myocardial flow reserve LVEF PET perfusion 4dm-labs"
+  origin:
+    paper_title: "A Foundation Transformer Model with Self-Supervised Learning for ECG-Based Assessment of Cardiac and Coronary Function"
+    authors: "Moody et al."
+    venue: "NEJM AI"
+    year: 2025
+    doi: "10.1056/aioa2500164"
+    code_url: "https://github.com/4dm-labs/ecgflow"
+    adapted_from: null
+- slug: ecgfounder
+  title: "ECGFounder"
+  family: foundation
+  one_liner: "Foundation model trained on more than ten million expert-annotated ECGs spanning 150 diagnostic categories."
+  params_m_reported: null
+  search_keywords: "ECGFounder, ECG foundation model, Harvard-Emory ECG database, 10 million recordings, 150 diagnostic categories, Jun Li, Shenda Hong, NEJM AI, PKUDigitalHealth"
+  origin:
+    paper_title: "An Electrocardiogram Foundation Model Built on over 10 Million Recordings"
+    authors: "Li et al."
+    venue: "NEJM AI"
+    year: 2025
+    doi: "10.1056/AIoa2401033"
+    code_url: "https://github.com/PKUDigitalHealth/ECGFounder"
+    adapted_from: null
+- slug: gem-ecg
+  title: "GEM"
+  family: foundation
+  one_liner: "Dual-encoder multimodal LLM over ECG time series and images that grounds diagnoses in waveform measurements."
+  params_m_reported: null
+  search_keywords: "GEM grounded ECG understanding multimodal LLM time series images ECG-Grounding dual encoder cross-modal alignment evidence-driven reasoning"
+  origin:
+    paper_title: "GEM: Empowering MLLM for Grounded ECG Understanding with Time Series and Images"
+    authors: "Xiang Lan et al."
+    venue: "NeurIPS"
+    year: 2025
+    doi: "arXiv:2503.06073"
+    code_url: "https://github.com/lanxiang1017/GEM"
+    adapted_from: null
+- slug: heartlang
+  title: "HeartLang"
+  family: foundation
+  one_liner: "Masked pretraining over a heartbeat vocabulary, treating single beats as words and rhythms as sentences."
+  params_m_reported: null
+  search_keywords: "HeartLang ECG language model QRS-Tokenizer ECG words sentences VQ-HBR masked pretraining self-supervised ICLR 2025 MIMIC-IV-ECG PTB-XL"
+  origin:
+    paper_title: "Reading Your Heart: Learning ECG Words and Sentences via Pre-training ECG Language Model"
+    authors: "Jiarui Jin et al."
+    venue: "ICLR"
+    year: 2025
+    doi: "arXiv:2502.10707"
+    code_url: "https://github.com/PKUDigitalHealth/HeartLang"
+    adapted_from: null
+- slug: k-merl
+  title: "K-MERL"
+  family: foundation
+  one_liner: "Extends report-contrastive pretraining with LLM-extracted structured entities and a lead-aware encoder accepting arbitrary lead subsets."
+  params_m_reported: null
+  search_keywords: "K-MERL knowledge enhanced multimodal ECG representation learning arbitrary lead inputs Liu Arcucci EMNLP partial lead"
+  origin:
+    paper_title: "Knowledge-enhanced Multimodal ECG Representation Learning with Arbitrary-Lead Inputs"
+    authors: "Liu, Ouyang, Wan, Wang, Bai, Arcucci"
+    venue: "Findings of EMNLP"
+    year: 2025
+    doi: "arXiv:2502.17900"
+    code_url: null
+    adapted_from: null
+- slug: meit
+  title: "MEIT"
+  family: foundation
+  one_liner: "Instruction-tuning framework aligning ECG signal embeddings with open-source LLMs for report generation."
+  params_m_reported: null
+  search_keywords: "MEIT multimodal electrocardiogram instruction tuning ECG report generation large language models attention fusion Wan Liu"
+  origin:
+    paper_title: "MEIT: Multimodal Electrocardiogram Instruction Tuning on Large Language Models for Report Generation"
+    authors: "Zhongwei Wan et al."
+    venue: "Findings of ACL"
+    year: 2025
+    doi: "10.18653/v1/2025.findings-acl.749"
+    code_url: "https://github.com/AIoT-MLSys-Lab/MEIT"
+    adapted_from: null
+- slug: melp
+  title: "MELP"
+  family: foundation
+  one_liner: "ECG-language pretraining aligned to clinical reports at the token, beat and rhythm levels."
+  params_m_reported: null
+  search_keywords: "MELP multi-scale ECG-language pretraining token beat rhythm cross-modal supervision cardiology language model zero-shot ECG classification"
+  origin:
+    paper_title: "From Token to Rhythm: A Multi-Scale Approach for ECG-Language Pretraining"
+    authors: "Fuying Wang, Jiacheng Xu, Lequan Yu"
+    venue: "ICML"
+    year: 2025
+    doi: "arXiv:2506.21803"
+    code_url: "https://github.com/HKU-MedAI/MELP"
+    adapted_from: null
+- slug: mtecg
+  title: "MTECG"
+  family: foundation
+  one_liner: "Masked-autoencoder pretraining of a Transformer encoder over non-overlapping segments of the raw signal."
+  params_m_reported: null
+  search_keywords: "MTECG masked transformer electrocardiogram classification masked autoencoder self-supervised Fuwai PTB-XL Zhou Zhao"
+  origin:
+    paper_title: "Enhancing automatic multilabel diagnosis of electrocardiogram signals: A masked transformer approach"
+    authors: "Ya Zhou et al."
+    venue: "Computers in Biology and Medicine"
+    year: 2025
+    doi: "10.1016/j.compbiomed.2025.110674"
+    code_url: null
+    adapted_from: null
+- slug: openecg
+  title: "OpenECG"
+  family: foundation
+  one_liner: "Benchmark of SimCLR, BYOL and masked-autoencoder pretraining over 1.2 million records from nine centres."
+  params_m_reported: null
+  search_keywords: "OpenECG benchmarking ECG foundation models public 1.2 million records Wan Ding leave one dataset out scaling"
+  origin:
+    paper_title: "OpenECG: Benchmarking ECG Foundation Models with Public 1.2 Million Records"
+    authors: "Wan, Yu, Mao, Duan, Ding"
+    venue: "arXiv"
+    year: 2025
+    doi: "arXiv:2503.00711"
+    code_url: null
+    adapted_from: null
+- slug: q-heart
+  title: "Q-Heart"
+  family: foundation
+  one_liner: "Multimodal ECG question answering that maps encoder features into an LLM prompted with retrieved clinical reports."
+  params_m_reported: null
+  search_keywords: "Q-Heart ECG question answering ECG-QA knowledge-informed multimodal LLM dynamic prompting retrieval ECG encoder mapping layer"
+  origin:
+    paper_title: "Q-Heart: ECG Question Answering via Knowledge-Informed Multimodal LLMs"
+    authors: "Hung Manh Pham, Jialu Tang, Aaqib Saeed, Dong Ma"
+    venue: "ECAI"
+    year: 2025
+    doi: "arXiv:2505.06296"
+    code_url: "https://github.com/manhph2211/Q-HEART"
+    adapted_from: null
+- slug: supreme-ecg
+  title: "SuPreME"
+  family: foundation
+  one_liner: "Supervised pretraining against SNOMED-standardised entities extracted offline from reports, fused with free-text cardiac queries."
+  params_m_reported: null
+  search_keywords: "SuPreME supervised pre-training framework multimodal ECG representation learning structured entities SNOMED zero-shot Cai Arcucci"
+  origin:
+    paper_title: "SuPreME: A Supervised Pre-training Framework for Multimodal ECG Representation Learning"
+    authors: "Cai, Jiang, Huang, Liu, Arcucci"
+    venue: "Findings of EMNLP"
+    year: 2025
+    doi: "arXiv:2502.19668"
+    code_url: null
+    adapted_from: null
+- slug: tolerantecg
+  title: "TolerantECG"
+  family: foundation
+  one_liner: "Contrastive and self-supervised pretraining on corrupted and lead-missing ECG paired with retrieved text reports."
+  params_m_reported: null
+  search_keywords: "TolerantECG imperfect electrocardiogram foundation model noise robust lead-missing corrupted signal contrastive self-supervised knowledge retrieval text report PTB-XL MIT-BIH arrhythmia"
+  origin:
+    paper_title: "TolerantECG: A Foundation Model for Imperfect Electrocardiogram"
+    authors: "Huynh Dang Nguyen et al."
+    venue: "ACM MM"
+    year: 2025
+    doi: "arXiv:2507.09887"
+    code_url: "https://github.com/Fsoft-AIC/TolerantECG"
+    adapted_from: null
+- slug: xecg
+  title: "xECG"
+  family: foundation
+  one_liner: "Bidirectional xLSTM trunk pretrained by self-distillation on roughly eight million ECG recordings."
+  params_m_reported: 57
+  search_keywords: "xECG xLSTM SimDINOv2 self-distillation ECG foundation model BenchECG Lunelli Dlaska CODE Chapman Ningbo"
+  origin:
+    paper_title: "BenchECG and xECG: a benchmark and baseline for ECG foundation models"
+    authors: "Lunelli et al."
+    venue: "arXiv"
+    year: 2025
+    doi: "arXiv:2509.10151"
+    code_url: "https://github.com/dlaskalab/bench-xecg"
+    adapted_from: null
+- slug: core-ecg
+  title: "CoRe-ECG"
+  family: foundation
+  one_liner: "Contrastive and reconstructive pretraining for 12-lead ECG with frequency-adaptive augmentation and dual masking."
+  params_m_reported: null
+  search_keywords: "CoRe-ECG contrastive reconstructive synergy self-supervised 12-lead ECG frequency dynamic augmentation spatio-temporal dual masking Zehao Qin Guijin Wang"
+  origin:
+    paper_title: "CoRe-ECG: Advancing Self-Supervised Representation Learning for 12-Lead ECG via Contrastive and Reconstructive Synergy"
+    authors: "Zehao Qin et al."
+    venue: "arXiv"
+    year: 2026
+    doi: "arXiv:2604.11359"
+    code_url: null
+    adapted_from: null
+- slug: csfm
+  title: "CSFM (Cardiac Sensing Foundation Model)"
+  family: foundation
+  one_liner: "Masked generative pretraining on ECG, PPG and paired text reports from 1.7 million individuals."
+  params_m_reported: null
+  search_keywords: "CSFM cardiac sensing foundation model multimodal ECG PPG text 1.7 million individuals heterogeneous devices lead configurations masked generative pretraining Xiao Gu David Clifton"
+  origin:
+    paper_title: "Cardiac health assessment across scenarios and devices using a multimodal foundation model pretrained on data from 1.7 million individuals"
+    authors: "Xiao Gu et al."
+    venue: "Nature Machine Intelligence"
+    year: 2026
+    doi: "10.1038/s42256-026-01180-5"
+    code_url: null
+    adapted_from: null
+- slug: deepecg-ssl
+  title: "DeepECG-SSL"
+  family: foundation
+  one_liner: "Self-supervised contrastive and masked-lead pretraining on over a million ECGs, fine-tuned for 77 cardiac conditions."
+  params_m_reported: null
+  search_keywords: "DeepECG-SSL DeepECG-SL self-supervised ECG foundation model masked lead modelling contrastive multi-segment coding wav2vec 77 cardiac conditions Nolin-Lapalme Avram HeartWise Montreal Heart Institute long QT genotype atrial fibrillation risk LVEF"
+  origin:
+    paper_title: "Foundation models for electrocardiogram interpretation: clinical implications"
+    authors: "Alexis Nolin-Lapalme et al."
+    venue: "European Heart Journal"
+    year: 2026
+    doi: "10.1093/eurheartj/ehaf1119"
+    code_url: "https://github.com/HeartWise-AI/DeepECG-SSL-finetune"
+    adapted_from: null
+- slug: ecg-fyler
+  title: "ECG-Fyler"
+  family: foundation
+  one_liner: "Residual encoder pretrained on 782,138 paediatric and adult ECGs labelled with cardiology-specific Fyler codes."
+  params_m_reported: null
+  search_keywords: "ECG-Fyler Fyler code supervision ECG foundation model paediatric cardiac function across the lifespan La Cava cavalab fyler_code_fm low LVEF"
+  origin:
+    paper_title: "An ECG foundation model for generalizable cardiac function prediction across the lifespan"
+    authors: "Yuting Yang et al."
+    venue: "medRxiv"
+    year: 2026
+    doi: "10.64898/2026.05.26.26354128"
+    code_url: "https://github.com/cavalab/fyler_code_fm"
+    adapted_from: null
+- slug: ecg-lfm
+  title: "ECG-LFM"
+  family: foundation
+  one_liner: "Self-supervised encoder combining contrastive learning with masked language modelling over ten million 12-lead ECGs."
+  params_m_reported: null
+  search_keywords: "ECG-LFM Electrocardiogram Large-scale Foundation Model self-supervised contrastive learning masked language modelling fairseq_signals MIMIC-IV-ECG cardiovascular disease prediction GWAS Mendelian randomization ECG-derived features"
+  origin:
+    paper_title: "A self-supervised electrocardiogram foundation model for empowering cardiovascular disease prediction and genetic factor discovery"
+    authors: "Siying Lin et al."
+    venue: "Nature Communications"
+    year: 2026
+    doi: "10.1038/s41467-026-72436-2"
+    code_url: "https://github.com/biomed-AI/ECG-LFM"
+    adapted_from: null
+- slug: ecg-llm-cardiac-reasoning
+  title: "ECG-LLM"
+  family: foundation
+  one_liner: "ECG-conditioned language model trained on 679,112 studies with question-answer pairs derived from cardiac imaging."
+  params_m_reported: null
+  search_keywords: "ECG-LLM ECG-conditioned large language model cardiac reasoning question answering echocardiography ventricular dysfunction 12-lead foundation model Selivanov Rueckert"
+  origin:
+    paper_title: "ECG-LLM: Foundation Model for ECG-Based Cardiac Reasoning"
+    authors: "Alexander Selivanov et al."
+    venue: "arXiv"
+    year: 2026
+    doi: "arXiv:2607.16323"
+    code_url: null
+    adapted_from: null
+- slug: ecg-moe
+  title: "ECG-MoE"
+  family: foundation
+  one_liner: "Dual-path mixture-of-experts separating beat morphology from rhythm, plus a cardiac-period-aware expert module."
+  params_m_reported: null
+  search_keywords: "ECG-MoE mixture of experts electrocardiogram foundation model dual-path beat morphology rhythm cardiac period-aware expert LoRA hierarchical fusion"
+  origin:
+    paper_title: "ECG-MoE: Mixture-of-Expert Electrocardiogram Foundation Model"
+    authors: "Yuhao Xu et al."
+    venue: "arXiv"
+    year: 2026
+    doi: "arXiv:2603.04589"
+    code_url: null
+    adapted_from: null
+- slug: ecg-nat
+  title: "ECG-NAT"
+  family: foundation
+  one_liner: "Neighborhood-attention transformer pretrained by masked reconstruction, fine-tuned with a contrastive objective."
+  params_m_reported: 29.31
+  search_keywords: "ECG-NAT neighborhood attention transformer self-supervised masked autoencoder multi-lead electrocardiogram classification low-label"
+  origin:
+    paper_title: "ECG-NAT: A Self-supervised Neighborhood Attention Transformer for Multi-lead Electrocardiogram Classification"
+    authors: "Gazeran et al."
+    venue: "arXiv"
+    year: 2026
+    doi: "arXiv:2605.13194"
+    code_url: "https://github.com/Mahsagazeran/ECG-NAT"
+    adapted_from: null
+- slug: ecg-scan
+  title: "ECG-Scan"
+  family: foundation
+  one_liner: "Self-supervised alignment of ECG images with signal and text for transferable image-based representations."
+  params_m_reported: null
+  search_keywords: "ECG-Scan ECG image representation learning dual physiological-aware alignments self-supervised soft-lead constraints Hung Manh Pham Aaqib Saeed"
+  origin:
+    paper_title: "Learning ECG Image Representations via Dual Physiological-Aware Alignments"
+    authors: "Hung Manh Pham et al."
+    venue: "arXiv"
+    year: 2026
+    doi: "arXiv:2604.01526"
+    code_url: null
+    adapted_from: null
+- slug: elf-ecg
+  title: "ELF"
+  family: foundation
+  one_liner: "Family of ECG-language models that feed the raw signal straight to the language model, with no separate ECG encoder."
+  params_m_reported: null
+  search_keywords: "ELF encoder-free ECG-language models ELM base_elf patch_elf conv_elf William Han Ding Zhao MLHC 2026"
+  origin:
+    paper_title: "ELF: A Family of Encoder-Free ECG-Language Models"
+    authors: "William Han et al."
+    venue: "MLHC"
+    year: 2026
+    doi: "arXiv:2601.18798"
+    code_url: "https://github.com/ELM-Research/ECG-Language-Models"
+    adapted_from: null
+- slug: heartbert
+  title: "HeartBERT"
+  family: foundation
+  one_liner: "RoBERTa encoder pretrained on ECG signals converted into discrete tokens, supplying embeddings for downstream tasks."
+  params_m_reported: null
+  search_keywords: "HeartBERT RoBERTa ECG embedding self-supervised Lloyd-Max quantization signal tokenization sleep stage detection heartbeat classification BiLSTM head"
+  origin:
+    paper_title: "HeartBERT: A self-supervised ECG embedding model for efficient and effective medical signal analysis"
+    authors: "Saedeh Tahery et al."
+    venue: "Computers in Biology and Medicine"
+    year: 2026
+    doi: "10.1016/j.compbiomed.2026.111712"
+    code_url: "https://github.com/ecgResearch/HeartBert"
+    adapted_from: null
+- slug: laef
+  title: "LAEF"
+  family: foundation
+  one_liner: "Spatio-temporal graph encoder that accepts any subset of leads without zero-padding, pretrained on 9.2 million ECGs."
+  params_m_reported: 7
+  search_keywords: "laef lead-agnostic ECG foundation model graph attention network arbitrary lead subsets point-of-care smartwatch masked node modelling 9.2 million ECGs"
+  origin:
+    paper_title: "LAEF: A Lead-Agnostic ECG Foundation Model Towards Point-of-Care Diagnostics"
+    authors: "Coppola et al."
+    venue: "arXiv"
+    year: 2026
+    doi: "arXiv:2608.03690"
+    code_url: null
+    adapted_from: null
+- slug: lamae
+  title: "LAMAE"
+  family: foundation
+  one_liner: "Masked-autoencoder pretraining that fuses the 12 leads through a permutation-invariant latent attention module."
+  params_m_reported: null
+  search_keywords: "LAMAE ECG-LAMAE latent attention masked autoencoder cardiac time series cross-lead permutation invariant MIMIC-IV-ECG-Ext-ICD Vandenhirtz Ruiperez-Campillo Vogt"
+  origin:
+    paper_title: "Foundation Model for Cardiac Time Series via Masked Latent Attention"
+    authors: "Moritz Vandenhirtz et al."
+    venue: "ICLR Workshop"
+    year: 2026
+    doi: "arXiv:2603.26475"
+    code_url: null
+    adapted_from: null
+- slug: morphologyfm
+  title: "MorphologyFM"
+  family: foundation
+  one_liner: "Morphology-aware self-supervised pretraining on paired ECG and pulse oximetry waveforms."
+  params_m_reported: null
+  search_keywords: "MorphologyFM morphology-aware representation learning ECG pulse oximetry SpO2 foundation model hypoxemia mortality length of stay"
+  origin:
+    paper_title: "MorphologyFM: A Foundation Model for Morphology-Aware Representation Learning from ECG and Pulse Oximetry Waveforms"
+    authors: "Saiyang Feng, Yuanyun Zhang, Shi Li"
+    venue: "arXiv"
+    year: 2026
+    doi: "arXiv:2607.09749"
+    code_url: null
+    adapted_from: null
+- slug: patchecg
+  title: "PatchECG"
+  family: foundation
+  one_liner: "One-dimensional transformer pretrained by masked patch modelling on 8.2 million unlabelled ECG recordings."
+  params_m_reported: 85.3
+  search_keywords: "PatchECG masked patch modelling MPM 1D transformer self-supervised pretraining 8.2 million unlabelled ECG PTB-XL Chatterjee Chan Komeili Scientific Reports"
+  origin:
+    paper_title: "Toward robust automated cardiovascular arrhythmia detection using self-supervised learning and 1-dimensional vision transformers"
+    authors: "Mitchell Chatterjee, Adrian D. C. Chan, Majid Komeili"
+    venue: "Scientific Reports"
+    year: 2026
+    doi: "10.1038/s41598-026-41549-5"
+    code_url: "https://github.com/Mitchell-Chatterjee/Robust-Automated-Cardiovascular-Arrhythmia-Detection"
+    adapted_from: null
+- slug: pulse
+  title: "PULSE"
+  family: foundation
+  one_liner: "Multimodal LLM with a vision encoder, instruction-tuned on over a million ECG images for 12-lead interpretation."
+  params_m_reported: 7000
+  search_keywords: "PULSE PULSE-7B ECGInstruct ECGBench multimodal LLM ECG image interpretation Ruoqi Liu Ping Zhang AIMedLab"
+  origin:
+    paper_title: "Teaching multimodal LLMs to comprehend 12-lead electrocardiographic images"
+    authors: "Ruoqi Liu, Yuelin Bai, Xiang Yue, Ping Zhang"
+    venue: "npj Digital Medicine"
+    year: 2026
+    doi: "10.1038/s41746-026-02551-3"
+    code_url: "https://github.com/AIMedLab/PULSE"
+    adapted_from: null
+- slug: sl-s4wave
+  title: "SL-S4Wave"
+  family: foundation
+  one_liner: "Contrastive pretraining of a multiscale structured state-space encoder for long physiological waveforms."
+  params_m_reported: null
+  search_keywords: "sl-s4wave structured state space s4 contrastive self-supervised arrhythmia long-sequence lehman clifford"
+  origin:
+    paper_title: "SL-S4Wave: Self-Supervised Learning of Physiological Waveforms with Structured State Space Models"
+    authors: "Wu et al."
+    venue: "arXiv"
+    year: 2026
+    doi: "arXiv:2606.19888"
+    code_url: null
+    adapted_from: null
+- slug: unet-ecg-delineation
+  title: "Moskalenko U-Net delineator"
+  family: segmentation
+  one_liner: "U-Net segmenting the ECG into P wave, QRS complex and T wave boundaries sample by sample."
+  params_m_reported: null
+  search_keywords: "Moskalenko Nikolskiy Zolotykh deep learning ECG segmentation U-Net LUDB delineation P QRS T"
+  origin:
+    paper_title: "Deep Learning for ECG Segmentation"
+    authors: "Moskalenko, Nikolskiy, Zolotykh"
+    venue: "Advances in Neural Computation, Machine Learning, and Cognitive Research III"
+    year: 2019
+    doi: "10.1007/978-3-030-30425-6_29"
+    code_url: null
+    adapted_from: null
+- slug: rpnet
+  title: "RPnet"
+  family: segmentation
+  one_liner: "U-Net with inception and residual blocks detecting R-peaks in noisy single-lead ECG."
+  params_m_reported: null
+  search_keywords: "RPnet Vijayarangan R-peak detection noisy single lead ECG deep learning U-Net inception residual EMBC"
+  origin:
+    paper_title: "RPnet: A Deep Learning approach for robust R Peak detection in noisy ECG"
+    authors: "Vijayarangan, Vignesh, Murugesan, Preejith, Joseph, Sivaprakasam"
+    venue: "IEEE EMBC"
+    year: 2020
+    doi: "10.1109/EMBC44109.2020.9176084"
+    code_url: null
+    adapted_from: null
+- slug: dens-ecg
+  title: "DENS-ECG"
+  family: segmentation
+  one_liner: "Convolutional layers followed by bidirectional LSTM labelling every sample as P wave, QRS, T wave or background."
+  params_m_reported: null
+  search_keywords: "DENS-ECG Peimankar Puthusserypady deep learning approach ECG signal delineation CNN LSTM segmentation"
+  origin:
+    paper_title: "DENS-ECG: A deep learning approach for ECG signal delineation"
+    authors: "Peimankar, Puthusserypady"
+    venue: "Expert Systems with Applications"
+    year: 2021
+    doi: "10.1016/j.eswa.2020.113911"
+    code_url: null
+    adapted_from: null
+- slug: jimenez-perez-delineation
+  title: "Jimenez-Perez W-Net delineator"
+  family: segmentation
+  one_liner: "Encoder-decoder segmentation network trained for wave delineation under mixed-quality annotations."
+  params_m_reported: null
+  search_keywords: "Jimenez-Perez Alcaine Camara delineation multi-lead ECG mixed quality annotations neural network Scientific Reports"
+  origin:
+    paper_title: "Delineation of the electrocardiogram with a mixed-quality-annotations dataset using convolutional neural networks"
+    authors: "Jimenez-Perez, Alcaine, Camara"
+    venue: "Scientific Reports"
+    year: 2021
+    doi: "10.1038/s41598-020-79512-7"
+    code_url: null
+    adapted_from: null
+- slug: ecg-dual
+  title: "ECG-DUaL"
+  family: segmentation
+  one_liner: "Line-detection pose correction and U-Net segmentation that convert scans of printed ECGs into 1D lead signals."
+  params_m_reported: null
+  search_keywords: "ECG-DUaL digitization printed paper ECG U-Net local edge detection Hough line transform PhysioNet Challenge 2024 Stenhede Singstad Ranjbar Computing in Cardiology Ahus AI Lab"
+  origin:
+    paper_title: "ECG-DUaL: Pose-Invariant Digitization of Printed Electrocardiograms via U-Net and Local Edge Detection"
+    authors: "Elias Stenhede, Bjørn-Jostein Singstad, Arian Ranjbar"
+    venue: "Computing in Cardiology"
+    year: 2024
+    doi: "10.22489/CinC.2024.262"
+    code_url: null
+    adapted_from: null
+- slug: your-lead
+  title: "YOUR-Lead"
+  family: segmentation
+  one_liner: "U-Net binarisation and a fine-tuned YOLO lead detector reconstructing 1D signals from scanned paper ECG images."
+  params_m_reported: null
+  search_keywords: "YOUR-Lead ECG digitization YOLOv8 U-Net paper ECG image lead box detection signal reconstruction PhysioNet Challenge 2024 Inria Epione Sermesant CinC"
+  origin:
+    paper_title: "YOUR-Lead: YOLO and U-Net for Reconstruction of ECG Lead Signals"
+    authors: "Rafael Silva et al."
+    venue: "Computing in Cardiology"
+    year: 2024
+    doi: "10.22489/CinC.2024.372"
+    code_url: null
+    adapted_from: null
+- slug: zhu-lstm-cnn-gan
+  title: "Zhu BiLSTM-CNN GAN"
+  family: generative
+  one_liner: "Generative adversarial network pairing a bidirectional LSTM generator with a convolutional discriminator to synthesise ECG."
+  params_m_reported: null
+  search_keywords: "Zhu electrocardiogram generation bidirectional LSTM CNN generative adversarial network Scientific Reports 2019"
+  origin:
+    paper_title: "Electrocardiogram generation with a bidirectional LSTM-CNN generative adversarial network"
+    authors: "Zhu et al."
+    venue: "Scientific Reports"
+    year: 2019
+    doi: "10.1038/s41598-019-42516-z"
+    code_url: null
+    adapted_from: null
+- slug: cardiogan
+  title: "CardioGAN"
+  family: generative
+  one_liner: "Attention-based CycleGAN translating photoplethysmogram into ECG for cuffless cardiac monitoring."
+  params_m_reported: null
+  search_keywords: "CardioGAN Sarkar Etemad attentive generative adversarial network PPG to ECG cross-modal synthesis AAAI"
+  origin:
+    paper_title: "CardioGAN: Attentive Generative Adversarial Network with Dual Discriminators for Synthesis of ECG from PPG"
+    authors: "Sarkar, Etemad"
+    venue: "AAAI"
+    year: 2021
+    doi: "arXiv:2010.00104"
+    code_url: null
+    adapted_from: null
+- slug: deepfilter
+  title: "DeepFilter"
+  family: generative
+  one_liner: "Inception-style multipath convolutional network with dilated kernels that removes baseline wander from the ECG."
+  params_m_reported: null
+  search_keywords: "DeepFilter ECG baseline wander removal multipath dilated convolution Inception Perdigon Romero QT Database MIT-BIH Noise Stress Test"
+  origin:
+    paper_title: "DeepFilter: an ECG baseline wander removal filter using deep learning techniques"
+    authors: "Francisco Perdigon Romero, David Castro Piñol, Carlos Román Vázquez Seisdedos"
+    venue: "Biomedical Signal Processing and Control"
+    year: 2021
+    doi: "arXiv:2101.03423"
+    code_url: "https://github.com/fperdigon/DeepFilter"
+    adapted_from: null
+- slug: pulse2pulse
+  title: "Pulse2Pulse"
+  family: generative
+  one_liner: "Generative adversarial network whose one-dimensional U-net generator produces ten-second 12-lead ECGs."
+  params_m_reported: null
+  search_keywords: "Pulse2Pulse DeepFake ECG generative adversarial network 1D U-net WaveGAN synthetic 12-lead Thambawita Kanters Scientific Reports 2021"
+  origin:
+    paper_title: "DeepFake electrocardiograms using generative adversarial networks are the beginning of the end for privacy issues in medicine"
+    authors: "Vajira Thambawita et al."
+    venue: "Scientific Reports"
+    year: 2021
+    doi: "10.1038/s41598-021-01295-2"
+    code_url: "https://github.com/vlbthambawita/deepfake-ecg"
+    adapted_from: null
+- slug: me-gan
+  title: "ME-GAN"
+  family: generative
+  one_liner: "Disease-conditioned GAN that learns a shared cardiac representation and projects it onto the standard ECG views."
+  params_m_reported: null
+  search_keywords: "ME-GAN panoptic electrocardio representation multi-view ECG synthesis heart disease conditioned mixup normalization view discriminator rFID"
+  origin:
+    paper_title: "ME-GAN: Learning Panoptic Electrocardio Representations for Multi-view ECG Synthesis Conditioned on Heart Diseases"
+    authors: "Jintai Chen et al."
+    venue: "ICML"
+    year: 2022
+    doi: "arXiv:2207.10670"
+    code_url: null
+    adapted_from: null
+- slug: sssd-ecg
+  title: "SSSD-ECG"
+  family: generative
+  one_liner: "Structured state-space diffusion model generating 12-lead ECGs conditioned on more than 70 ECG statements."
+  params_m_reported: null
+  search_keywords: "SSSD-ECG structured state space diffusion conditional 12-lead ECG generation Alcaraz Strodthoff S4 synthetic ECG"
+  origin:
+    paper_title: "Diffusion-based Conditional ECG Generation with Structured State Space Models"
+    authors: "Juan Miguel Lopez Alcaraz, Nils Strodthoff"
+    venue: "Computers in Biology and Medicine"
+    year: 2023
+    doi: "10.1016/j.compbiomed.2023.107115"
+    code_url: "https://github.com/AI4HealthUOL/SSSD-ECG"
+    adapted_from: null
+- slug: descod-ecg
+  title: "DeScoD-ECG"
+  family: generative
+  one_liner: "Conditional score-based diffusion model that removes baseline wander and noise from raw ECG recordings."
+  params_m_reported: null
+  search_keywords: "DeScoD-ECG deep score-based diffusion model ECG baseline wander noise removal denoising multi-shot averaging Huayu Li"
+  origin:
+    paper_title: "DeScoD-ECG: Deep Score-Based Diffusion Model for ECG Baseline Wander and Noise Removal"
+    authors: "Huayu Li, Gregory Ditzler, Janet Roveda, Ao Li"
+    venue: "IEEE JBHI"
+    year: 2024
+    doi: "10.1109/JBHI.2023.3237712"
+    code_url: "https://github.com/huayuLiArizona/Score-based-ECG-Denoising"
+    adapted_from: null
+- slug: diffecg
+  title: "DiffECG"
+  family: generative
+  one_liner: "Conditional denoising diffusion model with a U-Net denoiser for heartbeat generation, imputation and forecasting."
+  params_m_reported: null
+  search_keywords: "DiffECG diffusion model ECG synthesis heartbeat generation imputation forecasting Neifar Ben-Hamadou U-Net denoising"
+  origin:
+    paper_title: "DiffECG: A Versatile Probabilistic Diffusion Model for ECG Signals Synthesis"
+    authors: "Nour Neifar et al."
+    venue: "IEEE SERA"
+    year: 2024
+    doi: "arXiv:2306.01875"
+    code_url: null
+    adapted_from: null
+- slug: cnvae-ecg
+  title: "cNVAE-ECG"
+  family: generative
+  one_liner: "Conditional hierarchical variational autoencoder generating 12-lead ECGs with multiple specified pathologies."
+  params_m_reported: null
+  search_keywords: "cNVAE-ECG conditional Nouveau VAE hierarchical variational autoencoder 12-lead ECG synthetic generation Sviridov Egorov univanxx cNVAE_ECG"
+  origin:
+    paper_title: "Conditional Electrocardiogram Generation Using Hierarchical Variational Autoencoders"
+    authors: "Ivan Sviridov, Konstantin Egorov"
+    venue: "Automatic Documentation and Mathematical Linguistics"
+    year: 2025
+    doi: "10.3103/S0005105525701407"
+    code_url: "https://github.com/univanxx/cNVAE_ECG"
+    adapted_from: null
+- slug: ecgtwin
+  title: "ECGTwin"
+  family: generative
+  one_liner: "Two-stage diffusion model generating an individual's ECG from a reference recording and a target cardiac condition."
+  params_m_reported: null
+  search_keywords: "ECGTwin personalized ECG generation controllable diffusion Individual Base Extractor AdaX Condition Injector DiT denoiser MIMIC-IV-ECG"
+  origin:
+    paper_title: "ECGTwin: Personalized ECG Generation Using Controllable Diffusion Model"
+    authors: "Yongfan Lai et al."
+    venue: "arXiv"
+    year: 2025
+    doi: "arXiv:2508.02720"
+    code_url: "https://github.com/Raiiyf/ECGTwin"
+    adapted_from: null

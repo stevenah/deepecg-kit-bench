@@ -1,0 +1,10 @@
+{%- comment -%}
+Shared page header: back link (pass "" for none) and title. Callers may still pass lede /
+badge / extra params; they are deliberately not rendered — page headers carry no text.
+{%- endcomment -%}
+<header class="hero"><div class="wrap">
+  {% if include.back_url != "" %}
+    <a class="hero-back" href="{{ include.back_url }}">&larr; {{ include.back_label }}</a>
+  {% endif %}
+  <h1>{{ include.title }}</h1>
+</div></header>
