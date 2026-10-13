@@ -1,14 +1,8 @@
-_site/
-.jekyll-cache/
-.jekyll-metadata
-vendor/
-.bundle/
 .venv/
 __pycache__/
 *.pyc
 .pytest_cache/
 
-# Build products: derived from _data/registry.json + results/snapshots/, never hand-edited.
-# Committing them would create a second copy of every number that could go stale.
-_data/generated/
-_includes/charts/generated/
+# Scratch output of `make results RUNS=...`; the numbers that are published live in
+# site/data/results.json.
+.aggregate/

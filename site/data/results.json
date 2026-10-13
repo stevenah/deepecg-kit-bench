@@ -1,0 +1,225 @@
+{
+ "schema": 1,
+ "generated": "2026-09-01T18:37:38Z",
+ "kit_version": "0.2.0",
+ "confidence_level": 0.95,
+ "n_runs": 24,
+ "rows": [
+  {"model": "convnext-v2", "task": "ptbxl-multilabel", "averaging": "macro-label", "runs": 1, "seeds": [], "plot_seed": null, "plots": ["confusion-matrix", "calibration-curve", "loss-curve"],
+   "metrics": {
+    "f1": {"n": 1, "mean": 0.6907856936711486, "std": null, "lo": null, "hi": null, "values": [0.6907856936711486]},
+    "auroc": {"n": 1, "mean": 0.9098148388126251, "std": null, "lo": null, "hi": null, "values": [0.9098148388126251]},
+    "precision": {"n": 1, "mean": 0.6227726831885999, "std": null, "lo": null, "hi": null, "values": [0.6227726831885999]},
+    "recall": {"n": 1, "mean": 0.7845440494190269, "std": null, "lo": null, "hi": null, "values": [0.7845440494190269]},
+    "exact_match_accuracy": {"n": 1, "mean": 0.5424506654428637, "std": null, "lo": null, "hi": null, "values": [0.5424506654428637]},
+    "label_accuracy": {"n": 1, "mean": 0.8630564479118862, "std": null, "lo": null, "hi": null, "values": [0.8630564479118862]}
+   }},
+  {"model": "crnn", "task": "ptbxl-multilabel", "averaging": "macro-label", "runs": 1, "seeds": [], "plot_seed": null, "plots": ["confusion-matrix", "calibration-curve", "loss-curve"],
+   "metrics": {
+    "f1": {"n": 1, "mean": 0.6816319979134987, "std": null, "lo": null, "hi": null, "values": [0.6816319979134987]},
+    "auroc": {"n": 1, "mean": 0.908226906218656, "std": null, "lo": null, "hi": null, "values": [0.908226906218656]},
+    "precision": {"n": 1, "mean": 0.6040027592166319, "std": null, "lo": null, "hi": null, "values": [0.6040027592166319]},
+    "recall": {"n": 1, "mean": 0.8057437259643218, "std": null, "lo": null, "hi": null, "values": [0.8057437259643218]},
+    "exact_match_accuracy": {"n": 1, "mean": 0.5199632859109683, "std": null, "lo": null, "hi": null, "values": [0.5199632859109683]},
+    "label_accuracy": {"n": 1, "mean": 0.851216154199174, "std": null, "lo": null, "hi": null, "values": [0.851216154199174]}
+   }},
+  {"model": "inception-time", "task": "ptbxl-multilabel", "averaging": "macro-label", "runs": 1, "seeds": [], "plot_seed": null, "plots": ["confusion-matrix", "calibration-curve", "loss-curve"],
+   "metrics": {
+    "f1": {"n": 1, "mean": 0.7059206739393182, "std": null, "lo": null, "hi": null, "values": [0.7059206739393182]},
+    "auroc": {"n": 1, "mean": 0.9233422376477424, "std": null, "lo": null, "hi": null, "values": [0.9233422376477424]},
+    "precision": {"n": 1, "mean": 0.6319490467834643, "std": null, "lo": null, "hi": null, "values": [0.6319490467834643]},
+    "recall": {"n": 1, "mean": 0.825435719294374, "std": null, "lo": null, "hi": null, "values": [0.825435719294374]},
+    "exact_match_accuracy": {"n": 1, "mean": 0.5461220743460303, "std": null, "lo": null, "hi": null, "values": [0.5461220743460303]},
+    "label_accuracy": {"n": 1, "mean": 0.8641578705828362, "std": null, "lo": null, "hi": null, "values": [0.8641578705828362]}
+   }},
+  {"model": "mamba", "task": "ptbxl-multilabel", "averaging": "macro-label", "runs": 1, "seeds": [], "plot_seed": null, "plots": ["confusion-matrix", "calibration-curve", "loss-curve"],
+   "metrics": {
+    "f1": {"n": 1, "mean": 0.6720614867004379, "std": null, "lo": null, "hi": null, "values": [0.6720614867004379]},
+    "auroc": {"n": 1, "mean": 0.9010930879466124, "std": null, "lo": null, "hi": null, "values": [0.9010930879466124]},
+    "precision": {"n": 1, "mean": 0.6380347055352851, "std": null, "lo": null, "hi": null, "values": [0.6380347055352851]},
+    "recall": {"n": 1, "mean": 0.711307732571396, "std": null, "lo": null, "hi": null, "values": [0.711307732571396]},
+    "exact_match_accuracy": {"n": 1, "mean": 0.5557595227168426, "std": null, "lo": null, "hi": null, "values": [0.5557595227168426]},
+    "label_accuracy": {"n": 1, "mean": 0.8665442863698944, "std": null, "lo": null, "hi": null, "values": [0.8665442863698944]}
+   }},
+  {"model": "medformer", "task": "ptbxl-multilabel", "averaging": "macro-label", "runs": 1, "seeds": [], "plot_seed": null, "plots": ["confusion-matrix", "calibration-curve", "loss-curve"],
+   "metrics": {
+    "f1": {"n": 1, "mean": 0.6738254360476587, "std": null, "lo": null, "hi": null, "values": [0.6738254360476587]},
+    "auroc": {"n": 1, "mean": 0.8997852697707052, "std": null, "lo": null, "hi": null, "values": [0.8997852697707052]},
+    "precision": {"n": 1, "mean": 0.6069074243137903, "std": null, "lo": null, "hi": null, "values": [0.6069074243137903]},
+    "recall": {"n": 1, "mean": 0.7582025987860032, "std": null, "lo": null, "hi": null, "values": [0.7582025987860032]},
+    "exact_match_accuracy": {"n": 1, "mean": 0.5309775126204681, "std": null, "lo": null, "hi": null, "values": [0.5309775126204681]},
+    "label_accuracy": {"n": 1, "mean": 0.8577329050022946, "std": null, "lo": null, "hi": null, "values": [0.8577329050022946]}
+   }},
+  {"model": "resnet", "task": "ptbxl-multilabel", "averaging": "macro-label", "runs": 1, "seeds": [], "plot_seed": null, "plots": ["confusion-matrix", "calibration-curve", "loss-curve"],
+   "metrics": {
+    "f1": {"n": 1, "mean": 0.7016848531173521, "std": null, "lo": null, "hi": null, "values": [0.7016848531173521]},
+    "auroc": {"n": 1, "mean": 0.927369336843948, "std": null, "lo": null, "hi": null, "values": [0.927369336843948]},
+    "precision": {"n": 1, "mean": 0.6144182586925228, "std": null, "lo": null, "hi": null, "values": [0.6144182586925228]},
+    "recall": {"n": 1, "mean": 0.8435978702477316, "std": null, "lo": null, "hi": null, "values": [0.8435978702477316]},
+    "exact_match_accuracy": {"n": 1, "mean": 0.5296007342817807, "std": null, "lo": null, "hi": null, "values": [0.5296007342817807]},
+    "label_accuracy": {"n": 1, "mean": 0.859660394676457, "std": null, "lo": null, "hi": null, "values": [0.859660394676457]}
+   }},
+  {"model": "se-resnet", "task": "ptbxl-multilabel", "averaging": "macro-label", "runs": 1, "seeds": [], "plot_seed": null, "plots": ["confusion-matrix", "calibration-curve", "loss-curve"],
+   "metrics": {
+    "f1": {"n": 1, "mean": 0.6976264004199718, "std": null, "lo": null, "hi": null, "values": [0.6976264004199718]},
+    "auroc": {"n": 1, "mean": 0.924151069930306, "std": null, "lo": null, "hi": null, "values": [0.924151069930306]},
+    "precision": {"n": 1, "mean": 0.620108978709687, "std": null, "lo": null, "hi": null, "values": [0.620108978709687]},
+    "recall": {"n": 1, "mean": 0.8213063664355259, "std": null, "lo": null, "hi": null, "values": [0.8213063664355259]},
+    "exact_match_accuracy": {"n": 1, "mean": 0.5493345571363011, "std": null, "lo": null, "hi": null, "values": [0.5493345571363011]},
+    "label_accuracy": {"n": 1, "mean": 0.8611289582377237, "std": null, "lo": null, "hi": null, "values": [0.8611289582377237]}
+   }},
+  {"model": "crnn", "task": "physionet2017-4class", "averaging": null, "runs": 1, "seeds": [], "plot_seed": null, "plots": ["confusion-matrix", "calibration-curve", "loss-curve"],
+   "metrics": {
+    "f1": {"n": 1, "mean": 0.7234507743009239, "std": null, "lo": null, "hi": null, "values": [0.7234507743009239]},
+    "auroc": {"n": 1, "mean": 0.9238350901051516, "std": null, "lo": null, "hi": null, "values": [0.9238350901051516]},
+    "accuracy": {"n": 1, "mean": 0.8307349665924276, "std": null, "lo": null, "hi": null, "values": [0.8307349665924276]},
+    "mcc": {"n": 1, "mean": 0.6914572409094625, "std": null, "lo": null, "hi": null, "values": [0.6914572409094625]},
+    "precision": {"n": 1, "mean": 0.7374314118245651, "std": null, "lo": null, "hi": null, "values": [0.7374314118245651]},
+    "recall": {"n": 1, "mean": 0.7178416644667188, "std": null, "lo": null, "hi": null, "values": [0.7178416644667188]}
+   }},
+  {"model": "inception-time", "task": "physionet2017-4class", "averaging": null, "runs": 1, "seeds": [], "plot_seed": null, "plots": ["confusion-matrix", "calibration-curve", "loss-curve"],
+   "metrics": {
+    "f1": {"n": 1, "mean": 0.6562007469647095, "std": null, "lo": null, "hi": null, "values": [0.6562007469647095]},
+    "auroc": {"n": 1, "mean": 0.9103635542817228, "std": null, "lo": null, "hi": null, "values": [0.9103635542817228]},
+    "accuracy": {"n": 1, "mean": 0.7683741648106904, "std": null, "lo": null, "hi": null, "values": [0.7683741648106904]},
+    "mcc": {"n": 1, "mean": 0.572887169879952, "std": null, "lo": null, "hi": null, "values": [0.572887169879952]},
+    "precision": {"n": 1, "mean": 0.6905532183148462, "std": null, "lo": null, "hi": null, "values": [0.6905532183148462]},
+    "recall": {"n": 1, "mean": 0.641875277041566, "std": null, "lo": null, "hi": null, "values": [0.641875277041566]}
+   }},
+  {"model": "mamba", "task": "physionet2017-4class", "averaging": null, "runs": 1, "seeds": [], "plot_seed": null, "plots": ["confusion-matrix", "calibration-curve", "loss-curve"],
+   "metrics": {
+    "f1": {"n": 1, "mean": 0.6326051374131568, "std": null, "lo": null, "hi": null, "values": [0.6326051374131568]},
+    "auroc": {"n": 1, "mean": 0.8861777760734212, "std": null, "lo": null, "hi": null, "values": [0.8861777760734212]},
+    "accuracy": {"n": 1, "mean": 0.7576095025983668, "std": null, "lo": null, "hi": null, "values": [0.7576095025983668]},
+    "mcc": {"n": 1, "mean": 0.5569404748833412, "std": null, "lo": null, "hi": null, "values": [0.5569404748833412]},
+    "precision": {"n": 1, "mean": 0.655109166643971, "std": null, "lo": null, "hi": null, "values": [0.655109166643971]},
+    "recall": {"n": 1, "mean": 0.6149945304071132, "std": null, "lo": null, "hi": null, "values": [0.6149945304071132]}
+   }},
+  {"model": "medformer", "task": "physionet2017-4class", "averaging": null, "runs": 1, "seeds": [], "plot_seed": null, "plots": ["confusion-matrix", "calibration-curve", "loss-curve"],
+   "metrics": {
+    "f1": {"n": 1, "mean": 0.4774519640783202, "std": null, "lo": null, "hi": null, "values": [0.4774519640783202]},
+    "auroc": {"n": 1, "mean": 0.7997721286078543, "std": null, "lo": null, "hi": null, "values": [0.7997721286078543]},
+    "accuracy": {"n": 1, "mean": 0.6585003711952487, "std": null, "lo": null, "hi": null, "values": [0.6585003711952487]},
+    "mcc": {"n": 1, "mean": 0.3354907024141418, "std": null, "lo": null, "hi": null, "values": [0.3354907024141418]},
+    "precision": {"n": 1, "mean": 0.5340374323300804, "std": null, "lo": null, "hi": null, "values": [0.5340374323300804]},
+    "recall": {"n": 1, "mean": 0.4594813163245924, "std": null, "lo": null, "hi": null, "values": [0.4594813163245924]}
+   }},
+  {"model": "resnet", "task": "physionet2017-4class", "averaging": null, "runs": 1, "seeds": [], "plot_seed": null, "plots": ["confusion-matrix", "calibration-curve", "loss-curve"],
+   "metrics": {
+    "f1": {"n": 1, "mean": 0.7539912227743227, "std": null, "lo": null, "hi": null, "values": [0.7539912227743227]},
+    "auroc": {"n": 1, "mean": 0.9186297765696452, "std": null, "lo": null, "hi": null, "values": [0.9186297765696452]},
+    "accuracy": {"n": 1, "mean": 0.825909428359317, "std": null, "lo": null, "hi": null, "values": [0.825909428359317]},
+    "mcc": {"n": 1, "mean": 0.680654938034603, "std": null, "lo": null, "hi": null, "values": [0.680654938034603]},
+    "precision": {"n": 1, "mean": 0.7691006507495293, "std": null, "lo": null, "hi": null, "values": [0.7691006507495293]},
+    "recall": {"n": 1, "mean": 0.7444152501012451, "std": null, "lo": null, "hi": null, "values": [0.7444152501012451]}
+   }},
+  {"model": "se-resnet", "task": "physionet2017-4class", "averaging": null, "runs": 1, "seeds": [], "plot_seed": null, "plots": ["confusion-matrix", "calibration-curve", "loss-curve"],
+   "metrics": {
+    "f1": {"n": 1, "mean": 0.7072673336903036, "std": null, "lo": null, "hi": null, "values": [0.7072673336903036]},
+    "auroc": {"n": 1, "mean": 0.9196108658386388, "std": null, "lo": null, "hi": null, "values": [0.9196108658386388]},
+    "accuracy": {"n": 1, "mean": 0.8147735708982925, "std": null, "lo": null, "hi": null, "values": [0.8147735708982925]},
+    "mcc": {"n": 1, "mean": 0.6625734019686784, "std": null, "lo": null, "hi": null, "values": [0.6625734019686784]},
+    "precision": {"n": 1, "mean": 0.7245689335473723, "std": null, "lo": null, "hi": null, "values": [0.7245689335473723]},
+    "recall": {"n": 1, "mean": 0.6930780149186672, "std": null, "lo": null, "hi": null, "values": [0.6930780149186672]}
+   }},
+  {"model": "convnext-v2", "task": "mitbih-afdb-binary", "averaging": null, "runs": 1, "seeds": [], "plot_seed": null, "plots": ["confusion-matrix", "calibration-curve", "loss-curve"],
+   "metrics": {
+    "f1": {"n": 1, "mean": 0.0, "std": null, "lo": null, "hi": null, "values": [0.0]},
+    "auroc": {"n": 1, "mean": 0.529396656089145, "std": null, "lo": null, "hi": null, "values": [0.529396656089145]},
+    "accuracy": {"n": 1, "mean": 0.6478815860945139, "std": null, "lo": null, "hi": null, "values": [0.6478815860945139]},
+    "mcc": {"n": 1, "mean": 0.0, "std": null, "lo": null, "hi": null, "values": [0.0]},
+    "precision": {"n": 1, "mean": 0.0, "std": null, "lo": null, "hi": null, "values": [0.0]},
+    "recall": {"n": 1, "mean": 0.0, "std": null, "lo": null, "hi": null, "values": [0.0]}
+   }},
+  {"model": "crnn", "task": "mitbih-afdb-binary", "averaging": null, "runs": 1, "seeds": [], "plot_seed": null, "plots": ["confusion-matrix", "calibration-curve", "loss-curve"],
+   "metrics": {
+    "f1": {"n": 1, "mean": 0.9787902592301648, "std": null, "lo": null, "hi": null, "values": [0.9787902592301648]},
+    "auroc": {"n": 1, "mean": 0.9980856348408476, "std": null, "lo": null, "hi": null, "values": [0.9980856348408476]},
+    "accuracy": {"n": 1, "mean": 0.9853340575774036, "std": null, "lo": null, "hi": null, "values": [0.9853340575774036]},
+    "mcc": {"n": 1, "mean": 0.9679733703099924, "std": null, "lo": null, "hi": null, "values": [0.9679733703099924]},
+    "precision": {"n": 1, "mean": 0.9971988795518208, "std": null, "lo": null, "hi": null, "values": [0.9971988795518208]},
+    "recall": {"n": 1, "mean": 0.96104897801774, "std": null, "lo": null, "hi": null, "values": [0.96104897801774]}
+   }},
+  {"model": "inception-time", "task": "mitbih-afdb-binary", "averaging": null, "runs": 1, "seeds": [], "plot_seed": null, "plots": ["confusion-matrix", "calibration-curve", "loss-curve"],
+   "metrics": {
+    "f1": {"n": 1, "mean": 0.9615909534022228, "std": null, "lo": null, "hi": null, "values": [0.9615909534022228]},
+    "auroc": {"n": 1, "mean": 0.9732440733532544, "std": null, "lo": null, "hi": null, "values": [0.9732440733532544]},
+    "accuracy": {"n": 1, "mean": 0.9732482346550788, "std": null, "lo": null, "hi": null, "values": [0.9732482346550788]},
+    "mcc": {"n": 1, "mean": 0.9412086911923396, "std": null, "lo": null, "hi": null, "values": [0.9412086911923396]},
+    "precision": {"n": 1, "mean": 0.972397476340694, "std": null, "lo": null, "hi": null, "values": [0.972397476340694]},
+    "recall": {"n": 1, "mean": 0.9510219822599306, "std": null, "lo": null, "hi": null, "values": [0.9510219822599306]}
+   }},
+  {"model": "mamba", "task": "mitbih-afdb-binary", "averaging": null, "runs": 1, "seeds": [], "plot_seed": null, "plots": ["confusion-matrix", "calibration-curve", "loss-curve"],
+   "metrics": {
+    "f1": {"n": 1, "mean": 0.9200950813677088, "std": null, "lo": null, "hi": null, "values": [0.9200950813677088]},
+    "auroc": {"n": 1, "mean": 0.9868153485154192, "std": null, "lo": null, "hi": null, "values": [0.9868153485154192]},
+    "accuracy": {"n": 1, "mean": 0.9406572514937532, "std": null, "lo": null, "hi": null, "values": [0.9406572514937532]},
+    "mcc": {"n": 1, "mean": 0.8760618238251983, "std": null, "lo": null, "hi": null, "values": [0.8760618238251983]},
+    "precision": {"n": 1, "mean": 0.874826147426982, "std": null, "lo": null, "hi": null, "values": [0.874826147426982]},
+    "recall": {"n": 1, "mean": 0.9703046664095644, "std": null, "lo": null, "hi": null, "values": [0.9703046664095644]}
+   }},
+  {"model": "medformer", "task": "mitbih-afdb-binary", "averaging": null, "runs": 1, "seeds": [], "plot_seed": null, "plots": ["confusion-matrix", "calibration-curve", "loss-curve"],
+   "metrics": {
+    "f1": {"n": 1, "mean": 0.8516861665519615, "std": null, "lo": null, "hi": null, "values": [0.8516861665519615]},
+    "auroc": {"n": 1, "mean": 0.9658541695581262, "std": null, "lo": null, "hi": null, "values": [0.9658541695581262]},
+    "accuracy": {"n": 1, "mean": 0.882944052145573, "std": null, "lo": null, "hi": null, "values": [0.882944052145573]},
+    "mcc": {"n": 1, "mean": 0.768928067225008, "std": null, "lo": null, "hi": null, "values": [0.768928067225008]},
+    "precision": {"n": 1, "mean": 0.7688723205964585, "std": null, "lo": null, "hi": null, "values": [0.7688723205964585]},
+    "recall": {"n": 1, "mean": 0.9544928654068646, "std": null, "lo": null, "hi": null, "values": [0.9544928654068646]}
+   }},
+  {"model": "resnet", "task": "mitbih-afdb-binary", "averaging": null, "runs": 1, "seeds": [], "plot_seed": null, "plots": ["confusion-matrix", "calibration-curve", "loss-curve"],
+   "metrics": {
+    "f1": {"n": 1, "mean": 0.9499527856468366, "std": null, "lo": null, "hi": null, "values": [0.9499527856468366]},
+    "auroc": {"n": 1, "mean": 0.994871840677095, "std": null, "lo": null, "hi": null, "values": [0.994871840677095]},
+    "accuracy": {"n": 1, "mean": 0.96401412275937, "std": null, "lo": null, "hi": null, "values": [0.96401412275937]},
+    "mcc": {"n": 1, "mean": 0.9223548049675996, "std": null, "lo": null, "hi": null, "values": [0.9223548049675996]},
+    "precision": {"n": 1, "mean": 0.9307920059215395, "std": null, "lo": null, "hi": null, "values": [0.9307920059215395]},
+    "recall": {"n": 1, "mean": 0.9699190127265715, "std": null, "lo": null, "hi": null, "values": [0.9699190127265715]}
+   }},
+  {"model": "se-resnet", "task": "mitbih-afdb-binary", "averaging": null, "runs": 1, "seeds": [], "plot_seed": null, "plots": ["confusion-matrix", "calibration-curve", "loss-curve"],
+   "metrics": {
+    "f1": {"n": 1, "mean": 0.9740690193020082, "std": null, "lo": null, "hi": null, "values": [0.9740690193020082]},
+    "auroc": {"n": 1, "mean": 0.99512319052561, "std": null, "lo": null, "hi": null, "values": [0.99512319052561]},
+    "accuracy": {"n": 1, "mean": 0.9819391634980988, "std": null, "lo": null, "hi": null, "values": [0.9819391634980988]},
+    "mcc": {"n": 1, "mean": 0.9603556382381124, "std": null, "lo": null, "hi": null, "values": [0.9603556382381124]},
+    "precision": {"n": 1, "mean": 0.9850157728706624, "std": null, "lo": null, "hi": null, "values": [0.9850157728706624]},
+    "recall": {"n": 1, "mean": 0.963362900115696, "std": null, "lo": null, "hi": null, "values": [0.963362900115696]}
+   }},
+  {"model": "convnext-v2", "task": "unified-af-4class", "averaging": null, "runs": 1, "seeds": [], "plot_seed": null, "plots": ["confusion-matrix", "calibration-curve", "loss-curve"],
+   "metrics": {
+    "f1": {"n": 1, "mean": 0.8646279458624093, "std": null, "lo": null, "hi": null, "values": [0.8646279458624093]},
+    "auroc": {"n": 1, "mean": 0.9997416747748356, "std": null, "lo": null, "hi": null, "values": [0.9997416747748356]},
+    "accuracy": {"n": 1, "mean": 0.9984897137259172, "std": null, "lo": null, "hi": null, "values": [0.9984897137259172]},
+    "mcc": {"n": 1, "mean": 0.9840046268560126, "std": null, "lo": null, "hi": null, "values": [0.9840046268560126]},
+    "precision": {"n": 1, "mean": 0.9928352402148264, "std": null, "lo": null, "hi": null, "values": [0.9928352402148264]},
+    "recall": {"n": 1, "mean": 0.8198006918282217, "std": null, "lo": null, "hi": null, "values": [0.8198006918282217]}
+   }},
+  {"model": "crnn", "task": "unified-af-4class", "averaging": null, "runs": 1, "seeds": [], "plot_seed": null, "plots": ["confusion-matrix", "calibration-curve", "loss-curve"],
+   "metrics": {
+    "f1": {"n": 1, "mean": 0.7196561908207416, "std": null, "lo": null, "hi": null, "values": [0.7196561908207416]},
+    "auroc": {"n": 1, "mean": 0.9991355990882896, "std": null, "lo": null, "hi": null, "values": [0.9991355990882896]},
+    "accuracy": {"n": 1, "mean": 0.998040709698487, "std": null, "lo": null, "hi": null, "values": [0.998040709698487]},
+    "mcc": {"n": 1, "mean": 0.9792495551280176, "std": null, "lo": null, "hi": null, "values": [0.9792495551280176]},
+    "precision": {"n": 1, "mean": 0.7405781659923343, "std": null, "lo": null, "hi": null, "values": [0.7405781659923343]},
+    "recall": {"n": 1, "mean": 0.7018246822423875, "std": null, "lo": null, "hi": null, "values": [0.7018246822423875]}
+   }},
+  {"model": "medformer", "task": "unified-af-4class", "averaging": null, "runs": 1, "seeds": [], "plot_seed": null, "plots": ["confusion-matrix", "calibration-curve", "loss-curve"],
+   "metrics": {
+    "f1": {"n": 1, "mean": 0.8464719256566582, "std": null, "lo": null, "hi": null, "values": [0.8464719256566582]},
+    "auroc": {"n": 1, "mean": 0.9994098986308048, "std": null, "lo": null, "hi": null, "values": [0.9994098986308048]},
+    "accuracy": {"n": 1, "mean": 0.9950337433329705, "std": null, "lo": null, "hi": null, "values": [0.9950337433329705]},
+    "mcc": {"n": 1, "mean": 0.947113089856552, "std": null, "lo": null, "hi": null, "values": [0.947113089856552]},
+    "precision": {"n": 1, "mean": 0.9802074034778802, "std": null, "lo": null, "hi": null, "values": [0.9802074034778802]},
+    "recall": {"n": 1, "mean": 0.7964451669455052, "std": null, "lo": null, "hi": null, "values": [0.7964451669455052]}
+   }},
+  {"model": "resnet", "task": "unified-af-4class", "averaging": null, "runs": 1, "seeds": [], "plot_seed": null, "plots": ["confusion-matrix", "calibration-curve", "loss-curve"],
+   "metrics": {
+    "f1": {"n": 1, "mean": 0.840757093135639, "std": null, "lo": null, "hi": null, "values": [0.840757093135639]},
+    "auroc": {"n": 1, "mean": 0.999905617139575, "std": null, "lo": null, "hi": null, "values": [0.999905617139575]},
+    "accuracy": {"n": 1, "mean": 0.998108740611734, "std": null, "lo": null, "hi": null, "values": [0.998108740611734]},
+    "mcc": {"n": 1, "mean": 0.9800431457395428, "std": null, "lo": null, "hi": null, "values": [0.9800431457395428]},
+    "precision": {"n": 1, "mean": 0.8700298090998744, "std": null, "lo": null, "hi": null, "values": [0.8700298090998744]},
+    "recall": {"n": 1, "mean": 0.8199638334475584, "std": null, "lo": null, "hi": null, "values": [0.8199638334475584]}
+   }}
+ ]
+}

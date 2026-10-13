@@ -1,21 +1,16 @@
 [project]
 name = "deepecg-kit-bench-tools"
-version = "0.1.0"
-description = "Build and validation tooling for the DeepECG-Bench site."
+version = "0.2.0"
+description = "Data tooling and tests for the DeepECG-Bench page."
 requires-python = ">=3.10"
-# Deliberately NOT torch and NOT deepecgkit. Those are needed only by
-# tools/export_registry.py, which runs in the refresh-registry bot workflow. Keeping them
-# off the deploy path means a torch ABI break or a PyPI outage cannot take the site down.
-# Stdlib + PyYAML only. The committed CSVs are a few hundred rows, so csv beats pandas,
-# and hand-written validators produce far better messages than a JSON Schema failure.
-# A build tool with one dependency is a build tool that still runs in three years.
-dependencies = [
-    "pyyaml>=6.0",
-]
+# Deliberately empty: the tools are standard library only. tools/export_registry.py is the
+# one exception, and it runs inside the kit's own environment (see `make registry`), never
+# on the deploy path. A tool with no dependencies is a tool that still runs in three years.
+dependencies = []
 
 [dependency-groups]
 dev = ["pytest>=8.0"]
 
 [tool.pytest.ini_options]
 testpaths = ["tools/tests"]
-pythonpath = ["."]
+pythonpath = ["tools"]

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark light">
+<title>DeepECG-Bench</title>
+<meta name="description" content="The architectures in DeepECG-Kit and their benchmark results on every task, in one table.">
+<script>
+/* Blocking, inline and BEFORE the stylesheet: this is what stops a light flash on a dark
+   page. Dark is the default, matching ECGBench; light and auto are on the toggle. */
+(function(){var r=document.documentElement;try{var m=localStorage.getItem('deepecg-theme')||'dark';
+if(m==='light'||m==='dark')r.setAttribute('data-theme',m);}catch(e){r.setAttribute('data-theme','dark');}})();
+</script>
+<link rel="stylesheet" href="style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><text y='13' font-size='13'>&#128147;</text></svg>">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="hero"><div class="wrap">
+  <button class="theme-toggle" data-theme-toggle type="button" aria-label="Colour theme">
+    <span data-theme-glyph aria-hidden="true">&#9790;</span><span data-theme-label>Dark</span>
+  </button>
+  <h1>DeepECG-Bench</h1>
+  <p class="lede">The architectures in DeepECG-Kit and their benchmark results on every task.</p>
+  <div class="hero-links">
+    <a href="https://github.com/stevenah/deepecg-kit"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg> DeepECG-Kit</a>
+    <a href="https://stevenah.github.io/deepecg-kit/"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg> Documentation</a>
+    <a href="https://vajira.info/ECGBench/"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14c0 1.66 4.03 3 9 3s9-1.34 9-3V5"/><path d="M3 12c0 1.66 4.03 3 9 3s9-1.34 9-3"/></svg> ECGBench (datasets)</a>
+  </div>
+</div></header>
+
+<main id="main">
+  <section class="wrap" aria-labelledby="results-title">
+    <h2 id="results-title" class="visually-hidden">Architectures and results</h2>
+    <p class="summary" id="summary" aria-live="polite"></p>
+    <form class="controls" role="search" onsubmit="return false">
+      <label class="search-wrap">
+        <span class="visually-hidden">Search architectures</span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+        <input id="q" type="search" placeholder="Search architectures" autocomplete="off" spellcheck="false">
+      </label>
+      <label class="field">Family <select id="family"><option value="">All</option></select></label>
+      <label class="field">Metric <select id="metric"></select></label>
+    </form>
+    <div class="table-wrap" id="table-wrap" tabindex="0" role="region" aria-labelledby="results-title">
+      <!-- What a browser without JavaScript modules shows; app.js replaces it. -->
+      <p class="status" id="status">
+        The table is drawn in the browser and needs JavaScript. The numbers behind it are in
+        <a href="data/results.json">results.json</a>, <a href="data/registry.json">registry.json</a>
+        and <a href="data/catalogue.json">catalogue.json</a>.
+      </p>
+    </div>
+    <div id="notes"></div>
+  </section>
+
+  <section class="wrap tasks" aria-labelledby="tasks-title">
+    <h2 id="tasks-title">Tasks</h2>
+    <dl id="tasks"></dl>
+    <p class="table-note">
+      How each task is built and evaluated is described in the
+      <a href="https://stevenah.github.io/deepecg-kit/benchmark/">benchmark section of the DeepECG-Kit documentation</a>.
+    </p>
+  </section>
+</main>
+
+<footer class="site">
+  <p id="provenance"></p>
+  <p>
+    Data: <a href="data/results.json">results.json</a> &middot;
+    <a href="data/registry.json">registry.json</a> &middot;
+    <a href="data/catalogue.json">catalogue.json</a> &middot;
+    <a href="https://github.com/stevenah/deepecg-kit-bench">Source</a> &middot; Apache-2.0
+  </p>
+  <p>
+    A companion to <a href="https://github.com/stevenah/deepecg-kit">DeepECG-Kit</a>.
+    Dataset catalogue: <a href="https://vajira.info/ECGBench/">ECGBench</a>.
+  </p>
+</footer>
+
+<script type="module" src="app.js"></script>
+</body>
+</html>

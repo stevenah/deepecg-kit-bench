@@ -1,33 +1,32 @@
-"""Export deepecgkit's model and dataset registries to _data/registry.json.
+"""Export deepecgkit's model and dataset registries to site/data/registry.json.
 
-This is the ONLY thing in the repo that imports deepecgkit, and it runs only in the
-refresh-registry bot workflow -- never on the deploy path. The site renders from the
-committed JSON, so a torch ABI break or a PyPI outage cannot take the website down.
+This is the ONLY thing in the repo that imports deepecgkit (and torch), and it runs only
+when someone asks for it with `make registry` -- never on the deploy path. The page reads
+the committed JSON.
 
 The output is the sole source of truth for every machine fact about a model: class,
-module, description, head attribute, input-length bounds, parameter counts and feature
-dimensions. `_models/*.md` owns prose and nothing else, so the two can only disagree by
-failing to join -- which tools/validate.py detects -- rather than by disagreeing on a
-value, which nothing can detect.
+module, description, display name, input-length bounds, parameter counts and feature
+dimensions. site/data/catalogue.json owns prose and nothing else, so the two can only
+disagree by failing to join -- which tools/tests/test_data.py detects -- rather than by
+disagreeing on a value, which nothing can detect.
 
-Probe shapes are read from _tasks/*.md rather than hardcoded, so the shapes we report
-parameter counts for cannot drift from the tasks actually benchmarked.
+Probe shapes are read from the tasks in catalogue.json rather than hardcoded, so the
+shapes we report parameter counts for cannot drift from the tasks actually benchmarked.
 """
 
 from __future__ import annotations
 
 import argparse
 import json
-import re
 import subprocess
 import sys
 from pathlib import Path
 from typing import Any
 
-FRONT_MATTER = re.compile(r"^---\n(.*?)\n---", re.DOTALL)
+ROOT = Path(__file__).resolve().parent.parent
 
-# The catalogue's headline "Params (M)" column needs one shape common to every model so
-# the numbers are comparable down the column. 12x5 is PTB-XL, the largest input.
+# The table's "Parameters" column needs one shape common to every model so the numbers
+# are comparable down the column. 12x5 is PTB-XL, the largest input.
 CANONICAL_PROBE = (12, 5)
 
 
@@ -35,20 +34,13 @@ def _probe_key(channels: int, outputs: int) -> str:
     return f"{channels}x{outputs}"
 
 
-def read_task_probes(tasks_dir: Path) -> dict[str, tuple[int, int]]:
-    """Collect the distinct probe shapes declared by the task collection."""
-    import yaml
-
+def read_task_probes(catalogue: Path) -> dict[str, tuple[int, int]]:
+    """Collect the distinct input shapes declared by the catalogue's tasks."""
     probes: dict[str, tuple[int, int]] = {
         _probe_key(*CANONICAL_PROBE): CANONICAL_PROBE,
     }
-    for path in sorted(tasks_dir.glob("*.md")):
-        match = FRONT_MATTER.match(path.read_text(encoding="utf-8"))
-        if not match:
-            continue
-        meta = yaml.safe_load(match.group(1)) or {}
-        probe = meta.get("probe") or {}
-        channels, outputs = probe.get("input_channels"), probe.get("output_size")
+    for task in json.loads(catalogue.read_text(encoding="utf-8"))["tasks"]:
+        channels, outputs = task.get("input_channels"), task.get("output_size")
         if isinstance(channels, int) and isinstance(outputs, int):
             probes[_probe_key(channels, outputs)] = (channels, outputs)
     return probes
@@ -104,8 +96,10 @@ def git_sha(repo: Path | None) -> dict[str, Any]:
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--out", type=Path, default=Path("_data/registry.json"))
-    parser.add_argument("--probes-from", type=Path, default=Path("_tasks"))
+    parser.add_argument("--out", type=Path, default=ROOT / "site" / "data" / "registry.json")
+    parser.add_argument(
+        "--catalogue", type=Path, default=ROOT / "site" / "data" / "catalogue.json"
+    )
     parser.add_argument("--kit-repo", type=Path, default=None)
     parser.add_argument("--exported-utc", default=None, help="ISO timestamp; defaults to now")
     args = parser.parse_args(argv)
@@ -119,7 +113,7 @@ def main(argv: list[str] | None = None) -> int:
 
     from deepecgkit.analysis import latex
 
-    probes = read_task_probes(args.probes_from)
+    probes = read_task_probes(args.catalogue)
     model_names = reg.get_model_names()
     dataset_names = reg.get_dataset_names()
 
@@ -160,8 +154,8 @@ def main(argv: list[str] | None = None) -> int:
             "display_name": latex.DATASET_DISPLAY_NAMES.get(name),
         }
 
-    # Vocabularies exported so _data/metrics.yml can be CHECKED against the library
-    # rather than duplicating it. validate.py fails if they disagree.
+    # Vocabularies exported so the catalogue's metric list can be CHECKED against the
+    # library rather than duplicating it. tools/tests/test_data.py fails if they disagree.
     from deepecgkit.analysis import aggregation
 
     constants = {

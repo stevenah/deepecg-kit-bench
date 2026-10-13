@@ -1,0 +1,793 @@
+{
+  "families": [
+    {
+      "id": "baseline",
+      "label": "Baseline"
+    },
+    {
+      "id": "cnn",
+      "label": "Convolutional"
+    },
+    {
+      "id": "rnn",
+      "label": "Recurrent"
+    },
+    {
+      "id": "hybrid",
+      "label": "Hybrid"
+    },
+    {
+      "id": "transformer",
+      "label": "Transformer"
+    },
+    {
+      "id": "ssm",
+      "label": "State-space"
+    }
+  ],
+  "tasks": [
+    {
+      "id": "ptbxl-multilabel",
+      "dataset": "ptbxl",
+      "title": "PTB-XL — diagnostic superclasses",
+      "short": "PTB-XL",
+      "input_channels": 12,
+      "output_size": 5,
+      "summary": "Twelve-lead resting ECGs labelled with five diagnostic superclasses (NORM, MI, STTC, CD, HYP). Records carry more than one superclass, so this is a multi-label task and precision, recall and F1 are macro-averaged over labels.",
+      "dataset_url": "https://physionet.org/content/ptb-xl/1.0.3/",
+      "ecgbench_url": "https://vajira.info/ECGBench/datasets/ptb-xl.html",
+      "note": null
+    },
+    {
+      "id": "physionet2017-4class",
+      "dataset": "af-classification",
+      "title": "PhysioNet 2017 — four-class rhythm",
+      "short": "PhysioNet 2017",
+      "input_channels": 1,
+      "output_size": 4,
+      "summary": "Single-lead recordings from the 2017 PhysioNet/CinC Challenge, labelled normal, atrial fibrillation, other rhythm, or too noisy to classify.",
+      "dataset_url": "https://physionet.org/content/challenge-2017/1.0.0/",
+      "ecgbench_url": null,
+      "note": null
+    },
+    {
+      "id": "mitbih-afdb-binary",
+      "dataset": "mitbih-afdb",
+      "title": "MIT-BIH AFDB — binary AF detection",
+      "short": "MIT-BIH AFDB",
+      "input_channels": 1,
+      "output_size": 1,
+      "summary": "Long two-lead Holter recordings. The dataset registers four rhythm classes, but this task collapses them to AF versus non-AF, so precision, recall and F1 are positive-class values rather than macro averages.",
+      "dataset_url": "https://physionet.org/content/afdb/1.0.0/",
+      "ecgbench_url": null,
+      "note": null
+    },
+    {
+      "id": "ltafdb-binary",
+      "dataset": "ltafdb",
+      "title": "LTAFDB — binary AF detection",
+      "short": "LTAFDB",
+      "input_channels": 1,
+      "output_size": 1,
+      "summary": "The Long-Term AF Database. As for MIT-BIH AFDB, the four registered rhythm classes are collapsed to AF versus non-AF.",
+      "dataset_url": "https://physionet.org/content/ltafdb/1.0.0/",
+      "ecgbench_url": null,
+      "note": null
+    },
+    {
+      "id": "unified-af-4class",
+      "dataset": "unified-af",
+      "title": "Unified AF — cross-source four-class",
+      "short": "Unified AF",
+      "input_channels": 1,
+      "output_size": 4,
+      "summary": "A combined corpus over PhysioNet 2017, MIT-BIH AFDB and LTAFDB, with four rhythm classes.",
+      "dataset_url": null,
+      "ecgbench_url": null,
+      "note": "Results from deepecg-kit 0.2.0 on this task are suspect: accuracy and MCC are implausibly high relative to macro-F1, which points to a leaking or severely imbalanced split."
+    }
+  ],
+  "metrics": [
+    {
+      "id": "f1",
+      "label": "F1",
+      "name": "F1",
+      "better": "higher",
+      "group": null
+    },
+    {
+      "id": "auroc",
+      "label": "AUROC",
+      "name": "AUROC",
+      "better": "higher",
+      "group": null
+    },
+    {
+      "id": "accuracy",
+      "label": "Acc.",
+      "name": "Accuracy",
+      "better": "higher",
+      "group": null
+    },
+    {
+      "id": "mcc",
+      "label": "MCC",
+      "name": "MCC",
+      "better": "higher",
+      "group": null
+    },
+    {
+      "id": "precision",
+      "label": "Prec.",
+      "name": "Precision",
+      "better": "higher",
+      "group": null
+    },
+    {
+      "id": "recall",
+      "label": "Recall",
+      "name": "Recall",
+      "better": "higher",
+      "group": null
+    },
+    {
+      "id": "exact_match_accuracy",
+      "label": "Exact match",
+      "name": "Exact-match accuracy",
+      "better": "higher",
+      "group": null
+    },
+    {
+      "id": "label_accuracy",
+      "label": "Label acc.",
+      "name": "Label accuracy",
+      "better": "higher",
+      "group": null
+    },
+    {
+      "id": "ece",
+      "label": "ECE",
+      "name": "ECE",
+      "better": "lower",
+      "group": "calibration"
+    },
+    {
+      "id": "adaptive_ece",
+      "label": "AECE",
+      "name": "Adaptive ECE",
+      "better": "lower",
+      "group": "calibration"
+    },
+    {
+      "id": "mce",
+      "label": "MCE",
+      "name": "MCE",
+      "better": "lower",
+      "group": "calibration"
+    },
+    {
+      "id": "brier",
+      "label": "Brier",
+      "name": "Brier score",
+      "better": "lower",
+      "group": "calibration"
+    },
+    {
+      "id": "temperature",
+      "label": "T",
+      "name": "Temperature",
+      "better": null,
+      "group": "calibration"
+    },
+    {
+      "id": "ece_temp",
+      "label": "ECE (T)",
+      "name": "ECE after temperature scaling",
+      "better": "lower",
+      "group": "calibration"
+    },
+    {
+      "id": "adaptive_ece_temp",
+      "label": "AECE (T)",
+      "name": "Adaptive ECE after temperature scaling",
+      "better": "lower",
+      "group": "calibration"
+    },
+    {
+      "id": "mce_temp",
+      "label": "MCE (T)",
+      "name": "MCE after temperature scaling",
+      "better": "lower",
+      "group": "calibration"
+    },
+    {
+      "id": "brier_temp",
+      "label": "Brier (T)",
+      "name": "Brier score after temperature scaling",
+      "better": "lower",
+      "group": "calibration"
+    }
+  ],
+  "models": [
+    {
+      "name": "afmodel",
+      "family": "cnn",
+      "summary": "A convolutional classifier shaped for fixed 30-second single-lead segments.",
+      "description": null,
+      "paper": null,
+      "code_url": null,
+      "adapted_from": null,
+      "notes": "Carries default_kwargs {'recording_length': 30} and a minimum input length of 7971 samples, so it is the one architecture that cannot accept an arbitrarily short window.",
+      "deviations": [],
+      "explain": {
+        "gradient_attribution": true,
+        "occlusion": true,
+        "class_activation": false
+      }
+    },
+    {
+      "name": "convnext-v2",
+      "family": "cnn",
+      "summary": "Depthwise convolutions with global response normalisation, adapted to one dimension.",
+      "description": null,
+      "paper": {
+        "title": "ConvNeXt V2: Co-designing and Scaling ConvNets with Masked Autoencoders",
+        "authors": "Woo, Debnath, Hu, Chen, Liu, Kweon, Xie",
+        "venue": "CVPR",
+        "year": 2023,
+        "id": "10.1109/CVPR52729.2023.01548",
+        "url": "https://doi.org/10.1109/CVPR52729.2023.01548"
+      },
+      "code_url": "https://github.com/facebookresearch/ConvNeXt-V2",
+      "adapted_from": null,
+      "notes": "Adapted from the 2D vision architecture; the masked-autoencoder pretraining that motivates GRN is not used here, so the block is trained from scratch.",
+      "deviations": [],
+      "explain": {
+        "gradient_attribution": true,
+        "occlusion": true,
+        "class_activation": false
+      }
+    },
+    {
+      "name": "crnn",
+      "family": "hybrid",
+      "summary": "Convolutional feature extraction followed by an LSTM that aggregates over time.",
+      "description": null,
+      "paper": {
+        "title": "Convolutional Recurrent Neural Networks for Electrocardiogram Classification",
+        "authors": "Zihlmann, Perekrestenko, Tschannen",
+        "venue": "Computing in Cardiology",
+        "year": 2017,
+        "id": "10.22489/CinC.2017.070-060",
+        "url": "https://doi.org/10.22489/CinC.2017.070-060"
+      },
+      "code_url": null,
+      "adapted_from": null,
+      "notes": "Follows the convolutional-recurrent design of Zihlmann et al. without reproducing their network; the convolutional front end and recurrent aggregator are both standard.",
+      "deviations": [
+        "Convolves the raw signal, where the original network takes logarithmic spectrograms."
+      ],
+      "explain": {
+        "gradient_attribution": true,
+        "occlusion": true,
+        "class_activation": false
+      }
+    },
+    {
+      "name": "deep-res-cnn",
+      "family": "cnn",
+      "summary": "A deep residual network that treats the multi-lead recording as a 2D image.",
+      "description": null,
+      "paper": {
+        "title": "Deep residual 2D convolutional neural network for cardiovascular disease classification",
+        "authors": "Elyamani, Salem, Melgani, Yhiea",
+        "venue": "Scientific Reports",
+        "year": 2024,
+        "id": "10.1038/s41598-024-72382-3",
+        "url": "https://doi.org/10.1038/s41598-024-72382-3"
+      },
+      "code_url": "https://github.com/HaneenElyamani/ECG-classification",
+      "adapted_from": null,
+      "notes": "Operates on a 2D (leads x time) view rather than 1D channels, so lead ordering is spatially meaningful to this model in a way it is not for the 1D trunks.",
+      "deviations": [],
+      "explain": {
+        "gradient_attribution": true,
+        "occlusion": true,
+        "class_activation": false
+      }
+    },
+    {
+      "name": "dualnet",
+      "family": "hybrid",
+      "summary": "Two parallel branches -- a CNN-LSTM path and a transformer path -- fused before the head.",
+      "description": null,
+      "paper": null,
+      "code_url": null,
+      "adapted_from": null,
+      "notes": "Bounded above at 5000 input samples by the transformer branch's positional encoding.",
+      "deviations": [],
+      "explain": {
+        "gradient_attribution": true,
+        "occlusion": true,
+        "class_activation": false
+      }
+    },
+    {
+      "name": "fcn-wang",
+      "family": "cnn",
+      "summary": "Fully convolutional network with global average pooling and no fully-connected trunk.",
+      "description": null,
+      "paper": {
+        "title": "Time Series Classification from Scratch with Deep Neural Networks: A Strong Baseline",
+        "authors": "Wang, Yan, Oates",
+        "venue": "IJCNN",
+        "year": 2017,
+        "id": "10.1109/IJCNN.2017.7966039",
+        "url": "https://doi.org/10.1109/IJCNN.2017.7966039"
+      },
+      "code_url": null,
+      "adapted_from": null,
+      "notes": null,
+      "deviations": [],
+      "explain": {
+        "gradient_attribution": true,
+        "occlusion": true,
+        "class_activation": false
+      }
+    },
+    {
+      "name": "gru",
+      "family": "rnn",
+      "summary": "A gated recurrent baseline; cheaper per step than LSTM with a comparable role.",
+      "description": null,
+      "paper": {
+        "title": "Learning Phrase Representations using RNN Encoder-Decoder for Statistical Machine Translation",
+        "authors": "Cho, van Merrienboer, Gulcehre, Bahdanau, Bougares, Schwenk, Bengio",
+        "venue": "EMNLP",
+        "year": 2014,
+        "id": "arXiv:1406.1078",
+        "url": "https://arxiv.org/abs/1406.1078"
+      },
+      "code_url": null,
+      "adapted_from": null,
+      "notes": null,
+      "deviations": [],
+      "explain": {
+        "gradient_attribution": true,
+        "occlusion": true,
+        "class_activation": false
+      }
+    },
+    {
+      "name": "inception-time",
+      "family": "cnn",
+      "summary": "Parallel convolutions at several kernel widths, capturing multi-scale temporal structure.",
+      "description": null,
+      "paper": {
+        "title": "InceptionTime: Finding AlexNet for Time Series Classification",
+        "authors": "Fawaz, Lucas, Forestier, Pelletier, Schmidt, Weber, Webb, Idoumghar, Muller, Petitjean",
+        "venue": "Data Mining and Knowledge Discovery",
+        "year": 2020,
+        "id": "10.1007/s10618-020-00710-y",
+        "url": "https://doi.org/10.1007/s10618-020-00710-y"
+      },
+      "code_url": "https://github.com/hfawaz/InceptionTime",
+      "adapted_from": null,
+      "notes": null,
+      "deviations": [],
+      "explain": {
+        "gradient_attribution": true,
+        "occlusion": true,
+        "class_activation": false
+      }
+    },
+    {
+      "name": "kanres-deep",
+      "family": "cnn",
+      "summary": "The deep KanRes variant: more residual blocks, a narrower final feature dimension.",
+      "description": null,
+      "paper": {
+        "title": "Explaining deep neural networks for knowledge discovery in electrocardiogram analysis",
+        "authors": "Hicks, Isaksen, Thambawita, Ghouse, Ahlberg, Linneberg, Grarup, Strümke, Ellervik, Olesen, Hansen, Graff, Holstein-Rathlou, Halvorsen, Maleckar, Riegler, Kanters",
+        "venue": "Scientific Reports",
+        "year": 2021,
+        "id": "10.1038/s41598-021-90285-5",
+        "url": "https://doi.org/10.1038/s41598-021-90285-5"
+      },
+      "code_url": null,
+      "adapted_from": "kanres",
+      "notes": null,
+      "deviations": [],
+      "explain": {
+        "gradient_attribution": true,
+        "occlusion": true,
+        "class_activation": false
+      }
+    },
+    {
+      "name": "kanres",
+      "family": "cnn",
+      "summary": "A compact residual convolutional network with three wide residual blocks.",
+      "description": null,
+      "paper": {
+        "title": "Explaining deep neural networks for knowledge discovery in electrocardiogram analysis",
+        "authors": "Hicks, Isaksen, Thambawita, Ghouse, Ahlberg, Linneberg, Grarup, Strümke, Ellervik, Olesen, Hansen, Graff, Holstein-Rathlou, Halvorsen, Maleckar, Riegler, Kanters",
+        "venue": "Scientific Reports",
+        "year": 2021,
+        "id": "10.1038/s41598-021-90285-5",
+        "url": "https://doi.org/10.1038/s41598-021-90285-5"
+      },
+      "code_url": null,
+      "adapted_from": null,
+      "notes": null,
+      "deviations": [],
+      "explain": {
+        "gradient_attribution": true,
+        "occlusion": true,
+        "class_activation": false
+      }
+    },
+    {
+      "name": "lstm",
+      "family": "rnn",
+      "summary": "A recurrent baseline reading the downsampled signal as a sequence.",
+      "description": null,
+      "paper": {
+        "title": "Long Short-Term Memory",
+        "authors": "Hochreiter, Schmidhuber",
+        "venue": "Neural Computation",
+        "year": 1997,
+        "id": "10.1162/neco.1997.9.8.1735",
+        "url": "https://doi.org/10.1162/neco.1997.9.8.1735"
+      },
+      "code_url": null,
+      "adapted_from": null,
+      "notes": null,
+      "deviations": [],
+      "explain": {
+        "gradient_attribution": true,
+        "occlusion": true,
+        "class_activation": false
+      }
+    },
+    {
+      "name": "mamba",
+      "family": "ssm",
+      "summary": "Bidirectional selective state-space model with sub-quadratic mixing over long sequences.",
+      "description": null,
+      "paper": {
+        "title": "Mamba: Linear-Time Sequence Modeling with Selective State Spaces",
+        "authors": "Gu, Dao",
+        "venue": null,
+        "year": 2023,
+        "id": "arXiv:2312.00752",
+        "url": "https://arxiv.org/abs/2312.00752"
+      },
+      "code_url": null,
+      "adapted_from": null,
+      "notes": "Included here because it is a registered architecture with measured results. Note the conference paper excludes Mamba; this site documents the library, not the paper.",
+      "deviations": [],
+      "explain": {
+        "gradient_attribution": true,
+        "occlusion": true,
+        "class_activation": false
+      }
+    },
+    {
+      "name": "medformer",
+      "family": "transformer",
+      "summary": "Multi-granularity patching transformer built for medical time series.",
+      "description": null,
+      "paper": {
+        "title": "Medformer: A Multi-Granularity Patching Transformer for Medical Time-Series Classification",
+        "authors": "Wang, Chen, Fu, Song, Zhang, Wang, Yang, Wang",
+        "venue": "NeurIPS",
+        "year": 2024,
+        "id": "arXiv:2405.19363",
+        "url": "https://arxiv.org/abs/2405.19363"
+      },
+      "code_url": null,
+      "adapted_from": null,
+      "notes": null,
+      "deviations": [],
+      "explain": {
+        "gradient_attribution": true,
+        "occlusion": true,
+        "class_activation": false
+      }
+    },
+    {
+      "name": "mlp-wang",
+      "family": "baseline",
+      "summary": "The fully connected baseline from the same paper as FCN-Wang: three hidden layers over the flattened signal.",
+      "description": "The fully connected baseline of Wang et al.: the signal is flattened and passed through three hidden layers with ReLU activations and dropout.",
+      "paper": {
+        "title": "Time Series Classification from Scratch with Deep Neural Networks: A Strong Baseline",
+        "authors": "Wang, Yan, Oates",
+        "venue": "IJCNN",
+        "year": 2017,
+        "id": "10.1109/IJCNN.2017.7966039",
+        "url": "https://doi.org/10.1109/IJCNN.2017.7966039"
+      },
+      "code_url": null,
+      "adapted_from": null,
+      "notes": null,
+      "deviations": [
+        "The signal is averaged over time to a fixed number of samples per lead before it is flattened, so that any signal length is accepted; the original flattens the series as it is."
+      ],
+      "explain": {
+        "gradient_attribution": true,
+        "occlusion": true,
+        "class_activation": false
+      }
+    },
+    {
+      "name": "resnet-hannun",
+      "family": "cnn",
+      "summary": "The 34-layer pre-activation residual network of Hannun et al. for rhythm classification.",
+      "description": "The 34-layer residual network of Hannun et al.: a stem convolution followed by sixteen pre-activation residual blocks of two convolutions each, with long kernels and repeated subsampling.",
+      "paper": {
+        "title": "Cardiologist-level arrhythmia detection and classification in ambulatory electrocardiograms using a deep neural network",
+        "authors": "Hannun, Rajpurkar, Haghpanahi, Tison, Bourn, Turakhia, Ng",
+        "venue": "Nature Medicine",
+        "year": 2019,
+        "id": "10.1038/s41591-018-0268-3",
+        "url": "https://doi.org/10.1038/s41591-018-0268-3"
+      },
+      "code_url": "https://github.com/awni/ecg",
+      "adapted_from": null,
+      "notes": null,
+      "deviations": [
+        "The original emits one prediction per output step; here the final feature map is pooled over time and a single classifier is applied."
+      ],
+      "explain": {
+        "gradient_attribution": true,
+        "occlusion": true,
+        "class_activation": false
+      }
+    },
+    {
+      "name": "resnet-wang",
+      "family": "cnn",
+      "summary": "The residual baseline from the same paper as FCN-Wang: three residual blocks over raw signal.",
+      "description": null,
+      "paper": {
+        "title": "Time Series Classification from Scratch with Deep Neural Networks: A Strong Baseline",
+        "authors": "Wang, Yan, Oates",
+        "venue": "IJCNN",
+        "year": 2017,
+        "id": "10.1109/IJCNN.2017.7966039",
+        "url": "https://doi.org/10.1109/IJCNN.2017.7966039"
+      },
+      "code_url": null,
+      "adapted_from": "fcn-wang",
+      "notes": null,
+      "deviations": [],
+      "explain": {
+        "gradient_attribution": true,
+        "occlusion": true,
+        "class_activation": false
+      }
+    },
+    {
+      "name": "resnet",
+      "family": "cnn",
+      "summary": "A 1D adaptation of the standard residual network, and the project's default trunk.",
+      "description": null,
+      "paper": {
+        "title": "Deep Residual Learning for Image Recognition",
+        "authors": "He, Zhang, Ren, Sun",
+        "venue": "CVPR",
+        "year": 2016,
+        "id": "10.1109/CVPR.2016.90",
+        "url": "https://doi.org/10.1109/CVPR.2016.90"
+      },
+      "code_url": null,
+      "adapted_from": null,
+      "notes": null,
+      "deviations": [],
+      "explain": {
+        "gradient_attribution": true,
+        "occlusion": true,
+        "class_activation": false
+      }
+    },
+    {
+      "name": "rocket",
+      "family": "baseline",
+      "summary": "Frozen random convolution kernels summarised by two statistics each, with a linear classifier on top.",
+      "description": "A non-deep baseline. Random convolution kernels are drawn once and never trained; each contributes the proportion of positive values and the maximum of its output, and a linear layer classifies the resulting feature vector.",
+      "paper": {
+        "title": "ROCKET: exceptionally fast and accurate time series classification using random convolutional kernels",
+        "authors": "Dempster, Petitjean, Webb",
+        "venue": "Data Mining and Knowledge Discovery",
+        "year": 2020,
+        "id": "10.1007/s10618-020-00701-z",
+        "url": "https://doi.org/10.1007/s10618-020-00701-z"
+      },
+      "code_url": "https://github.com/angus924/rocket",
+      "adapted_from": null,
+      "notes": "Only the linear classifier is trained, so the parameter count covers that layer alone. The random kernels are frozen buffers saved with the checkpoint, which keeps a run reproducible.",
+      "deviations": [
+        "Every kernel sees all input channels.",
+        "Every kernel uses \"same\" padding, where the original draws the padding at random.",
+        "The linear classifier is fitted by gradient descent on the training loss, where the original fits a ridge regression."
+      ],
+      "explain": {
+        "gradient_attribution": true,
+        "occlusion": true,
+        "class_activation": false
+      }
+    },
+    {
+      "name": "se-resnet",
+      "family": "cnn",
+      "summary": "ResNet1D with squeeze-and-excitation blocks recalibrating each channel.",
+      "description": null,
+      "paper": {
+        "title": "Squeeze-and-Excitation Networks",
+        "authors": "Hu, Shen, Sun",
+        "venue": "CVPR",
+        "year": 2018,
+        "id": "10.1109/CVPR.2018.00745",
+        "url": "https://doi.org/10.1109/CVPR.2018.00745"
+      },
+      "code_url": null,
+      "adapted_from": "resnet",
+      "notes": null,
+      "deviations": [],
+      "explain": {
+        "gradient_attribution": true,
+        "occlusion": true,
+        "class_activation": false
+      }
+    },
+    {
+      "name": "simple-cnn",
+      "family": "cnn",
+      "summary": "A short stack of convolution-pooling blocks, used as the cheapest sanity baseline.",
+      "description": null,
+      "paper": null,
+      "code_url": null,
+      "adapted_from": null,
+      "notes": "No published origin: a minimal in-house baseline whose purpose is to make a training pipeline fail loudly rather than to compete.",
+      "deviations": [],
+      "explain": {
+        "gradient_attribution": true,
+        "occlusion": true,
+        "class_activation": false
+      }
+    },
+    {
+      "name": "spectrogram-cnn",
+      "family": "cnn",
+      "summary": "A 2-D convolutional network over the log-magnitude spectrogram of each lead.",
+      "description": "A time-frequency baseline. Each lead is transformed by a short-time Fourier transform and its log-magnitude spectrogram forms one image channel; four 2-D convolution blocks and global average pooling follow.",
+      "paper": null,
+      "code_url": null,
+      "adapted_from": null,
+      "notes": "An in-house design without a published reference implementation. It follows the spectrogram-input approach common among entries to the PhysioNet/CinC 2017 challenge.",
+      "deviations": [],
+      "explain": {
+        "gradient_attribution": true,
+        "occlusion": true,
+        "class_activation": false
+      }
+    },
+    {
+      "name": "tcn",
+      "family": "cnn",
+      "summary": "Dilated causal convolutions giving an exponentially growing receptive field.",
+      "description": null,
+      "paper": {
+        "title": "An Empirical Evaluation of Generic Convolutional and Recurrent Networks for Sequence Modeling",
+        "authors": "Bai, Kolter, Koltun",
+        "venue": null,
+        "year": 2018,
+        "id": "arXiv:1803.01271",
+        "url": "https://arxiv.org/abs/1803.01271"
+      },
+      "code_url": null,
+      "adapted_from": null,
+      "notes": null,
+      "deviations": [],
+      "explain": {
+        "gradient_attribution": true,
+        "occlusion": true,
+        "class_activation": false
+      }
+    },
+    {
+      "name": "transformer",
+      "family": "transformer",
+      "summary": "A transformer encoder over timesteps with learned positional encoding.",
+      "description": null,
+      "paper": {
+        "title": "Attention Is All You Need",
+        "authors": "Vaswani, Shazeer, Parmar, Uszkoreit, Jones, Gomez, Kaiser, Polosukhin",
+        "venue": "NeurIPS",
+        "year": 2017,
+        "id": "arXiv:1706.03762",
+        "url": "https://arxiv.org/abs/1706.03762"
+      },
+      "code_url": null,
+      "adapted_from": null,
+      "notes": "Positional encoding caps the input at 5000 samples, which is the whole 10-second PTB- XL record at 500 Hz and a fraction of a Holter recording.",
+      "deviations": [],
+      "explain": {
+        "gradient_attribution": true,
+        "occlusion": true,
+        "class_activation": false
+      }
+    },
+    {
+      "name": "xresnet",
+      "family": "cnn",
+      "summary": "ResNet with the bag-of-tricks refinements: Mish activation and blur-pool downsampling.",
+      "description": null,
+      "paper": {
+        "title": "Bag of Tricks for Image Classification with Convolutional Neural Networks",
+        "authors": "He, Zhang, Zhang, Zhang, Xie, Li",
+        "venue": "CVPR",
+        "year": 2019,
+        "id": "10.1109/CVPR.2019.00065",
+        "url": "https://doi.org/10.1109/CVPR.2019.00065"
+      },
+      "code_url": null,
+      "adapted_from": "resnet",
+      "notes": null,
+      "deviations": [],
+      "explain": {
+        "gradient_attribution": true,
+        "occlusion": true,
+        "class_activation": false
+      }
+    },
+    {
+      "name": "xresnet1d-benchmark",
+      "family": "cnn",
+      "summary": "The xResNet1d variant used by the PTB-XL benchmark, with a fixed feature dim and concat pooling.",
+      "description": null,
+      "paper": {
+        "title": "Deep Learning for ECG Analysis: Benchmarks and Insights from PTB-XL",
+        "authors": "Strodthoff, Wagner, Schaeffter, Samek",
+        "venue": "IEEE JBHI",
+        "year": 2021,
+        "id": "10.1109/JBHI.2020.3022989",
+        "url": "https://doi.org/10.1109/JBHI.2020.3022989"
+      },
+      "code_url": "https://github.com/helme/ecg_ptbxl_benchmarking",
+      "adapted_from": "xresnet",
+      "notes": "Kept deliberately faithful to the published benchmark configuration so PTB-XL numbers stay comparable with Strodthoff et al.",
+      "deviations": [],
+      "explain": {
+        "gradient_attribution": true,
+        "occlusion": true,
+        "class_activation": false
+      }
+    },
+    {
+      "name": "xresnet1d101",
+      "family": "cnn",
+      "summary": "The deep xResNet1d of the PTB-XL benchmark, built from bottleneck blocks.",
+      "description": "The deep xResNet1d of the PTB-XL benchmark: bottleneck residual blocks, a three-convolution stem and a concatenated average-and-maximum pooling head.",
+      "paper": {
+        "title": "Deep Learning for ECG Analysis: Benchmarks and Insights from PTB-XL",
+        "authors": "Strodthoff, Wagner, Schaeffter, Samek",
+        "venue": "IEEE JBHI",
+        "year": 2021,
+        "id": "10.1109/JBHI.2020.3022989",
+        "url": "https://doi.org/10.1109/JBHI.2020.3022989"
+      },
+      "code_url": "https://github.com/helme/ecg_ptbxl_benchmarking",
+      "adapted_from": "xresnet1d-benchmark",
+      "notes": "Follows the xresnet1d101 constructor of the PTB-XL benchmark code, so PTB-XL numbers stay comparable with Strodthoff et al. The fixed-width xresnet1d-benchmark is its shallow counterpart.",
+      "deviations": [],
+      "explain": {
+        "gradient_attribution": true,
+        "occlusion": true,
+        "class_activation": false
+      }
+    }
+  ]
+}

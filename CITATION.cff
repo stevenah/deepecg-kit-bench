@@ -1,12 +1,12 @@
 cff-version: 1.2.0
 message: >-
-  If you refer to results published on DeepECG-Bench, cite the DeepECG-Kit software and name the
-  snapshot id you read. Snapshot directories are immutable and carry checksums, so a snapshot id
-  identifies an exact set of numbers.
+  If you refer to results published on DeepECG-Bench, cite the DeepECG-Kit software and give the
+  results date and library version shown at the foot of the page, which identify the numbers
+  you read.
 title: "DeepECG-Bench"
 abstract: >-
-  A catalogue of the architectures registered in DeepECG-Kit and a record of what has been
-  measured on each, published as immutable, checksummed result snapshots.
+  The architectures registered in DeepECG-Kit and their benchmark results on every task, as a
+  single page drawn from three published data files.
 type: software
 authors:
   - family-names: Hicks

@@ -1,83 +1,54 @@
-name: Build and deploy
+name: Test and deploy
 
-# The monthly cron exists so the rendered snapshot age and _version.json stay current on a
-# site nobody has touched. It is an optimisation, not the mechanism: GitHub disables
-# schedule: triggers after 60 days of repository inactivity, which is exactly when a
-# staleness warning matters most. The authoritative staleness check runs in the reader's
-# browser (assets/js/age.js) from an embedded timestamp.
+# site/ is published exactly as committed: there is no build. The only thing between a
+# push and the public page is the test job.
 on:
   push:
     branches: [main]
+  pull_request:
   workflow_dispatch:
-  schedule:
-    - cron: "0 6 1 * *"
 
 permissions:
   contents: read
-  pages: write
-  id-token: write
-
-concurrency:
-  group: pages
-  cancel-in-progress: false
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0            # git describe needs tags; depth-1 omits them
 
       - uses: astral-sh/setup-uv@v5
         with:
           enable-cache: true
 
-      # Gate BEFORE anything renders. Registry/_models drift, an unstatused cell, mixed
-      # averaging in one column, a forbidden key, a checksum mismatch -> exit 1 here, and
-      # nothing is deployed.
-      - name: Validate
-        run: uv run --no-project --with pyyaml python tools/validate.py --strict
-
-      - name: Build site data and charts
-        run: uv run --no-project --with pyyaml python tools/build_site_data.py
-
-      - uses: ruby/setup-ruby@v1
+      # Node only runs the page-logic tests. 22, because site/app.js is an ES module with
+      # a .js name and no package.json, which older versions refuse to import.
+      - uses: actions/setup-node@v4
         with:
-          ruby-version: "3.3"
-          bundler-cache: true
+          node-version: 22
 
-      - name: Jekyll build
-        env:
-          JEKYLL_ENV: production
-        run: bundle exec jekyll build --trace
+      # Includes the browser smoke test, which uses the runner's own Chrome.
+      - name: Data, tool, style and browser tests
+        run: uv run pytest -q
 
-      # AFTER the build, on purpose. Jekyll refuses to copy underscore-prefixed files out of
-      # the source tree, so writing _version.json before the build would publish nothing and
-      # fail silently in the browser.
-      - name: Stamp version into the built site
-        run: |
-          TAG="$(git tag --sort=-v:refname --merged HEAD 2>/dev/null | head -n1 || true)"
-          cat > _site/_version.json <<EOF
-          {
-            "tag": "${TAG}",
-            "sha": "${GITHUB_SHA:0:12}",
-            "ref": "${GITHUB_REF_NAME}",
-            "built_utc": "$(date -u +%Y-%m-%dT%H:%M:%SZ)"
-          }
-          EOF
-          cat _site/_version.json
+      - name: Page-logic tests
+        run: node --test tools/tests/app.test.mjs
 
-      - name: Check internal links
-        run: uv run --no-project --with pyyaml python tools/check_links.py _site --fail-on-404
-
-      - uses: actions/upload-pages-artifact@v3
+      - if: github.event_name != 'pull_request'
+        uses: actions/upload-pages-artifact@v3
         with:
-          path: _site
+          path: site
 
   deploy:
-    needs: build
+    if: github.event_name != 'pull_request'
+    needs: test
     runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    concurrency:
+      group: pages
+      cancel-in-progress: false
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}

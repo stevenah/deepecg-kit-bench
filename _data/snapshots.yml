@@ -1,6 +1,0 @@
-# Which snapshot the site currently renders. Flipping `current` is the one-line change
-# that publishes a new set of results. Snapshot directories are immutable once merged,
-# so every id below stays addressable and citable forever.
-current: 2026-cbms-preliminary
-archive:
-  - 2026-cbms-preliminary
