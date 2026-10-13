@@ -1,17 +1,18 @@
 ---
 registry_name: kanres
-title: KAN-ResNet
+title: KanRes
 family: cnn
 order: 101
 maturity: experimental
-one_liner: A residual trunk whose head uses Kolmogorov-Arnold layers with learned spline activations.
-search_keywords: kan kolmogorov arnold spline residual wide
+one_liner: A compact residual convolutional network with three wide residual blocks.
+search_keywords: kanres kanres-wide residual wide compact hicks explainable
 origin:
-  paper_title: 'KAN: Kolmogorov-Arnold Networks'
-  authors: Liu, Wang, Vaidya, Ruehle, Halverson, Soljacic, Hou, Tegmark
-  venue: null
-  year: 2024
-  doi: arXiv:2404.19756
+  paper_title: Explaining deep neural networks for knowledge discovery in electrocardiogram analysis
+  authors: Hicks, Isaksen, Thambawita, Ghouse, Ahlberg, Linneberg, Grarup, Strümke, Ellervik, Olesen, Hansen,
+    Graff, Holstein-Rathlou, Halvorsen, Maleckar, Riegler, Kanters
+  venue: Scientific Reports
+  year: 2021
+  doi: 10.1038/s41598-021-90285-5
   code_url: null
   adapted_from: null
 applicability:
@@ -22,9 +23,7 @@ applicability:
 sections:
 - type: description
   title: Overview
-  body: 'A residual trunk whose head uses Kolmogorov-Arnold layers with learned spline
-
-    activations.
+  body: 'A compact residual convolutional network with three wide residual blocks.
 
     '
 - type: architecture
@@ -40,8 +39,8 @@ sections:
 - type: links
   title: References
   items:
-  - label: 'KAN: Kolmogorov-Arnold Networks'
-    url: https://arxiv.org/abs/2404.19756
+  - label: Explaining deep neural networks for knowledge discovery in electrocardiogram analysis
+    url: https://doi.org/10.1038/s41598-021-90285-5
 implementation_notes: null
 deviations_from_paper: []
 ---

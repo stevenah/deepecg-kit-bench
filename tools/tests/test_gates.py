@@ -394,7 +394,7 @@ def test_valueless_rows_are_split_out_not_dropped(sandbox: Path) -> None:
     """The results table shows rows with something to show; the rest are still emitted.
 
     Listing every never-trained architecture in the metric grid made it mostly em dashes --
-    on LTAFDB, 21 rows of nothing at all. They move to a compact disclosure rather than
+    on LTAFDB, a row of nothing for every architecture. They move to a compact disclosure rather than
     disappearing, so the rule that no cell may be left blank still holds.
     """
     _site, _cells, results = _build(sandbox)
@@ -414,7 +414,7 @@ def test_valueless_rows_are_split_out_not_dropped(sandbox: Path) -> None:
     # LTAFDB has no runs and no citations, so its main table is empty and the page says so
     # rather than rendering a header with nothing under it.
     assert results["ltafdb-binary"]["rows"] == []
-    assert results["ltafdb-binary"]["n_no_data"] == 21
+    assert results["ltafdb-binary"]["n_no_data"] == results["ltafdb-binary"]["n_models"] > 0
 
 
 def test_reported_unknown_model_still_refused(sandbox: Path) -> None:
@@ -452,6 +452,30 @@ REPORTED_AUROC = """
     doi: "10.1000/example"
   protocol_note: "Authors' own split."
 """
+
+
+def test_defects_follow_the_snapshot_kit_not_the_registry(sandbox: Path) -> None:
+    """Re-exporting the registry must not retire a defect from numbers an older kit produced.
+
+    A defect is capped by kit version. The registry is refreshed whenever an architecture is
+    added upstream, so its version runs ahead of the snapshot's; reading the cap against it
+    would drop the warning from results that still carry the defect.
+    """
+    import json
+
+    site, _cells, _results = _build(sandbox)
+    produced_by = site.manifest["produced_by"]["kit_version"]
+    (sandbox / "_data" / "known_defects.yml").write_text(
+        f'- id: probe-defect\n  datasets: [ltafdb]\n  kit_version_max: "{produced_by}"\n'
+        '  severity: high\n  summary: "x"\n  detail: "x"\n', encoding="utf-8")
+    reg_path = sandbox / "_data" / "registry.json"
+    reg = json.loads(reg_path.read_text(encoding="utf-8"))
+    reg["meta"]["kit_version"] = "99.0.0"
+    reg_path.write_text(json.dumps(reg), encoding="utf-8")
+
+    _site, cells, _results = _build(sandbox)
+    ltafdb = [c for c in cells if c["task"] == "ltafdb-binary"]
+    assert ltafdb and all(c["defects"] == ["probe-defect"] for c in ltafdb)
 
 
 def test_reported_non_primary_metric_gets_a_column_and_a_value(sandbox: Path) -> None:

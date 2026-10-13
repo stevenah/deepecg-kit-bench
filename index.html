@@ -20,7 +20,6 @@ needs_filter: true
     <a href="{{ site.kit_docs }}">{% include icons.html name='book' %} Library docs</a>
     <a href="{{ '/leaderboard/' | relative_url }}">{% include icons.html name='chart' %} Results</a>
     <a href="{{ '/coverage/' | relative_url }}">{% include icons.html name='grid' %} Coverage</a>
-    <a href="{{ '/methodology/' | relative_url }}">{% include icons.html name='info' %} Methodology</a>
     <a href="https://vajira.info/ECGBench/">{% include icons.html name='database' %} ECGBench (datasets)</a>
   </div>
 </div></header>
@@ -47,8 +46,8 @@ uv sync --group dev</pre>
   </div>
   <div class="callout" style="margin-left:0;margin-right:0">
     <h3>Version caveat</h3>
-    <p>This page describes the registry exported from deepecgkit <b>{{ ev.kit_version }}</b>{% if ev.kit_git_sha %}
-      at <code>{{ ev.kit_git_sha }}</code>{% endif %}, which registers <b>{{ ev.n_models }}</b> architectures.
+    <p>This page describes the registry exported from deepecgkit <b>{{ ev.registry_kit_version }}</b>{% if ev.registry_kit_git_sha %}
+      at <code>{{ ev.registry_kit_git_sha }}</code>{% endif %}, which registers <b>{{ ev.n_models }}</b> architectures.
       A release on PyPI may register a different set. The number is read from the export, never typed.</p>
   </div>
 </section>
@@ -82,7 +81,19 @@ deepecg rank --runs-dir runs --metric f1</pre>
     {% include icons.html name='search' %}
     <input type="search" id="search" placeholder="Search name, family, paper, keywords&hellip;" aria-label="Search architectures">
   </div>
-  <span class="filter-count" id="filter-count"></span>
+  <select class="filter-select" data-group="family" aria-label="Filter by family">
+    <option value="all">All families</option>
+    {%- for fam in cat.families %}{% if fam.count > 0 %}
+    <option value="{{ fam.key }}">{{ fam.label }} ({{ fam.count }})</option>
+    {%- endif %}{% endfor %}
+  </select>
+  <div class="filter-group" role="group" aria-label="Show">
+    <button class="filter-btn active" type="button" data-group="show" data-filter="all" aria-pressed="true">All</button>
+    <button class="filter-btn" type="button" data-group="show" data-filter="kit" aria-pressed="false">In DeepECG-Kit</button>
+    <button class="filter-btn" type="button" data-group="show" data-filter="measured" aria-pressed="false">With results</button>
+    <button class="filter-btn" type="button" data-group="show" data-filter="field" aria-pressed="false">Field survey</button>
+  </div>
+  <span class="filter-count" id="filter-count" aria-live="polite"></span>
 </div>
 
 {% for fam in cat.families %}
@@ -96,9 +107,13 @@ deepecg rank --runs-dir runs --metric f1</pre>
     <table>
       <thead>
         <tr>
-          <th>#</th><th>Architecture</th><th class="num">Year</th>
-          <th class="num">Params (M)</th><th class="center">In DeepECG-Kit</th>
-          <th class="num">Tasks measured</th><th>Paper</th>
+          <th>#</th>
+          <th data-sort="title" data-sort-type="text" aria-sort="none"><button class="sort-btn" type="button">Architecture</button></th>
+          <th class="num" data-sort="year" data-sort-type="num" aria-sort="none"><button class="sort-btn" type="button">Year</button></th>
+          <th class="num" data-sort="params" data-sort-type="num" aria-sort="none"><button class="sort-btn" type="button">Params (M)</button></th>
+          <th class="center">In DeepECG-Kit</th>
+          <th class="num" data-sort="measured" data-sort-type="num" aria-sort="none"><button class="sort-btn" type="button">Tasks measured</button></th>
+          <th>Paper</th>
         </tr>
       </thead>
       <tbody>
@@ -106,6 +121,7 @@ deepecg rank --runs-dir runs --metric f1</pre>
         <tr data-row data-family="{{ m.family }}"
             data-implemented="{% if m.implemented %}yes{% else %}no{% endif %}"
             data-measured="{{ m.tasks_measured | default: 0 }}"
+            data-title="{{ m.title | downcase | escape }}" data-year="{{ m.year }}" data-params="{{ m.params_m }}"
             data-text="{{ m.slug }} {{ m.title }} {{ m.family_label }} {{ m.one_liner }} {{ m.search_keywords }} {{ m.origin.paper_title }} {{ m.origin.authors }} {{ m.origin.venue }}">
           <td class="num-cell">{{ forloop.index }}</td>
           <td>
@@ -148,6 +164,7 @@ deepecg rank --runs-dir runs --metric f1</pre>
 </div>
 {% endif %}
 {% endfor %}
+<p class="table-note hidden" id="filter-empty">No architectures match the search and filters.</p>
 <p class="table-note">
   Parameter counts for implemented rows are measured by instantiating the model at
   <code>{{ cat.canonical_probe }}</code>; a dagger (&dagger;) marks a count reported by the authors
@@ -167,33 +184,4 @@ deepecg rank --runs-dir runs --metric f1</pre>
     </figcaption>
   </figure>
   <p style="margin-top:14px"><a href="{{ '/coverage/' | relative_url }}">Every cell, with its reason &rarr;</a></p>
-</section>
-
-<div class="section-header">
-  <h2>Statistics</h2>
-</div>
-<section class="charts-section">
-  <div class="charts-grid charts-grid-2">
-    <figure class="chart-card">
-      <h3>Architectures by family</h3>
-      <p>All {{ cat.n_survey }} catalogued architectures. Filled bars are implemented in DeepECG-Kit; outlined bars are field-survey entries.</p>
-      {{ site.data.generated.charts.stats_family }}
-    </figure>
-    <figure class="chart-card">
-      <h3>Architectures by publication year</h3>
-      <p>Filled bars implemented, outlined bars field survey. Undated entries are omitted from this chart only.</p>
-      {{ site.data.generated.charts.stats_year }}
-    </figure>
-    <figure class="chart-card">
-      <h3>Measured parameter counts</h3>
-      <p>Implemented architectures at {{ cat.canonical_probe }}, log scale. Field-survey rows are
-        absent because nothing about them is measured here.</p>
-      {{ site.data.generated.charts.stats_params }}
-    </figure>
-    <figure class="chart-card">
-      <h3>Snapshot cells by status</h3>
-      <p>The {{ ev.cells_total }} model&times;task cells of the current snapshot.</p>
-      {{ site.data.generated.charts.stats_status }}
-    </figure>
-  </div>
 </section>

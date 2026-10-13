@@ -24,8 +24,8 @@
 # every protocol_note says which, by name.
 #
 # WHAT THIS IS NOT. A reported value is NOT comparable with a measured one. The split,
-# preprocessing, label mapping and averaging are the publishing authors', not the protocol on
-# /methodology/. That is the whole reason for the separate bucket -- putting a published
+# preprocessing, label mapping and averaging are the publishing authors', not this site's
+# protocol. That is the whole reason for the separate bucket -- putting a published
 # number in a green cell would be a false comparison, and the site would have no way to say
 # so. Reported rows sit below the ranked block, are never ranked, and never draw a bar.
 #

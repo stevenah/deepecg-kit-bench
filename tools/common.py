@@ -189,6 +189,16 @@ class Site:
     def kit_version(self) -> str | None:
         return (self.registry.get("meta") or {}).get("kit_version")
 
+    @property
+    def snapshot_kit_version(self) -> str | None:
+        """The kit that produced the snapshot's numbers, which is not the registry's kit.
+
+        The registry is re-exported whenever an architecture is added upstream; a snapshot
+        keeps the numbers of the kit that trained it. Anything said about a result -- its
+        provenance, the defects it carries -- must read this one.
+        """
+        return (self.manifest.get("produced_by") or {}).get("kit_version")
+
 
 def load_site(root: Path = ROOT) -> Site:
     reg_path = root / "_data" / "registry.json"
@@ -256,7 +266,7 @@ def metric_vocabulary(site: Site, label_mode: str) -> set[str]:
 def defects_for(site: Site, dataset: str) -> list[dict[str, Any]]:
     """Known defects that apply to this dataset at the snapshot's kit version."""
     out = []
-    kit = site.kit_version or ""
+    kit = site.snapshot_kit_version or ""
     for d in site.known_defects:
         if dataset not in (d.get("datasets") or []):
             continue
@@ -384,7 +394,7 @@ def build_cells(site: Site) -> tuple[list[dict[str, Any]], list[Problem]]:
                     "averaging": row.get("averaging") or "unknown",
                 })
                 # A direct reading of the committed numbers, NOT a convergence verdict:
-                # the site never re-implements the library's criterion. See methodology.
+                # the site never re-implements the library's criterion.
                 prec = to_float((agg.get((ds, name, "precision")) or {}).get("mean"))
                 rec = to_float((agg.get((ds, name, "recall")) or {}).get("mean"))
                 if prec == 0.0 and rec == 0.0:

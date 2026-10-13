@@ -11,7 +11,7 @@ origin:
   authors: Woo, Debnath, Hu, Chen, Liu, Kweon, Xie
   venue: CVPR
   year: 2023
-  doi: null
+  doi: 10.1109/CVPR52729.2023.01548
   code_url: https://github.com/facebookresearch/ConvNeXt-V2
   adapted_from: null
 implementation_notes: 'Adapted from the 2D vision architecture; the masked-autoencoder pretraining that
@@ -42,6 +42,8 @@ sections:
 - type: links
   title: References
   items:
+  - label: 'ConvNeXt V2: Co-designing and Scaling ConvNets with Masked Autoencoders'
+    url: https://doi.org/10.1109/CVPR52729.2023.01548
   - label: Reference implementation
     url: https://github.com/facebookresearch/ConvNeXt-V2
 deviations_from_paper: []

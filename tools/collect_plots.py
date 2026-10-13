@@ -8,7 +8,7 @@ confusion matrix and invisible in its F1 alone.
 
 These are raster images with colours baked in. They are never themed: the templates render
 them on a fixed white card in both light and dark mode, because tinting or inverting a plot
-misrepresents it. That rule is stated on /methodology/.
+misrepresents it.
 
 The index written here is what the templates iterate, so a page can never reference a file
 that was not copied -- which under strict_variables would be a build error, and in a

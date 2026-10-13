@@ -1,10 +1,10 @@
 {
   "meta": {
-    "kit_version": "0.2.0",
+    "kit_version": "0.3.0",
     "kit_source": null,
-    "exported_utc": "2026-09-01T18:26:33Z",
+    "exported_utc": "2026-10-13T06:03:07Z",
     "python": "3.10.16",
-    "n_models": 21,
+    "n_models": 26,
     "n_datasets": 5,
     "canonical_probe": "12x5",
     "probes": {
@@ -21,7 +21,7 @@
         "output_size": 2
       }
     },
-    "kit_git_sha": "2e333f459d09",
+    "kit_git_sha": "89c1b683a19f",
     "kit_git_dirty": false,
     "torch": "2.7.0"
   },
@@ -37,25 +37,28 @@
       },
       "min_input_length": 7971,
       "max_input_length": null,
-      "display_name": null,
+      "display_name": "AFModel",
       "probes": {
         "12x5": {
           "status": "ok",
           "params_total": 5781821,
           "params_trainable": 5781821,
-          "feature_dim": 196
+          "feature_dim": 196,
+          "reason": null
         },
         "1x4": {
           "status": "ok",
           "params_total": 5759096,
           "params_trainable": 5759096,
-          "feature_dim": 196
+          "feature_dim": 196,
+          "reason": null
         },
         "2x2": {
           "status": "ok",
           "params_total": 5760750,
           "params_trainable": 5760750,
-          "feature_dim": 196
+          "feature_dim": 196,
+          "reason": null
         }
       }
     },
@@ -74,19 +77,22 @@
           "status": "ok",
           "params_total": 8090437,
           "params_trainable": 8090437,
-          "feature_dim": 512
+          "feature_dim": 512,
+          "reason": null
         },
         "1x4": {
           "status": "ok",
           "params_total": 8084996,
           "params_trainable": 8084996,
-          "feature_dim": 512
+          "feature_dim": 512,
+          "reason": null
         },
         "2x2": {
           "status": "ok",
           "params_total": 8084418,
           "params_trainable": 8084418,
-          "feature_dim": 512
+          "feature_dim": 512,
+          "reason": null
         }
       }
     },
@@ -105,19 +111,22 @@
           "status": "ok",
           "params_total": 944549,
           "params_trainable": 944549,
-          "feature_dim": 256
+          "feature_dim": 256,
+          "reason": null
         },
         "1x4": {
           "status": "ok",
           "params_total": 942020,
           "params_trainable": 942020,
-          "feature_dim": 256
+          "feature_dim": 256,
+          "reason": null
         },
         "2x2": {
           "status": "ok",
           "params_total": 942114,
           "params_trainable": 942114,
-          "feature_dim": 256
+          "feature_dim": 256,
+          "reason": null
         }
       }
     },
@@ -130,25 +139,28 @@
       "default_kwargs": {},
       "min_input_length": 127,
       "max_input_length": null,
-      "display_name": null,
+      "display_name": "DeepResCNN",
       "probes": {
         "12x5": {
           "status": "ok",
           "params_total": 593669,
           "params_trainable": 593669,
-          "feature_dim": 128
+          "feature_dim": 128,
+          "reason": null
         },
         "1x4": {
           "status": "ok",
           "params_total": 413380,
           "params_trainable": 413380,
-          "feature_dim": 128
+          "feature_dim": 128,
+          "reason": null
         },
         "2x2": {
           "status": "ok",
           "params_total": 429634,
           "params_trainable": 429634,
-          "feature_dim": 128
+          "feature_dim": 128,
+          "reason": null
         }
       }
     },
@@ -161,25 +173,28 @@
       "default_kwargs": {},
       "min_input_length": 8,
       "max_input_length": 5000,
-      "display_name": null,
+      "display_name": "DualNet",
       "probes": {
         "12x5": {
           "status": "ok",
           "params_total": 677189,
           "params_trainable": 677189,
-          "feature_dim": 384
+          "feature_dim": 384,
+          "reason": null
         },
         "1x4": {
           "status": "ok",
           "params_total": 670724,
           "params_trainable": 670724,
-          "feature_dim": 384
+          "feature_dim": 384,
+          "reason": null
         },
         "2x2": {
           "status": "ok",
           "params_total": 671042,
           "params_trainable": 671042,
-          "feature_dim": 384
+          "feature_dim": 384,
+          "reason": null
         }
       }
     },
@@ -192,25 +207,28 @@
       "default_kwargs": {},
       "min_input_length": 2,
       "max_input_length": null,
-      "display_name": null,
+      "display_name": "FCN",
       "probes": {
         "12x5": {
           "status": "ok",
           "params_total": 276101,
           "params_trainable": 276101,
-          "feature_dim": 128
+          "feature_dim": 128,
+          "reason": null
         },
         "1x4": {
           "status": "ok",
           "params_total": 264708,
           "params_trainable": 264708,
-          "feature_dim": 128
+          "feature_dim": 128,
+          "reason": null
         },
         "2x2": {
           "status": "ok",
           "params_total": 265474,
           "params_trainable": 265474,
-          "feature_dim": 128
+          "feature_dim": 128,
+          "reason": null
         }
       }
     },
@@ -223,25 +241,28 @@
       "default_kwargs": {},
       "min_input_length": null,
       "max_input_length": null,
-      "display_name": null,
+      "display_name": "GRU",
       "probes": {
         "12x5": {
           "status": "ok",
           "params_total": 607493,
           "params_trainable": 607493,
-          "feature_dim": 768
+          "feature_dim": 768,
+          "reason": null
         },
         "1x4": {
           "status": "ok",
           "params_total": 598276,
           "params_trainable": 598276,
-          "feature_dim": 768
+          "feature_dim": 768,
+          "reason": null
         },
         "2x2": {
           "status": "ok",
           "params_total": 597506,
           "params_trainable": 597506,
-          "feature_dim": 768
+          "feature_dim": 768,
+          "reason": null
         }
       }
     },
@@ -260,19 +281,22 @@
           "status": "ok",
           "params_total": 503685,
           "params_trainable": 503685,
-          "feature_dim": 128
+          "feature_dim": 128,
+          "reason": null
         },
         "1x4": {
           "status": "ok",
           "params_total": 501444,
           "params_trainable": 501444,
-          "feature_dim": 128
+          "feature_dim": 128,
+          "reason": null
         },
         "2x2": {
           "status": "ok",
           "params_total": 501378,
           "params_trainable": 501378,
-          "feature_dim": 128
+          "feature_dim": 128,
+          "reason": null
         }
       }
     },
@@ -285,25 +309,28 @@
       "default_kwargs": {},
       "min_input_length": null,
       "max_input_length": null,
-      "display_name": null,
+      "display_name": "KanRes",
       "probes": {
         "12x5": {
           "status": "ok",
           "params_total": 77701,
           "params_trainable": 77701,
-          "feature_dim": 64
+          "feature_dim": 64,
+          "reason": null
         },
         "1x4": {
           "status": "ok",
           "params_total": 75524,
           "params_trainable": 75524,
-          "feature_dim": 64
+          "feature_dim": 64,
+          "reason": null
         },
         "2x2": {
           "status": "ok",
           "params_total": 75586,
           "params_trainable": 75586,
-          "feature_dim": 64
+          "feature_dim": 64,
+          "reason": null
         }
       }
     },
@@ -316,25 +343,28 @@
       "default_kwargs": {},
       "min_input_length": 11,
       "max_input_length": null,
-      "display_name": null,
+      "display_name": "KanRes-Deep",
       "probes": {
         "12x5": {
           "status": "ok",
           "params_total": 1653445,
           "params_trainable": 1653445,
-          "feature_dim": 32
+          "feature_dim": 32,
+          "reason": null
         },
         "1x4": {
           "status": "ok",
           "params_total": 1647780,
           "params_trainable": 1647780,
-          "feature_dim": 32
+          "feature_dim": 32,
+          "reason": null
         },
         "2x2": {
           "status": "ok",
           "params_total": 1648226,
           "params_trainable": 1648226,
-          "feature_dim": 32
+          "feature_dim": 32,
+          "reason": null
         }
       }
     },
@@ -347,25 +377,28 @@
       "default_kwargs": {},
       "min_input_length": null,
       "max_input_length": null,
-      "display_name": null,
+      "display_name": "LSTM",
       "probes": {
         "12x5": {
           "status": "ok",
           "params_total": 557445,
           "params_trainable": 557445,
-          "feature_dim": 256
+          "feature_dim": 256,
+          "reason": null
         },
         "1x4": {
           "status": "ok",
           "params_total": 546116,
           "params_trainable": 546116,
-          "feature_dim": 256
+          "feature_dim": 256,
+          "reason": null
         },
         "2x2": {
           "status": "ok",
           "params_total": 547010,
           "params_trainable": 547010,
-          "feature_dim": 256
+          "feature_dim": 256,
+          "reason": null
         }
       }
     },
@@ -384,19 +417,22 @@
           "status": "ok",
           "params_total": 1183749,
           "params_trainable": 1183749,
-          "feature_dim": 128
+          "feature_dim": 128,
+          "reason": null
         },
         "1x4": {
           "status": "ok",
           "params_total": 1113220,
           "params_trainable": 1113220,
-          "feature_dim": 128
+          "feature_dim": 128,
+          "reason": null
         },
         "2x2": {
           "status": "ok",
           "params_total": 1119362,
           "params_trainable": 1119362,
-          "feature_dim": 128
+          "feature_dim": 128,
+          "reason": null
         }
       }
     },
@@ -415,19 +451,56 @@
           "status": "ok",
           "params_total": 1318661,
           "params_trainable": 1318661,
-          "feature_dim": 384
+          "feature_dim": 384,
+          "reason": null
         },
         "1x4": {
           "status": "ok",
           "params_total": 1198596,
           "params_trainable": 1198596,
-          "feature_dim": 384
+          "feature_dim": 384,
+          "reason": null
         },
         "2x2": {
           "status": "ok",
           "params_total": 1208706,
           "params_trainable": 1208706,
-          "feature_dim": 384
+          "feature_dim": 384,
+          "reason": null
+        }
+      }
+    },
+    "mlp-wang": {
+      "registry_name": "mlp-wang",
+      "class": "MLPWang",
+      "module": "deepecgkit.models.mlp_wang",
+      "description": "MLP (Wang et al.) on the flattened, time-pooled signal",
+      "head_attr": "classifier",
+      "default_kwargs": {},
+      "min_input_length": null,
+      "max_input_length": null,
+      "display_name": "MLP",
+      "probes": {
+        "12x5": {
+          "status": "ok",
+          "params_total": 6504005,
+          "params_trainable": 6504005,
+          "feature_dim": 500,
+          "reason": null
+        },
+        "1x4": {
+          "status": "ok",
+          "params_total": 1003504,
+          "params_trainable": 1003504,
+          "feature_dim": 500,
+          "reason": null
+        },
+        "2x2": {
+          "status": "ok",
+          "params_total": 1502502,
+          "params_trainable": 1502502,
+          "feature_dim": 500,
+          "reason": null
         }
       }
     },
@@ -446,19 +519,56 @@
           "status": "ok",
           "params_total": 8739973,
           "params_trainable": 8739973,
-          "feature_dim": 512
+          "feature_dim": 512,
+          "reason": null
         },
         "1x4": {
           "status": "ok",
           "params_total": 8728900,
           "params_trainable": 8728900,
-          "feature_dim": 512
+          "feature_dim": 512,
+          "reason": null
         },
         "2x2": {
           "status": "ok",
           "params_total": 8728834,
           "params_trainable": 8728834,
-          "feature_dim": 512
+          "feature_dim": 512,
+          "reason": null
+        }
+      }
+    },
+    "resnet-hannun": {
+      "registry_name": "resnet-hannun",
+      "class": "ResNetHannun",
+      "module": "deepecgkit.models.resnet_hannun",
+      "description": "34-layer residual network (Hannun et al. 2019) with 16 pre-activation blocks",
+      "head_attr": "classifier",
+      "default_kwargs": {},
+      "min_input_length": null,
+      "max_input_length": null,
+      "display_name": "ResNet-Hannun",
+      "probes": {
+        "12x5": {
+          "status": "ok",
+          "params_total": 15244805,
+          "params_trainable": 15244805,
+          "feature_dim": 256,
+          "reason": null
+        },
+        "1x4": {
+          "status": "ok",
+          "params_total": 15233284,
+          "params_trainable": 15233284,
+          "feature_dim": 256,
+          "reason": null
+        },
+        "2x2": {
+          "status": "ok",
+          "params_total": 15233794,
+          "params_trainable": 15233794,
+          "feature_dim": 256,
+          "reason": null
         }
       }
     },
@@ -471,25 +581,62 @@
       "default_kwargs": {},
       "min_input_length": null,
       "max_input_length": null,
-      "display_name": null,
+      "display_name": "ResNet-Wang",
       "probes": {
         "12x5": {
           "status": "ok",
           "params_total": 406405,
           "params_trainable": 406405,
-          "feature_dim": 128
+          "feature_dim": 128,
+          "reason": null
         },
         "1x4": {
           "status": "ok",
           "params_total": 396420,
           "params_trainable": 396420,
-          "feature_dim": 128
+          "feature_dim": 128,
+          "reason": null
         },
         "2x2": {
           "status": "ok",
           "params_total": 397058,
           "params_trainable": 397058,
-          "feature_dim": 128
+          "feature_dim": 128,
+          "reason": null
+        }
+      }
+    },
+    "rocket": {
+      "registry_name": "rocket",
+      "class": "ROCKET",
+      "module": "deepecgkit.models.rocket",
+      "description": "ROCKET: frozen random convolution kernels, PPV and max pooling, linear head",
+      "head_attr": "classifier",
+      "default_kwargs": {},
+      "min_input_length": null,
+      "max_input_length": null,
+      "display_name": "ROCKET",
+      "probes": {
+        "12x5": {
+          "status": "ok",
+          "params_total": 10005,
+          "params_trainable": 10005,
+          "feature_dim": 2000,
+          "reason": null
+        },
+        "1x4": {
+          "status": "ok",
+          "params_total": 8004,
+          "params_trainable": 8004,
+          "feature_dim": 2000,
+          "reason": null
+        },
+        "2x2": {
+          "status": "ok",
+          "params_total": 4002,
+          "params_trainable": 4002,
+          "feature_dim": 2000,
+          "reason": null
         }
       }
     },
@@ -508,19 +655,22 @@
           "status": "ok",
           "params_total": 8827013,
           "params_trainable": 8827013,
-          "feature_dim": 512
+          "feature_dim": 512,
+          "reason": null
         },
         "1x4": {
           "status": "ok",
           "params_total": 8815940,
           "params_trainable": 8815940,
-          "feature_dim": 512
+          "feature_dim": 512,
+          "reason": null
         },
         "2x2": {
           "status": "ok",
           "params_total": 8815874,
           "params_trainable": 8815874,
-          "feature_dim": 512
+          "feature_dim": 512,
+          "reason": null
         }
       }
     },
@@ -533,25 +683,62 @@
       "default_kwargs": {},
       "min_input_length": 8,
       "max_input_length": null,
-      "display_name": null,
+      "display_name": "SimpleCNN",
       "probes": {
         "12x5": {
           "status": "ok",
           "params_total": 170789,
           "params_trainable": 170789,
-          "feature_dim": 256
+          "feature_dim": 256,
+          "reason": null
         },
         "1x4": {
           "status": "ok",
           "params_total": 168196,
           "params_trainable": 168196,
-          "feature_dim": 256
+          "feature_dim": 256,
+          "reason": null
         },
         "2x2": {
           "status": "ok",
           "params_total": 168162,
           "params_trainable": 168162,
-          "feature_dim": 256
+          "feature_dim": 256,
+          "reason": null
+        }
+      }
+    },
+    "spectrogram-cnn": {
+      "registry_name": "spectrogram-cnn",
+      "class": "SpectrogramCNN",
+      "module": "deepecgkit.models.spectrogram_cnn",
+      "description": "2-D CNN on per-lead log-magnitude STFT spectrograms",
+      "head_attr": "classifier",
+      "default_kwargs": {},
+      "min_input_length": 128,
+      "max_input_length": null,
+      "display_name": "SpectrogramCNN",
+      "probes": {
+        "12x5": {
+          "status": "ok",
+          "params_total": 1177093,
+          "params_trainable": 1177093,
+          "feature_dim": 256,
+          "reason": null
+        },
+        "1x4": {
+          "status": "ok",
+          "params_total": 1173668,
+          "params_trainable": 1173668,
+          "feature_dim": 256,
+          "reason": null
+        },
+        "2x2": {
+          "status": "ok",
+          "params_total": 1173442,
+          "params_trainable": 1173442,
+          "feature_dim": 256,
+          "reason": null
         }
       }
     },
@@ -564,25 +751,28 @@
       "default_kwargs": {},
       "min_input_length": null,
       "max_input_length": null,
-      "display_name": null,
+      "display_name": "TCN",
       "probes": {
         "12x5": {
           "status": "ok",
           "params_total": 2146821,
           "params_trainable": 2146821,
-          "feature_dim": 256
+          "feature_dim": 256,
+          "reason": null
         },
         "1x4": {
           "status": "ok",
           "params_total": 2140932,
           "params_trainable": 2140932,
-          "feature_dim": 256
+          "feature_dim": 256,
+          "reason": null
         },
         "2x2": {
           "status": "ok",
           "params_total": 2140930,
           "params_trainable": 2140930,
-          "feature_dim": 256
+          "feature_dim": 256,
+          "reason": null
         }
       }
     },
@@ -595,25 +785,28 @@
       "default_kwargs": {},
       "min_input_length": null,
       "max_input_length": 5000,
-      "display_name": null,
+      "display_name": "Transformer",
       "probes": {
         "12x5": {
           "status": "ok",
           "params_total": 829061,
           "params_trainable": 829061,
-          "feature_dim": 128
+          "feature_dim": 128,
+          "reason": null
         },
         "1x4": {
           "status": "ok",
           "params_total": 827396,
           "params_trainable": 827396,
-          "feature_dim": 128
+          "feature_dim": 128,
+          "reason": null
         },
         "2x2": {
           "status": "ok",
           "params_total": 827010,
           "params_trainable": 827010,
-          "feature_dim": 128
+          "feature_dim": 128,
+          "reason": null
         }
       }
     },
@@ -626,25 +819,28 @@
       "default_kwargs": {},
       "min_input_length": 17,
       "max_input_length": null,
-      "display_name": null,
+      "display_name": "XResNet1D",
       "probes": {
         "12x5": {
           "status": "ok",
           "params_total": 8740485,
           "params_trainable": 8740485,
-          "feature_dim": 512
+          "feature_dim": 512,
+          "reason": null
         },
         "1x4": {
           "status": "ok",
           "params_total": 8737508,
           "params_trainable": 8737508,
-          "feature_dim": 512
+          "feature_dim": 512,
+          "reason": null
         },
         "2x2": {
           "status": "ok",
           "params_total": 8736706,
           "params_trainable": 8736706,
-          "feature_dim": 512
+          "feature_dim": 512,
+          "reason": null
         }
       }
     },
@@ -657,25 +853,62 @@
       "default_kwargs": {},
       "min_input_length": null,
       "max_input_length": null,
-      "display_name": null,
+      "display_name": "XResNet1D-Bench",
       "probes": {
         "12x5": {
           "status": "ok",
           "params_total": 348165,
           "params_trainable": 348165,
-          "feature_dim": 128
+          "feature_dim": 128,
+          "reason": null
         },
         "1x4": {
           "status": "ok",
           "params_total": 346276,
           "params_trainable": 346276,
-          "feature_dim": 128
+          "feature_dim": 128,
+          "reason": null
         },
         "2x2": {
           "status": "ok",
           "params_total": 346178,
           "params_trainable": 346178,
-          "feature_dim": 128
+          "feature_dim": 128,
+          "reason": null
+        }
+      }
+    },
+    "xresnet1d101": {
+      "registry_name": "xresnet1d101",
+      "class": "XResNet1d101Benchmark",
+      "module": "deepecgkit.models.xresnet1d101_benchmark",
+      "description": "XResNet1d-101 (bottleneck, [3, 4, 23, 3]) as in the PTB-XL benchmark",
+      "head_attr": "head",
+      "default_kwargs": {},
+      "min_input_length": null,
+      "max_input_length": null,
+      "display_name": "XResNet1D-101",
+      "probes": {
+        "12x5": {
+          "status": "ok",
+          "params_total": 33050501,
+          "params_trainable": 33050501,
+          "feature_dim": 4096,
+          "reason": null
+        },
+        "1x4": {
+          "status": "ok",
+          "params_total": 33044644,
+          "params_trainable": 33044644,
+          "feature_dim": 4096,
+          "reason": null
+        },
+        "2x2": {
+          "status": "ok",
+          "params_total": 33036610,
+          "params_trainable": 33036610,
+          "feature_dim": 4096,
+          "reason": null
         }
       }
     }
@@ -704,8 +937,8 @@
       "registry_name": "ltafdb",
       "class": "LTAFDBDataset",
       "module": "deepecgkit.datasets.ltafdb",
-      "description": "Long-Term AF Database (2-lead, binary or 4-class)",
-      "input_channels": 2,
+      "description": "Long-Term AF Database (first lead by default, binary or 4-class)",
+      "input_channels": 1,
       "num_classes": 4,
       "class_labels": [
         "Normal",
@@ -723,8 +956,8 @@
       "registry_name": "mitbih-afdb",
       "class": "MITBIHAFDBDataset",
       "module": "deepecgkit.datasets.mitbih_afdb",
-      "description": "MIT-BIH AF Database (2-lead, binary or 4-class)",
-      "input_channels": 2,
+      "description": "MIT-BIH AF Database (first lead by default, binary or 4-class)",
+      "input_channels": 1,
       "num_classes": 4,
       "class_labels": [
         "Normal",

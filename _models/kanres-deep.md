@@ -1,17 +1,18 @@
 ---
 registry_name: kanres-deep
-title: KAN-ResNet (deep)
+title: KanRes-Deep
 family: cnn
 order: 108
 maturity: experimental
-one_liner: 'A deeper KAN-ResNet: more residual stages, a narrower final feature dimension.'
-search_keywords: kan kolmogorov arnold deep spline residual
+one_liner: 'The deep KanRes variant: more residual blocks, a narrower final feature dimension.'
+search_keywords: kanres kanres-deep residual deep hicks explainable
 origin:
-  paper_title: 'KAN: Kolmogorov-Arnold Networks'
-  authors: Liu, Wang, Vaidya, Ruehle, Halverson, Soljacic, Hou, Tegmark
-  venue: null
-  year: 2024
-  doi: arXiv:2404.19756
+  paper_title: Explaining deep neural networks for knowledge discovery in electrocardiogram analysis
+  authors: Hicks, Isaksen, Thambawita, Ghouse, Ahlberg, Linneberg, Grarup, Strümke, Ellervik, Olesen, Hansen,
+    Graff, Holstein-Rathlou, Halvorsen, Maleckar, Riegler, Kanters
+  venue: Scientific Reports
+  year: 2021
+  doi: 10.1038/s41598-021-90285-5
   code_url: null
   adapted_from: kanres
 applicability:
@@ -22,7 +23,7 @@ applicability:
 sections:
 - type: description
   title: Overview
-  body: 'A deeper KAN-ResNet: more residual stages, a narrower final feature dimension.
+  body: 'The deep KanRes variant: more residual blocks, a narrower final feature dimension.
 
     '
 - type: architecture
@@ -38,8 +39,8 @@ sections:
 - type: links
   title: References
   items:
-  - label: 'KAN: Kolmogorov-Arnold Networks'
-    url: https://arxiv.org/abs/2404.19756
+  - label: Explaining deep neural networks for knowledge discovery in electrocardiogram analysis
+    url: https://doi.org/10.1038/s41598-021-90285-5
 implementation_notes: null
 deviations_from_paper: []
 ---

@@ -109,9 +109,7 @@ different numbers.
 - **Torch is never on the deploy path.** Only `tools/export_registry.py` imports the library, and
   it runs in the refresh-registry bot job.
 
-See [MAINTAINING.md](MAINTAINING.md) for the upkeep contract and
-[/methodology/](https://stevenah.github.io/deepecg-kit-bench/methodology/) for what the numbers
-mean.
+See [MAINTAINING.md](MAINTAINING.md) for the upkeep contract.
 
 ## Licence
 

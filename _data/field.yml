@@ -177,20 +177,6 @@
     doi: "10.1001/jamacardio.2019.0640"
     code_url: null
     adapted_from: null
-- slug: hannun-rajpurkar-cnn
-  title: "Hannun-Rajpurkar CNN"
-  family: cnn
-  one_liner: "Deep residual CNN classifying twelve rhythm classes from more than 91,000 single-lead ambulatory ECGs."
-  params_m_reported: null
-  search_keywords: "Hannun Rajpurkar deep neural network arrhythmia single-lead ambulatory ECG Zio patch cardiologist-level Nature Medicine 2019 residual CNN"
-  origin:
-    paper_title: "Cardiologist-level arrhythmia detection and classification in ambulatory electrocardiograms using a deep neural network"
-    authors: "Hannun, Rajpurkar, Haghpanahi, Tison, Bourn, Turakhia, Ng"
-    venue: "Nature Medicine"
-    year: 2019
-    doi: "10.1038/s41591-018-0268-3"
-    code_url: "https://github.com/awni/ecg"
-    adapted_from: null
 - slug: strodthoff-mi-fcn
   title: "Strodthoff MI-FCN"
   family: cnn

@@ -273,20 +273,42 @@ p code, li code, td code, .fact code, .meta-line code {
 }
 .filter-btn:hover, .filter-btn.active { background: var(--surface-2); color: var(--text); border-color: var(--accent); }
 .filter-btn.active { color: var(--accent); }
+.filter-select {
+  background: var(--surface); border: 1px solid var(--border); color: var(--text);
+  font: inherit; font-size: .82rem; font-weight: 600; padding: 7px 12px; border-radius: 8px;
+  cursor: pointer; outline: none; transition: border-color .2s;
+}
+.filter-select:hover, .filter-select:focus { border-color: var(--accent); }
 .filter-count { color: var(--muted); font-size: .82rem; margin-left: auto; }
 
 /* ── Tables ── */
 .table-wrap { max-width: 1300px; margin: 0 auto; padding: 0 24px 24px; overflow-x: auto; }
-table { width: 100%; border-collapse: collapse; font-size: .875rem; }
-thead tr { background: var(--surface-2); border-bottom: 2px solid var(--border); }
+/* Separate borders, because a collapsed table ignores border-radius. The rules sit on the
+ * cells for the same reason, and as top borders so the last visible row never doubles the
+ * frame when the catalogue filter hides the rows below it. */
+table {
+  width: 100%; border-collapse: separate; border-spacing: 0; font-size: .875rem;
+  border: 1px solid var(--border); border-radius: 12px; overflow: hidden;
+}
+thead th { background: var(--surface-2); border-bottom: 1px solid var(--border); }
 th {
   padding: 12px 14px; text-align: left; color: var(--muted); font-size: .75rem; font-weight: 700;
   text-transform: uppercase; letter-spacing: .07em; white-space: nowrap;
 }
-tbody tr { border-bottom: 1px solid var(--border); transition: background .15s; }
-tbody tr:hover { background: var(--surface); }
+tbody td { border-top: 1px solid var(--border); transition: background .15s; }
+tbody tr:hover td { background: var(--surface); }
 tbody tr.hidden, .hidden { display: none !important; }
 td { padding: 12px 14px; vertical-align: top; color: var(--text); }
+/* A sortable header is a button, so it is reachable by keyboard; the glyph says which way. */
+th[data-sort] { cursor: pointer; user-select: none; }
+.sort-btn {
+  background: none; border: 0; padding: 0; cursor: pointer; color: inherit; font: inherit;
+  text-transform: inherit; letter-spacing: inherit; white-space: nowrap;
+}
+.sort-btn::after { content: "↕"; margin-left: 6px; opacity: .45; }
+th[data-sort]:hover .sort-btn, th[aria-sort="ascending"] .sort-btn, th[aria-sort="descending"] .sort-btn { color: var(--text); }
+th[aria-sort="ascending"] .sort-btn::after { content: "↑"; opacity: 1; color: var(--accent); }
+th[aria-sort="descending"] .sort-btn::after { content: "↓"; opacity: 1; color: var(--accent); }
 td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
 td.center, th.center { text-align: center; }
 td.num-cell { color: var(--muted); font-size: .8rem; }
@@ -349,8 +371,6 @@ td.num-cell { color: var(--muted); font-size: .8rem; }
 
 /* ── Charts ── */
 .charts-section { max-width: 1300px; margin: 0 auto; padding: 16px 24px 40px; }
-.charts-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(520px, 1fr)); gap: 20px; }
-.charts-grid-2 { grid-template-columns: repeat(auto-fit, minmax(460px, 1fr)); }
 .chart-card {
   background: var(--surface); border: 1px solid var(--border);
   border-radius: 16px; padding: 24px 20px 16px; box-shadow: var(--card-shadow); overflow-x: auto;
@@ -399,6 +419,6 @@ footer.site a { color: var(--accent); }
 @media (max-width: 640px) {
   header.hero { padding: 40px 16px 32px; }
   .stats { padding: 24px 16px 4px; }
-  .card-grid, .charts-grid { grid-template-columns: 1fr; }
+  .card-grid { grid-template-columns: 1fr; }
   .nav-links { gap: 10px; }
 }

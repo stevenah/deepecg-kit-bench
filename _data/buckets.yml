@@ -15,7 +15,7 @@ kit:
   glyph: "●"
   color_light: "#1B7F4B"
   color_dark: "#22c55e"
-  blurb: "Trained and evaluated by this site under the protocol described on /methodology/."
+  blurb: "Trained and evaluated by this site under a single protocol."
 reported:
   label: "Reported by paper"
   order: 2

@@ -1,6 +1,11 @@
 # Architecture families. The SITE is the sole authority for this field: the library
 # records no family, and docs/user-guide/model-zoo.md upstream carries a different,
-# incompatible taxonomy that Phase 6 retires in favour of this one.
+# incompatible taxonomy that Phase 6 retires in favour of this one. `baseline` mirrors the
+# Baseline family of docs/benchmark/architectures.md upstream.
+baseline:
+  label: "Baseline"
+  order: 0
+  blurb: "Non-deep references in which only a linear or fully connected classifier is trained."
 cnn:
   label: "Convolutional"
   order: 1

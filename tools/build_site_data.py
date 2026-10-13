@@ -151,9 +151,7 @@ def build_catalogue(site, cells) -> dict[str, Any]:
     families = [
         {"key": k, "label": v.get("label", k), "order": v.get("order", 999),
          "blurb": v.get("blurb", ""),
-         "count": sum(1 for r in survey if r["family"] == k),
-         "count_implemented": sum(1 for r in survey if r["family"] == k and r["implemented"]),
-         "count_field": sum(1 for r in survey if r["family"] == k and not r["implemented"])}
+         "count": sum(1 for r in survey if r["family"] == k)}
         for k, v in site.families.items()
     ]
     families.sort(key=lambda f: f["order"])
@@ -467,14 +465,19 @@ def build_evidence(site, coverage, results, catalogue) -> dict[str, Any]:
     manifest = site.manifest
     flags = manifest.get("schema_flags") or {}
     protocol = manifest.get("protocol") or {}
+    produced_by = manifest.get("produced_by") or {}
     rankable = [t for t, v in results.items() if v["rankable"]]
     return {
         "snapshot_id": site.snapshot_id,
         "snapshot_status": manifest.get("status"),
         "snapshot_label": manifest.get("label"),
         "generated_utc": manifest.get("generated_utc"),
-        "kit_version": site.kit_version,
-        "kit_git_sha": (manifest.get("produced_by") or {}).get("kit_git_sha"),
+        # Two kits, deliberately kept apart: the one that produced the snapshot's numbers,
+        # and the one the registry (hence the catalogue) was exported from.
+        "kit_version": site.snapshot_kit_version,
+        "kit_git_sha": produced_by.get("kit_git_sha"),
+        "registry_kit_version": site.kit_version,
+        "registry_kit_git_sha": (site.registry.get("meta") or {}).get("kit_git_sha"),
         "n_models": coverage["n_models"],
         "n_survey": catalogue["n_survey"],
         "n_field": catalogue["n_field"],
@@ -636,134 +639,6 @@ def svg_task_bars(site, task_result) -> str:
     return "\n".join(out)
 
 
-
-# --------------------------------------------------------------------------------------
-# Statistics charts. Same rules as every other chart: emitted from the validated JSON,
-# every colour a custom property, inlined by Liquid, no JavaScript.
-# --------------------------------------------------------------------------------------
-
-def _hbar_frame(n_rows: int, w: int = 720, bar_h: int = 22, gap: int = 7,
-                pad_l: int = 190, pad_t: int = 12, pad_r: int = 56):
-    h = pad_t + n_rows * (bar_h + gap) + 10
-    return w, h, bar_h, gap, pad_l, pad_t, w - pad_l - pad_r
-
-
-def svg_stacked_counts(items: list[tuple[str, int, int]], aria: str) -> str:
-    """Horizontal bars split into implemented (filled) and field-survey (outline) segments."""
-    if not items:
-        return ""
-    w, h, bar_h, gap, pad_l, pad_t, plot_w = _hbar_frame(len(items))
-    vmax = max((a + b) for _, a, b in items) or 1
-    out = [f'<svg class="chart" viewBox="0 0 {w} {h}" width="100%" height="{h}" role="img" '
-           f'xmlns="http://www.w3.org/2000/svg" aria-label="{esc(aria)}">']
-    for i, (label, impl, field) in enumerate(items):
-        y = pad_t + i * (bar_h + gap)
-        wi = plot_w * impl / vmax
-        wf = plot_w * field / vmax
-        out.append(f'<text x="{pad_l - 10}" y="{y + 15}" class="chart-rowlabel" '
-                   f'text-anchor="end">{esc(label)}</text>')
-        tip = f"{label}: {impl} implemented, {field} field survey"
-        out.append(f'<g><title>{esc(tip)}</title>')
-        if impl:
-            out.append(f'<rect x="{pad_l}" y="{y + 2}" width="{max(wi, 1):.1f}" '
-                       f'height="{bar_h - 4}" fill="var(--text)" fill-opacity="0.65"/>')
-        if field:
-            out.append(f'<rect x="{pad_l + wi:.1f}" y="{y + 2}" width="{max(wf, 1):.1f}" '
-                       f'height="{bar_h - 4}" fill="none" stroke="var(--muted)" '
-                       f'stroke-width="1.2"/>')
-        out.append(f'<text x="{pad_l + wi + wf + 8:.1f}" y="{y + 15}" class="chart-value">'
-                   f'{impl + field}</text>')
-        out.append("</g>")
-    out.append("</svg>")
-    return "\n".join(out)
-
-
-def svg_params_log(rows: list[dict[str, Any]]) -> str:
-    """Measured parameter counts on a log scale. Kit models only: nothing here is reported."""
-    import math
-
-    rows = [r for r in rows if r.get("params_m")]
-    rows.sort(key=lambda r: r["params_m"], reverse=True)
-    if not rows:
-        return ""
-    w, h, bar_h, gap, pad_l, pad_t, plot_w = _hbar_frame(len(rows), bar_h=18, gap=6, pad_t=30)
-    h += 20
-    lo, hi = 0.05, 10.0
-    def x_of(v: float) -> float:
-        f = (math.log10(v) - math.log10(lo)) / (math.log10(hi) - math.log10(lo))
-        return pad_l + plot_w * max(0.0, min(1.0, f))
-    out = [f'<svg class="chart" viewBox="0 0 {w} {h}" width="100%" height="{h}" role="img" '
-           f'xmlns="http://www.w3.org/2000/svg" '
-           f'aria-label="Measured parameter counts of the implemented architectures, log scale">']
-    for tick in (0.1, 0.3, 1.0, 3.0, 10.0):
-        x = x_of(tick)
-        out.append(f'<line x1="{x:.1f}" y1="{pad_t - 6}" x2="{x:.1f}" y2="{h - 24}" '
-                   f'stroke="var(--grid)" stroke-width="1"/>')
-        out.append(f'<text x="{x:.1f}" y="{h - 10}" class="chart-tick" '
-                   f'text-anchor="middle">{tick:g}M</text>')
-    out.append(f'<text x="{pad_l}" y="{pad_t - 14}" class="chart-axislabel">parameters '
-               f'(millions, log scale)</text>')
-    for i, r in enumerate(rows):
-        y = pad_t + i * (bar_h + gap)
-        bw = x_of(r["params_m"]) - pad_l
-        out.append(f'<g><title>{esc(r["title"])}: {r["params_m"]}M parameters</title>')
-        out.append(f'<text x="{pad_l - 10}" y="{y + 13}" class="chart-rowlabel" '
-                   f'text-anchor="end">{esc(r["title"])}</text>')
-        out.append(f'<rect x="{pad_l}" y="{y + 2}" width="{max(bw, 1):.1f}" '
-                   f'height="{bar_h - 4}" fill="var(--muted)" fill-opacity="0.45"/>')
-        out.append(f'<text x="{pad_l + max(bw, 1) + 8:.1f}" y="{y + 13}" class="chart-value">'
-                   f'{r["params_m"]}</text>')
-        out.append("</g>")
-    out.append("</svg>")
-    return "\n".join(out)
-
-
-def svg_status_counts(site, coverage) -> str:
-    items = [(v["label"], v["key"], v["count"]) for v in coverage["status_summary"] if v["count"]]
-    if not items:
-        return ""
-    w, h, bar_h, gap, pad_l, pad_t, plot_w = _hbar_frame(len(items))
-    vmax = max(n for _, _, n in items) or 1
-    out = [f'<svg class="chart" viewBox="0 0 {w} {h}" width="100%" height="{h}" role="img" '
-           f'xmlns="http://www.w3.org/2000/svg" '
-           f'aria-label="Model by task cells by status in the current snapshot">']
-    for i, (label, key, n) in enumerate(items):
-        y = pad_t + i * (bar_h + gap)
-        bw = plot_w * n / vmax
-        out.append(f'<g><title>{esc(label)}: {n} cells</title>')
-        out.append(f'<text x="{pad_l - 10}" y="{y + 15}" class="chart-rowlabel" '
-                   f'text-anchor="end">{esc(label)}</text>')
-        out.append(f'<rect x="{pad_l}" y="{y + 2}" width="{max(bw, 1):.1f}" height="{bar_h - 4}" '
-                   f'fill="var(--status-{key})" fill-opacity="0.5" '
-                   f'stroke="var(--status-{key})" stroke-opacity="0.6"/>')
-        out.append(f'<text x="{pad_l + max(bw, 1) + 8:.1f}" y="{y + 15}" class="chart-value">{n}</text>')
-        out.append("</g>")
-    out.append("</svg>")
-    return "\n".join(out)
-
-
-def build_stats_charts(site, catalogue, coverage) -> dict[str, str]:
-    survey = catalogue["survey"]
-    fam_items = [(f["label"], f["count_implemented"], f["count_field"])
-                 for f in catalogue["families"] if f["count"]]
-    years = sorted({r["year"] for r in survey if r["year"]})
-    year_items = []
-    if years:
-        for y in range(min(years), max(years) + 1):
-            impl = sum(1 for r in survey if r["year"] == y and r["implemented"])
-            fld = sum(1 for r in survey if r["year"] == y and not r["implemented"])
-            year_items.append((str(y), impl, fld))
-    return {
-        "stats_family": svg_stacked_counts(
-            fam_items, "Catalogued architectures by family, implemented versus field survey"),
-        "stats_year": svg_stacked_counts(
-            year_items, "Catalogued architectures by publication year"),
-        "stats_params": svg_params_log(catalogue["models"] and [
-            {"title": m["title"], "params_m": m["params_m"]} for m in catalogue["models"]]),
-        "stats_status": svg_status_counts(site, coverage),
-    }
-
-
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--strict", action="store_true", default=True)
@@ -802,7 +677,6 @@ def main(argv: list[str] | None = None) -> int:
     # property that matters: an <img src> SVG is an isolated document that sees neither the
     # stylesheet nor :root[data-theme], so currentColor would resolve to black.
     charts: dict[str, str] = {"coverage_matrix": svg_coverage_matrix(site, cells)}
-    charts.update(build_stats_charts(site, catalogue, coverage))
     for tid, tr in results.items():
         charts[f"bars_{tid.replace('-', '_')}"] = svg_task_bars(site, tr)
     (GEN_DATA / "charts.json").write_text(

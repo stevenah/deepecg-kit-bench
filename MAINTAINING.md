@@ -43,8 +43,8 @@ Honest list.
 - **Citations.** `make identifiers` resolves every DOI and arXiv id and checks the registered title
   against the one we wrote down, so a *wrong* identifier is now caught rather than merely a missing
   one. It is not in `make check` because it needs the network — so it only protects you if someone
-  runs it. Five model pages still carry no DOI: `convnext-v2` has a paper but no DOI, and `afmodel`,
-  `crnn`, `dualnet` and `simple-cnn` have no origin paper at all, the last four by nature.
+  runs it. Four model pages carry no DOI: `afmodel`, `dualnet`, `simple-cnn` and `spectrogram-cnn`
+  are in-house designs with no origin paper, so by nature.
 - **`_data/reported.yml` precedence.** Where two papers report the same architecture on the same
   task, only one can fill the cell, and which one is a judgement recorded in a comment rather than
   enforced by a gate. If a better-documented source appears, nothing will tell you the old choice
