@@ -206,6 +206,34 @@
       "name": "Brier score after temperature scaling",
       "better": "lower",
       "group": "calibration"
+    },
+    {
+      "id": "ece_platt",
+      "label": "ECE (P)",
+      "name": "ECE after per-label scaling",
+      "better": "lower",
+      "group": "calibration"
+    },
+    {
+      "id": "adaptive_ece_platt",
+      "label": "AECE (P)",
+      "name": "Adaptive ECE after per-label scaling",
+      "better": "lower",
+      "group": "calibration"
+    },
+    {
+      "id": "mce_platt",
+      "label": "MCE (P)",
+      "name": "MCE after per-label scaling",
+      "better": "lower",
+      "group": "calibration"
+    },
+    {
+      "id": "brier_platt",
+      "label": "Brier (P)",
+      "name": "Brier score after per-label scaling",
+      "better": "lower",
+      "group": "calibration"
     }
   ],
   "models": [

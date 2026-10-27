@@ -2,7 +2,7 @@
   "meta": {
     "kit_version": "0.3.0",
     "kit_source": null,
-    "exported_utc": "2026-10-13T07:24:05Z",
+    "exported_utc": "2026-10-27T18:46:07Z",
     "python": "3.10.16",
     "n_models": 26,
     "n_datasets": 5,
@@ -21,8 +21,8 @@
         "output_size": 4
       }
     },
-    "kit_git_sha": "89c1b683a19f",
-    "kit_git_dirty": false,
+    "kit_git_sha": "286944ea5d82",
+    "kit_git_dirty": true,
     "torch": "2.7.0"
   },
   "models": {
@@ -449,22 +449,22 @@
       "probes": {
         "12x5": {
           "status": "ok",
-          "params_total": 1318661,
-          "params_trainable": 1318661,
+          "params_total": 1252357,
+          "params_trainable": 1252357,
           "feature_dim": 384,
           "reason": null
         },
         "1x1": {
           "status": "ok",
-          "params_total": 1197441,
-          "params_trainable": 1197441,
+          "params_total": 1131137,
+          "params_trainable": 1131137,
           "feature_dim": 384,
           "reason": null
         },
         "1x4": {
           "status": "ok",
-          "params_total": 1198596,
-          "params_trainable": 1198596,
+          "params_total": 1132292,
+          "params_trainable": 1132292,
           "feature_dim": 384,
           "reason": null
         }
@@ -1021,7 +1021,11 @@
       "ece_temp",
       "adaptive_ece_temp",
       "mce_temp",
-      "brier_temp"
+      "brier_temp",
+      "ece_platt",
+      "adaptive_ece_platt",
+      "mce_platt",
+      "brier_platt"
     ],
     "multi_label_metrics": [
       "exact_match_accuracy",
@@ -1038,7 +1042,11 @@
       "ece_temp",
       "adaptive_ece_temp",
       "mce_temp",
-      "brier_temp"
+      "brier_temp",
+      "ece_platt",
+      "adaptive_ece_platt",
+      "mce_platt",
+      "brier_platt"
     ],
     "calibration_metrics": [
       "ece",
@@ -1049,16 +1057,24 @@
       "ece_temp",
       "adaptive_ece_temp",
       "mce_temp",
-      "brier_temp"
+      "brier_temp",
+      "ece_platt",
+      "adaptive_ece_platt",
+      "mce_platt",
+      "brier_platt"
     ],
     "lower_is_better": [
       "adaptive_ece",
+      "adaptive_ece_platt",
       "adaptive_ece_temp",
       "brier",
+      "brier_platt",
       "brier_temp",
       "ece",
+      "ece_platt",
       "ece_temp",
       "mce",
+      "mce_platt",
       "mce_temp"
     ],
     "metric_display_names": {
@@ -1079,6 +1095,10 @@
       "adaptive_ece_temp": "AECE$_T$",
       "mce_temp": "MCE$_T$",
       "brier_temp": "Brier$_T$",
+      "ece_platt": "ECE$_P$",
+      "adaptive_ece_platt": "AECE$_P$",
+      "mce_platt": "MCE$_P$",
+      "brier_platt": "Brier$_P$",
       "auroc_macro": "AUROC",
       "balanced_accuracy": "Bal. acc.",
       "f1_macro": "F1"

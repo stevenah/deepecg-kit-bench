@@ -76,6 +76,24 @@ def test_nan_becomes_null_so_the_browser_can_parse_it(site: Path, tmp_path: Path
     assert "NaN" not in (site / "data" / "results.json").read_text()
 
 
+def test_a_metric_no_run_could_compute_is_left_out(site: Path, tmp_path: Path) -> None:
+    """Per-label scaling has no value on a softmax task; an empty entry would claim it was measured."""
+    agg = write_aggregate(
+        tmp_path / "agg",
+        [
+            "ds-a,net,f1,macro,1,1,0.7,,,,,42",
+            "ds-a,net,auroc,macro,1,0,,,,,,",
+        ],
+        [
+            "/gpu/runs/net-ds-a-seed42,net,ds-a,42,macro,False,,,,,f1,0.7",
+            "/gpu/runs/net-ds-a-seed42,net,ds-a,42,macro,False,,,,,auroc,",
+        ],
+    )
+    code, results = run(site, agg)
+    assert code == 0
+    assert list(results["rows"][0]["metrics"]) == ["f1"]
+
+
 def test_seedless_runs_have_no_seed_and_no_averaging(site: Path, tmp_path: Path) -> None:
     agg = write_aggregate(
         tmp_path / "agg",

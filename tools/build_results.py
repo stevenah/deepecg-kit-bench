@@ -121,8 +121,12 @@ def build_rows(
         if r.get("averaging") and r["averaging"] != AVERAGING_UNKNOWN:
             row["averaging"] = r["averaging"]
         row["runs"] = max(row["runs"], int(float(r.get("n_runs") or r["n"] or 0)))
+        n = int(float(r["n"] or 0))
+        if n == 0:
+            # No run could compute it, such as per-label scaling on a softmax task.
+            continue
         row["metrics"][r["metric"]] = {
-            "n": int(float(r["n"] or 0)),
+            "n": n,
             "mean": number(r["mean"]),
             "std": number(r["std"]),
             "lo": number(r["lower_ci"]),

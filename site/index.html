@@ -64,45 +64,25 @@ uv sync --group dev
   <section class="wrap guide" aria-labelledby="quickstart-title">
     <h2 id="quickstart-title">Quick Start</h2>
     <p class="guide-sub">
-      Load a dataset, train any architecture on it, predict on a raw recording, and explain the
+      Train any architecture on any dataset, predict on a raw recording, and explain the
       predictions, in a few lines of Python. Datasets download from PhysioNet on first use into
       <code>~/.deepecgkit/datasets</code>; the <a href="https://stevenah.github.io/deepecg-kit/user-guide/cli/">command line</a>
       does the same with <code>deepecg train</code>, <code>predict</code> and <code>explain</code>.
     </p>
 
     <div class="code-card">
-      <h3>Load a dataset and iterate batches</h3>
-      <pre class="code-block"><code><span class="keyword">from</span> deepecgkit.datasets <span class="keyword">import</span> ECGDataModule
-<span class="keyword">from</span> deepecgkit.registry <span class="keyword">import</span> get_dataset, get_dataset_info
-<span class="keyword">from</span> deepecgkit.training <span class="keyword">import</span> ECGTrainer
+      <h3>Train and test a model</h3>
+      <pre class="code-block"><code><span class="keyword">from</span> deepecgkit <span class="keyword">import</span> ECGDataModule, ECGTrainer, build_model
 
 ECGTrainer.<span class="func">seed_everything</span>(<span class="number">42</span>)
 
-<span class="comment"># PhysioNet 2017 (about 100 MB) as 10 s single-lead segments, resampled</span>
-<span class="comment"># from 300 Hz to the 500 Hz the benchmark uses for every dataset. The</span>
-<span class="comment"># 70/20/10 split is by recording and stratified by class, so no recording</span>
-<span class="comment"># has segments in both train and test.</span>
-info = <span class="func">get_dataset_info</span>(<span class="string">"af-classification"</span>)
-data = <span class="func">ECGDataModule</span>(
-    dataset_class=<span class="func">get_dataset</span>(<span class="string">"af-classification"</span>),
-    sampling_rate=<span class="number">500</span>,
-    batch_size=<span class="number">32</span>,
-    download=<span class="keyword">True</span>,
-)
-data.<span class="func">setup</span>(stage=<span class="string">"fit"</span>)
+<span class="comment"># PhysioNet 2017 (about 100 MB) as 10 s single-lead segments, resampled from</span>
+<span class="comment"># 300 Hz to the 500 Hz the benchmark uses. The 70/20/10 split is by recording</span>
+<span class="comment"># and stratified by class, so no recording has segments in both train and test.</span>
+data = <span class="func">ECGDataModule</span>(<span class="string">"af-classification"</span>, sampling_rate=<span class="number">500</span>, download=<span class="keyword">True</span>)
 
-signals, labels = <span class="func">next</span>(<span class="func">iter</span>(data.<span class="func">train_dataloader</span>()))
-<span class="comment"># signals: (32, 1, 5000) float32, each segment normalised on its own</span>
-<span class="comment"># labels:  (32,) class indices</span></code></pre>
-    </div>
-
-    <div class="code-card">
-      <h3>Train and test any architecture</h3>
-      <pre class="code-block"><code><span class="keyword">from</span> deepecgkit.models <span class="keyword">import</span> build_model
-
-<span class="comment"># Every architecture takes the same two shape arguments, so any name from</span>
-<span class="comment"># `deepecg list-models` can replace "kanres" with nothing else changed.</span>
-model = <span class="func">build_model</span>(<span class="string">"kanres"</span>, info[<span class="string">"input_channels"</span>], info[<span class="string">"num_classes"</span>])
+<span class="comment"># Any name from `deepecg list-models` can replace "kanres".</span>
+model = <span class="func">build_model</span>(<span class="string">"kanres"</span>, data.input_channels, data.num_classes)
 
 <span class="comment"># Training ends by restoring the epoch with the lowest validation loss.</span>
 trainer = <span class="func">ECGTrainer</span>(model)
@@ -113,43 +93,37 @@ trainer.<span class="func">fit</span>(data, epochs=<span class="number">50</span
         (seed 42, best epoch 50 of 50), which also scores macro F1 0.453, MCC 0.317 and AUROC
         0.795 on the same test split. A new run differs slightly with hardware and library version.
       </p>
+      <p class="code-note">
+        The trainer reads the task from the data: multi-label datasets such as PTB-XL train with a
+        sigmoid per class, with no setting to change. For a training loop of your own,
+        <code>data.train_dataloader()</code> yields batches of signals shaped <code>(32, 1, 5000)</code>
+        with their labels.
+      </p>
     </div>
 
     <div class="code-card">
       <h3>Predict on a raw recording</h3>
-      <pre class="code-block"><code><span class="keyword">import</span> numpy <span class="keyword">as</span> np
-<span class="keyword">import</span> torch
+      <pre class="code-block"><code><span class="keyword">from</span> deepecgkit <span class="keyword">import</span> predict
 
-<span class="keyword">from</span> deepecgkit.datasets <span class="keyword">import</span> prepare_recording
-<span class="keyword">from</span> deepecgkit.models <span class="keyword">import</span> build_model_from_checkpoint
-
-<span class="comment"># The checkpoint records its architecture, class names and preprocessing,</span>
-<span class="comment"># so a recording at another rate and length is resampled, cut and</span>
-<span class="comment"># normalised to match.</span>
-model, checkpoint = <span class="func">build_model_from_checkpoint</span>(trainer.best_checkpoint_path)
-config = checkpoint[<span class="string">"data_config"</span>]
-prepared = <span class="func">prepare_recording</span>(
-    np.<span class="func">load</span>(<span class="string">"ecg.npy"</span>), config[<span class="string">"preprocessing"</span>], source_sampling_rate=<span class="number">250</span>
-)
-
-<span class="comment"># Softmax suits a single-label head like this one; `deepecg predict` also</span>
-<span class="comment"># handles binary and multi-label heads.</span>
-model.<span class="func">eval</span>()
-<span class="keyword">with</span> torch.<span class="func">no_grad</span>():
-    logits = <span class="func">model</span>(torch.<span class="func">from_numpy</span>(prepared.segments))
-probabilities = torch.<span class="func">softmax</span>(logits, dim=<span class="number">1</span>).<span class="func">mean</span>(dim=<span class="number">0</span>)  <span class="comment"># over segments</span>
-<span class="func">print</span>(config[<span class="string">"class_names"</span>][<span class="func">int</span>(probabilities.<span class="func">argmax</span>())])</code></pre>
+<span class="comment"># The checkpoint records its architecture, class names and preprocessing, so a</span>
+<span class="comment"># recording at another rate and length is resampled, cut and normalised to match.</span>
+result = <span class="func">predict</span>(<span class="string">"ecg.npy"</span>, checkpoint=<span class="string">"runs/kanres-af"</span>, sampling_rate=<span class="number">250</span>)
+<span class="func">print</span>(result.label, result.confidence)
+<span class="func">print</span>(result.probabilities)  <span class="comment"># every class, averaged over the recording's segments</span></code></pre>
+      <p class="code-note">
+        A run directory stands for its best checkpoint wherever a checkpoint is expected. To predict
+        many recordings, load the model once with <code>ECGPredictor.from_checkpoint("runs/kanres-af")</code>
+        and call its <code>predict</code> method for each.
+      </p>
     </div>
 
     <div class="code-card">
       <h3>Explain the predictions</h3>
-      <pre class="code-block"><code><span class="keyword">from</span> deepecgkit.explainability <span class="keyword">import</span> explain
+      <pre class="code-block"><code><span class="keyword">from</span> deepecgkit <span class="keyword">import</span> explain
 
 <span class="comment"># Saliency for every test segment, averaged over R-peak-aligned beats. The</span>
 <span class="comment"># checkpoint does not record the rate the beat windows assume, so state it.</span>
-result = <span class="func">explain</span>(
-    data, checkpoint=trainer.best_checkpoint_path, sampling_rate=<span class="number">500</span>
-)
+result = <span class="func">explain</span>(data, checkpoint=<span class="string">"runs/kanres-af"</span>, sampling_rate=<span class="number">500</span>)
 
 <span class="comment"># Share of the average beat's attribution in each region</span>
 result.pqrst_fractions   <span class="comment"># P 0.315, QRS 0.082, T 0.343, baseline 0.260</span>
