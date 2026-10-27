@@ -298,24 +298,30 @@ function mount(model, resultsError) {
   const metricOf = (id) => model.metrics.find((m) => m.id === id) ?? null;
   const rowEls = new Map();
 
-  // Controls.
-  $("family").replaceChildren(
-    h("option", { value: "" }, "All"),
-    ...model.families.map((f) => h("option", { value: f.id }, f.label)),
-  );
-  const groups = new Map();
-  for (const m of model.metrics) {
-    const label = m.group ? capitalise(m.group) : "Classification";
-    if (!groups.has(label)) groups.set(label, []);
-    groups.get(label).push(h("option", { value: m.id }, m.name));
-  }
-  $("metric").replaceChildren(...(groups.size > 1
-    ? [...groups].map(([label, options]) => h("optgroup", { label }, options))
-    : [...groups.values()].flat()));
-  $("metric").disabled = model.metrics.length === 0;
+  // Controls: two groups of toggle buttons, one pressed at a time, as on ECGBench.
+  const familyPills = pills($("family"),
+    [{ id: "", label: "All" }, ...model.families.filter((f) => model.rows.some((r) => r.family === f.id))],
+    (id) => { state.family = id; familyPills.set(id); refresh(); });
+  // Classification metrics only; calibration stays in each architecture's panel.
+  const shown = model.metrics.filter((m) => !m.group);
+  if (!shown.some((m) => m.id === state.metric)) state.metric = model.defaultMetric;
+  const metricPills = pills($("metric"), shown.map((m) => ({ id: m.id, label: m.label, title: m.name, group: "Metric" })),
+    (id) => {
+      const before = metricOf(state.metric);
+      state.metric = id;
+      metricPills.set(id);
+      state.sort = sortForMetric(state.sort, before, metricOf(state.metric));
+      fillCells();
+      notes();
+      reorder();
+    });
   $("q").value = state.q;
-  $("family").value = state.family;
-  if (state.metric) $("metric").value = state.metric;
+  familyPills.set(state.family);
+  metricPills.set(state.metric);
+
+  // Version line under the hero links: static once the data is in.
+  const version = versionLine(model.provenance);
+  if (version.length) fill($("version"), version).hidden = false;
 
   // Table.
   const shape = model.canonicalShape;
@@ -355,13 +361,7 @@ function mount(model, resultsError) {
   const table = h("table", { id: "bench" }, caption, thead, tbody);
   $("table-wrap").replaceChildren(table);
 
-  // Tasks and footer: static once the data is in.
-  $("tasks").replaceChildren(...model.tasks.map((t) => h("div", { class: "task" },
-    h("dt", {}, t.title),
-    h("dd", {}, t.summary),
-    (t.dataset_url || t.ecgbench_url) ? h("dd", { class: "links" },
-      t.dataset_url ? external(t.dataset_url, "Dataset") : null,
-      t.ecgbench_url ? external(t.ecgbench_url, "ECGBench entry") : null) : null)));
+  // Footer: static once the data is in.
   $("provenance").replaceChildren(...provenanceLine(model.provenance));
 
   function fillCells() {
@@ -423,13 +423,6 @@ function mount(model, resultsError) {
       if (state.sort?.key === key) th.setAttribute("aria-sort", state.sort.dir === "asc" ? "ascending" : "descending");
       else th.removeAttribute("aria-sort");
     }
-    const c = model.counts;
-    fill($("summary"),
-      visible < c.models ? ["Showing ", h("b", {}, String(visible)), " of "] : null,
-      h("b", {}, String(c.models)), " architectures · ",
-      h("b", {}, String(c.tasks)), " tasks · ",
-      h("b", {}, String(c.measured)), ` of ${c.total} pairings measured`,
-    );
     history.replaceState(null, "", toSearch(state, model) || location.pathname);
   }
 
@@ -482,7 +475,7 @@ function mount(model, resultsError) {
       state.q = "";
       state.family = "";
       $("q").value = "";
-      $("family").value = "";
+      familyPills.set("");
     }
     refresh();
     if (reveal) {
@@ -493,21 +486,51 @@ function mount(model, resultsError) {
   }
 
   $("q").addEventListener("input", (event) => { state.q = event.target.value; refresh(); });
-  $("family").addEventListener("change", (event) => { state.family = event.target.value; refresh(); });
-  $("metric").addEventListener("change", (event) => {
-    const before = metricOf(state.metric);
-    state.metric = event.target.value;
-    state.sort = sortForMetric(state.sort, before, metricOf(state.metric));
-    fillCells();
-    notes();
-    reorder();
-  });
 
   fillCells();
   notes();
   reorder();
   if (state.open) setOpen(state.open, { reveal: true });
   document.documentElement.dataset.ready = "true";
+}
+
+/**
+ * Toggle buttons, one pressed at a time; `set` presses the one with that id and releases
+ * the rest. Options carrying a `group` are laid out as one labelled row per group.
+ */
+function pills(container, options, onPick) {
+  const buttons = new Map(options.map((o) => [o.id, h("button", {
+    class: "filter-btn", type: "button", title: o.title, "aria-pressed": "false", onclick: () => onPick(o.id),
+  }, o.label)]));
+  const groups = new Map();
+  for (const o of options) {
+    if (!groups.has(o.group)) groups.set(o.group, []);
+    groups.get(o.group).push(buttons.get(o.id));
+  }
+  if (groups.size === 1 && groups.has(undefined)) container.replaceChildren(...buttons.values());
+  else {
+    container.replaceChildren(...[...groups].map(([label, row]) => h("div", { class: "controls" },
+      h("span", { class: "field" }, label),
+      h("div", { class: "filter-group", role: "group", "aria-label": `${label} metric` }, row))));
+  }
+  return {
+    set(id) {
+      for (const [key, button] of buttons) {
+        button.setAttribute("aria-pressed", String(key === id));
+        button.classList.toggle("active", key === id);
+      }
+    },
+  };
+}
+
+/** Kit version, commit and results date under the hero links. */
+function versionLine(p) {
+  const kit = p.registryKit ?? p.resultsKit;
+  return [
+    kit ? h("a", { class: "vt", href: "https://github.com/stevenah/deepecg-kit/releases" }, `v${kit}`) : null,
+    p.registrySha ? h("span", { class: "vs" }, p.registrySha) : null,
+    p.generated ? h("span", { class: "vs" }, `results ${p.generated.slice(0, 10)}`) : null,
+  ].filter(Boolean);
 }
 
 function provenanceLine(p) {

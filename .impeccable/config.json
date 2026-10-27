@@ -1,0 +1,23 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "overused-font",
+        "value": "inter",
+        "createdAt": "2026-10-27T08:38:14.440Z",
+        "reason": "Intentional, predates this session: site/style.css header documents Inter-first type as part of matching the sibling ECGBench site's design"
+      },
+      {
+        "rule": "gradient-text",
+        "value": "*",
+        "files": [
+          "site/index.html"
+        ],
+        "createdAt": "2026-10-27T08:48:27.976Z",
+        "reason": "Intentional, predates this session: the gradient title copies ECGBench's, and the user asked on 2026-10-27 for the page to look like ECGBench"
+      }
+    ]
+  }
+}

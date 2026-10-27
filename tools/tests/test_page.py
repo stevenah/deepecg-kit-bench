@@ -8,7 +8,6 @@ point at a binary).
 from __future__ import annotations
 
 import functools
-import html
 import json
 import os
 import re
@@ -90,12 +89,11 @@ def test_the_table_is_drawn_from_the_data(served: str, tmp_path: Path) -> None:
 
     models, tasks, pairs = data("registry")["models"], data("catalogue")["tasks"], data("results")["rows"]
     assert len(re.findall(r'<tr class="row"', dom)) == len(models)
-    summary = html.unescape(re.sub(r"<[^>]+>", "", re.search(r'id="summary"[^>]*>(.*?)</p>', dom, re.S).group(1)))
-    assert summary == (f"{len(models)} architectures · {len(tasks)} tasks · "
-                       f"{len(pairs)} of {len(models) * len(tasks)} pairings measured")
+    assert len(re.findall(r'<th scope="col"', dom)) == 2 + len(tasks)
     with_f1 = sum(1 for row in pairs if row["metrics"].get("f1", {}).get("mean") is not None)
     assert len(re.findall(r'<span class="val(?: best)?">', dom)) == with_f1
-    assert len(re.findall(r'<div class="task">', dom)) == len(tasks)
+    pressed = re.findall(r'<button class="filter-btn active"[^>]*aria-pressed="true"[^>]*>([^<]*)</button>', dom)
+    assert pressed == ["All", "F1"], "the family and metric pills start on All and F1"
 
     failed = [(code, path) for code, path in Handler.statuses if code >= 400]
     assert not failed, f"the page asked for something that is not published: {failed}"

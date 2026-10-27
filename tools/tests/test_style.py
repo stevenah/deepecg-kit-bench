@@ -100,6 +100,14 @@ def test_contrast_meets_wcag_aa(theme: str) -> None:
         ("--warn", "--bg", 4.5, "note markers"),
         ("--warn", "--surface", 4.5, "the zero-prediction note in a panel"),
         ("--plot-ink", "--plot-card", 4.5, "plot captions"),
+        ("--accent2", "--bg", 4.5, "the version tag and Quick Start links"),
+        ("--danger", "--bg", 4.5, "the Report an Issue link"),
+        ("--code-ink", "--code-bg", 4.5, "code"),
+        ("--code-comment", "--code-bg", 4.5, "code comments"),
+        ("--code-keyword", "--code-bg", 4.5, "code keywords"),
+        ("--code-string", "--code-bg", 4.5, "code strings"),
+        ("--code-func", "--code-bg", 4.5, "code function names"),
+        ("--code-number", "--code-bg", 4.5, "code numbers"),
     ]
     for ink, ground, bound, what in pairs:
         ratio = contrast(t[ink], t[ground])

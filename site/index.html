@@ -13,7 +13,7 @@
 if(m==='light'||m==='dark')r.setAttribute('data-theme',m);}catch(e){r.setAttribute('data-theme','dark');}})();
 </script>
 <link rel="stylesheet" href="style.css">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><text y='13' font-size='13'>&#128147;</text></svg>">
+<link rel="icon" type="image/png" href="favicon.png">
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -22,28 +22,161 @@ if(m==='light'||m==='dark')r.setAttribute('data-theme',m);}catch(e){r.setAttribu
   <button class="theme-toggle" data-theme-toggle type="button" aria-label="Colour theme">
     <span data-theme-glyph aria-hidden="true">&#9790;</span><span data-theme-label>Dark</span>
   </button>
-  <h1>DeepECG-Bench</h1>
-  <p class="lede">The architectures in DeepECG-Kit and their benchmark results on every task.</p>
+  <h1><span class="logo" aria-hidden="true"></span>DeepECG-Bench</h1>
+  <p class="lede">
+    The deep learning architectures in DeepECG-Kit, trained and tested on PhysioNet ECG tasks
+    through one interface. Open any row for the model's design, parameter counts, per-run
+    results and diagnostic plots.
+  </p>
   <div class="hero-links">
-    <a href="https://github.com/stevenah/deepecg-kit"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg> DeepECG-Kit</a>
+    <a href="https://github.com/stevenah/deepecg-kit"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg> GitHub</a>
+    <a href="https://pypi.org/project/deepecgkit/"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg> PyPI</a>
     <a href="https://stevenah.github.io/deepecg-kit/"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg> Documentation</a>
     <a href="https://vajira.info/ECGBench/"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14c0 1.66 4.03 3 9 3s9-1.34 9-3V5"/><path d="M3 12c0 1.66 4.03 3 9 3s9-1.34 9-3"/></svg> ECGBench (datasets)</a>
+    <a class="issue" href="https://github.com/stevenah/deepecg-kit/issues/new"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg> Report an Issue</a>
   </div>
+  <p class="version" id="version" hidden></p>
 </div></header>
 
 <main id="main">
+  <section class="wrap guide" aria-labelledby="install-title">
+    <h2 id="install-title">Installation</h2>
+    <p class="guide-sub">Install DeepECG-Kit from PyPI, or from source to work on it. Requires Python 3.10 or newer.</p>
+    <div class="install-grid">
+      <div class="code-card">
+        <h3>Quick install</h3>
+        <pre class="code-block"><code><span class="comment"># Using pip</span>
+pip install deepecgkit
+
+<span class="comment"># Using uv (recommended)</span>
+uv pip install deepecgkit</code></pre>
+      </div>
+      <div class="code-card">
+        <h3>From source (development)</h3>
+        <pre class="code-block"><code>git clone https://github.com/stevenah/deepecg-kit.git
+<span class="keyword">cd</span> deepecg-kit
+uv sync --group dev
+<span class="comment"># or, without uv: pip install -e ".[dev]"</span></code></pre>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap guide" aria-labelledby="quickstart-title">
+    <h2 id="quickstart-title">Quick Start</h2>
+    <p class="guide-sub">
+      Load a dataset, train any architecture on it, predict on a raw recording, and explain the
+      predictions, in a few lines of Python. Datasets download from PhysioNet on first use into
+      <code>~/.deepecgkit/datasets</code>; the <a href="https://stevenah.github.io/deepecg-kit/user-guide/cli/">command line</a>
+      does the same with <code>deepecg train</code>, <code>predict</code> and <code>explain</code>.
+    </p>
+
+    <div class="code-card">
+      <h3>Load a dataset and iterate batches</h3>
+      <pre class="code-block"><code><span class="keyword">from</span> deepecgkit.datasets <span class="keyword">import</span> ECGDataModule
+<span class="keyword">from</span> deepecgkit.registry <span class="keyword">import</span> get_dataset, get_dataset_info
+<span class="keyword">from</span> deepecgkit.training <span class="keyword">import</span> ECGTrainer
+
+ECGTrainer.<span class="func">seed_everything</span>(<span class="number">42</span>)
+
+<span class="comment"># PhysioNet 2017 (about 100 MB) as 10 s single-lead segments, resampled</span>
+<span class="comment"># from 300 Hz to the 500 Hz the benchmark uses for every dataset. The</span>
+<span class="comment"># 70/20/10 split is by recording and stratified by class, so no recording</span>
+<span class="comment"># has segments in both train and test.</span>
+info = <span class="func">get_dataset_info</span>(<span class="string">"af-classification"</span>)
+data = <span class="func">ECGDataModule</span>(
+    dataset_class=<span class="func">get_dataset</span>(<span class="string">"af-classification"</span>),
+    sampling_rate=<span class="number">500</span>,
+    batch_size=<span class="number">32</span>,
+    download=<span class="keyword">True</span>,
+)
+data.<span class="func">setup</span>(stage=<span class="string">"fit"</span>)
+
+signals, labels = <span class="func">next</span>(<span class="func">iter</span>(data.<span class="func">train_dataloader</span>()))
+<span class="comment"># signals: (32, 1, 5000) float32, each segment normalised on its own</span>
+<span class="comment"># labels:  (32,) class indices</span></code></pre>
+    </div>
+
+    <div class="code-card">
+      <h3>Train and test any architecture</h3>
+      <pre class="code-block"><code><span class="keyword">from</span> deepecgkit.models <span class="keyword">import</span> build_model
+
+<span class="comment"># Every architecture takes the same two shape arguments, so any name from</span>
+<span class="comment"># `deepecg list-models` can replace "kanres" with nothing else changed.</span>
+model = <span class="func">build_model</span>(<span class="string">"kanres"</span>, info[<span class="string">"input_channels"</span>], info[<span class="string">"num_classes"</span>])
+
+<span class="comment"># Training ends by restoring the epoch with the lowest validation loss.</span>
+trainer = <span class="func">ECGTrainer</span>(model)
+trainer.<span class="func">fit</span>(data, epochs=<span class="number">50</span>, checkpoint_dir=<span class="string">"runs/kanres-af"</span>)
+<span class="func">print</span>(trainer.<span class="func">test</span>(data))  <span class="comment"># {"test_loss": 0.806, "test_acc": 0.655}</span></code></pre>
+      <p class="code-note">
+        The figures in this Quick Start come from the benchmark's KanRes run with this setup
+        (seed 42, best epoch 50 of 50), which also scores macro F1 0.453, MCC 0.317 and AUROC
+        0.795 on the same test split. A new run differs slightly with hardware and library version.
+      </p>
+    </div>
+
+    <div class="code-card">
+      <h3>Predict on a raw recording</h3>
+      <pre class="code-block"><code><span class="keyword">import</span> numpy <span class="keyword">as</span> np
+<span class="keyword">import</span> torch
+
+<span class="keyword">from</span> deepecgkit.datasets <span class="keyword">import</span> prepare_recording
+<span class="keyword">from</span> deepecgkit.models <span class="keyword">import</span> build_model_from_checkpoint
+
+<span class="comment"># The checkpoint records its architecture, class names and preprocessing,</span>
+<span class="comment"># so a recording at another rate and length is resampled, cut and</span>
+<span class="comment"># normalised to match.</span>
+model, checkpoint = <span class="func">build_model_from_checkpoint</span>(trainer.best_checkpoint_path)
+config = checkpoint[<span class="string">"data_config"</span>]
+prepared = <span class="func">prepare_recording</span>(
+    np.<span class="func">load</span>(<span class="string">"ecg.npy"</span>), config[<span class="string">"preprocessing"</span>], source_sampling_rate=<span class="number">250</span>
+)
+
+<span class="comment"># Softmax suits a single-label head like this one; `deepecg predict` also</span>
+<span class="comment"># handles binary and multi-label heads.</span>
+model.<span class="func">eval</span>()
+<span class="keyword">with</span> torch.<span class="func">no_grad</span>():
+    logits = <span class="func">model</span>(torch.<span class="func">from_numpy</span>(prepared.segments))
+probabilities = torch.<span class="func">softmax</span>(logits, dim=<span class="number">1</span>).<span class="func">mean</span>(dim=<span class="number">0</span>)  <span class="comment"># over segments</span>
+<span class="func">print</span>(config[<span class="string">"class_names"</span>][<span class="func">int</span>(probabilities.<span class="func">argmax</span>())])</code></pre>
+    </div>
+
+    <div class="code-card">
+      <h3>Explain the predictions</h3>
+      <pre class="code-block"><code><span class="keyword">from</span> deepecgkit.explainability <span class="keyword">import</span> explain
+
+<span class="comment"># Saliency for every test segment, averaged over R-peak-aligned beats. The</span>
+<span class="comment"># checkpoint does not record the rate the beat windows assume, so state it.</span>
+result = <span class="func">explain</span>(
+    data, checkpoint=trainer.best_checkpoint_path, sampling_rate=<span class="number">500</span>
+)
+
+<span class="comment"># Share of the average beat's attribution in each region</span>
+result.pqrst_fractions   <span class="comment"># P 0.315, QRS 0.082, T 0.343, baseline 0.260</span>
+<span class="comment"># Each share over the region's share of the beat, so 1 is chance</span>
+result.pqrst_enrichment  <span class="comment"># P 1.26, QRS 0.66, T 0.92, baseline 1.04</span></code></pre>
+      <p class="code-note">
+        On multi-lead data such as PTB-XL, <code>result.lead_importance</code> also gives each
+        lead's share of the attribution.
+      </p>
+    </div>
+  </section>
+
+  <hr class="section-divider">
+
   <section class="wrap" aria-labelledby="results-title">
-    <h2 id="results-title" class="visually-hidden">Architectures and results</h2>
-    <p class="summary" id="summary" aria-live="polite"></p>
+    <div class="section-header">
+      <h2 id="results-title">Benchmark Results</h2>
+    </div>
     <form class="controls" role="search" onsubmit="return false">
       <label class="search-wrap">
         <span class="visually-hidden">Search architectures</span>
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
-        <input id="q" type="search" placeholder="Search architectures" autocomplete="off" spellcheck="false">
+        <input id="q" type="search" placeholder="Search architectures, families, papers…" autocomplete="off" spellcheck="false">
       </label>
-      <label class="field">Family <select id="family"><option value="">All</option></select></label>
-      <label class="field">Metric <select id="metric"></select></label>
+      <div class="filter-group" id="family" role="group" aria-label="Family"></div>
     </form>
+    <div class="metric-rows" id="metric"></div>
     <div class="table-wrap" id="table-wrap" tabindex="0" role="region" aria-labelledby="results-title">
       <!-- What a browser without JavaScript modules shows; app.js replaces it. -->
       <p class="status" id="status">
@@ -53,15 +186,6 @@ if(m==='light'||m==='dark')r.setAttribute('data-theme',m);}catch(e){r.setAttribu
       </p>
     </div>
     <div id="notes"></div>
-  </section>
-
-  <section class="wrap tasks" aria-labelledby="tasks-title">
-    <h2 id="tasks-title">Tasks</h2>
-    <dl id="tasks"></dl>
-    <p class="table-note">
-      How each task is built and evaluated is described in the
-      <a href="https://stevenah.github.io/deepecg-kit/benchmark/">benchmark section of the DeepECG-Kit documentation</a>.
-    </p>
   </section>
 </main>
 
