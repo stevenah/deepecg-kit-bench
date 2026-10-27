@@ -158,7 +158,7 @@ header.hero::before {
 }
 header.hero .wrap { position: relative; }
 header.hero h1 {
-  display: inline-flex; align-items: center; gap: .3em;
+  position: relative; display: inline-block; padding-left: 1.82em;
   font-size: clamp(2rem, 5vw, 3.2rem);
   font-weight: 800; letter-spacing: -.03em; line-height: 1.15;
   background: var(--title-grad);
@@ -166,13 +166,15 @@ header.hero h1 {
   -webkit-text-fill-color: transparent; color: transparent;
   margin-bottom: 14px;
 }
-/* The logo is white on transparent, so it is used as a mask and painted with the title's
- * own gradient: it then belongs to the wordmark in both themes. */
+/* The logo is white on transparent, so it is used as a mask over the title's gradient. The
+ * layer covers the whole title box, as the text's own background does, so both are cut from
+ * one gradient and it runs on from the logo into the text instead of restarting. The left
+ * padding of the title is the logo's 1.52em width plus a .3em gap. */
 header.hero .logo {
-  flex: none; width: 1.52em; height: 1em;
+  position: absolute; inset: 0;
   background: var(--title-grad);
-  -webkit-mask: url(logo.png) center / contain no-repeat;
-  mask: url(logo.png) center / contain no-repeat;
+  -webkit-mask: url(logo.png) left center / 1.52em 1em no-repeat;
+  mask: url(logo.png) left center / 1.52em 1em no-repeat;
 }
 header.hero p.lede { color: var(--muted); font-size: 1.1rem; max-width: 620px; margin: 0 auto 28px; }
 
