@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="dark light">
 <title>DeepECG-Bench</title>
-<meta name="description" content="The architectures in DeepECG-Kit and their benchmark results on every task, in one table.">
+<meta name="description" content="Deep learning architectures from the literature in DeepECG-Kit and their benchmark results, in one table.">
 <script>
 /* Blocking, inline and BEFORE the stylesheet: this is what stops a light flash on a dark
    page. Dark is the default, matching ECGBench; light and auto are on the toggle. */
@@ -24,9 +24,9 @@ if(m==='light'||m==='dark')r.setAttribute('data-theme',m);}catch(e){r.setAttribu
   </button>
   <h1><span class="logo" aria-hidden="true"></span>DeepECG-Bench</h1>
   <p class="lede">
-    The deep learning architectures in DeepECG-Kit, trained and tested on PhysioNet ECG tasks
-    through one interface. Open any row for the model's design, parameter counts, per-run
-    results and diagnostic plots.
+    Deep learning architectures from the literature, as implemented in DeepECG-Kit and trained
+    and tested on PhysioNet ECG tasks through one interface. Open any row for the model's
+    design, parameter counts, per-run results and diagnostic plots.
   </p>
   <div class="hero-links">
     <a href="https://github.com/stevenah/deepecg-kit"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg> GitHub</a>
@@ -148,9 +148,11 @@ result.pqrst_enrichment  <span class="comment"># P 1.26, QRS 0.66, T 0.92, basel
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
         <input id="q" type="search" placeholder="Search architectures, families, papers…" autocomplete="off" spellcheck="false">
       </label>
-      <div class="filter-group" id="family" role="group" aria-label="Family"></div>
     </form>
-    <div class="metric-rows" id="metric"></div>
+    <div class="filter-rows">
+      <div id="family"></div>
+      <div id="metric"></div>
+    </div>
     <div class="table-wrap" id="table-wrap" tabindex="0" role="region" aria-labelledby="results-title">
       <!-- What a browser without JavaScript modules shows; app.js replaces it. -->
       <p class="status" id="status">

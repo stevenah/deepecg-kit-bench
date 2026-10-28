@@ -24,11 +24,14 @@ const DOCS = "https://stevenah.github.io/deepecg-kit/benchmark/";
 
 // ── Pure logic ──────────────────────────────────────────────────────────────────────────
 
-/** Join the three files into the rows, columns and counts the page shows. */
+/**
+ * Join the three files into the rows, columns and counts the page shows. An architecture is
+ * listed when its catalogue entry cites a paper or code, and a task unless it is hidden.
+ */
 export function buildModel(catalogue, registry, results) {
   const families = catalogue.families ?? [];
   const familyIndex = new Map(families.map((f, i) => [f.id, i]));
-  const tasks = catalogue.tasks ?? [];
+  const tasks = (catalogue.tasks ?? []).filter((t) => !t.hidden);
   const taskIds = new Set(tasks.map((t) => t.id));
   const prose = new Map((catalogue.models ?? []).map((m) => [m.name, m]));
   const canonical = registry.meta?.canonical_probe ?? "12x5";
@@ -40,8 +43,9 @@ export function buildModel(catalogue, registry, results) {
     resultsOf.get(r.model)[r.task] = r;
   }
 
-  const rows = Object.values(registry.models).map((m) => {
-    const p = prose.get(m.registry_name) ?? {};
+  const referenced = (m) => prose.get(m.registry_name)?.paper || prose.get(m.registry_name)?.code_url;
+  const rows = Object.values(registry.models).filter(referenced).map((m) => {
+    const p = prose.get(m.registry_name);
     const family = families[familyIndex.get(p.family)] ?? null;
     const probes = m.probes ?? {};
     const title = m.display_name || m.registry_name;
@@ -84,6 +88,7 @@ export function buildModel(catalogue, registry, results) {
 
   const metrics = metricsOf(catalogue, registry, results);
   const measured = rows.reduce((n, row) => n + Object.keys(row.results).length, 0);
+  const runs = rows.reduce((n, row) => n + Object.values(row.results).reduce((k, r) => k + (r.runs ?? 0), 0), 0);
   return {
     families,
     tasks,
@@ -95,7 +100,7 @@ export function buildModel(catalogue, registry, results) {
     provenance: {
       generated: results?.generated ?? null,
       resultsKit: results?.kit_version ?? null,
-      nRuns: results?.n_runs ?? null,
+      nRuns: results ? runs : null,
       confidence: results?.confidence_level ?? null,
       registryKit: registry.meta?.kit_version ?? null,
       registrySha: registry.meta?.kit_git_sha ?? null,
@@ -308,7 +313,8 @@ function mount(model, resultsError) {
 
   // Controls: two groups of toggle buttons, one pressed at a time, as on ECGBench.
   const familyPills = pills($("family"),
-    [{ id: "", label: "All" }, ...model.families.filter((f) => model.rows.some((r) => r.family === f.id))],
+    [{ id: "", label: "All" }, ...model.families.filter((f) => model.rows.some((r) => r.family === f.id))]
+      .map((f) => ({ id: f.id, label: f.label, group: "Family" })),
     (id) => { state.family = id; familyPills.set(id); refresh(); });
   // Classification metrics only; calibration stays in each architecture's panel.
   const shown = model.metrics.filter((m) => !m.group);
@@ -520,7 +526,7 @@ function pills(container, options, onPick) {
   else {
     container.replaceChildren(...[...groups].map(([label, row]) => h("div", { class: "controls" },
       h("span", { class: "field" }, label),
-      h("div", { class: "filter-group", role: "group", "aria-label": `${label} metric` }, row))));
+      h("div", { class: "filter-group", role: "group", "aria-label": label }, row))));
   }
   return {
     set(id) {
@@ -561,9 +567,6 @@ function provenanceLine(p) {
 /** The Reference cell: the paper, cited short, over a link to its code. */
 function referenceOf(row) {
   const cite = citation(row.paper);
-  if (!cite && !row.codeUrl) {
-    return [h("span", { class: "muted", "aria-hidden": "true" }, "—"), hidden("no published reference")];
-  }
   return [
     cite ? (row.paper.url ? h("a", { href: row.paper.url, rel: "noopener", title: row.paper.title }, cite) : cite) : null,
     row.codeUrl ? h("span", { class: "ref-code" }, external(row.codeUrl, "Code")) : null,

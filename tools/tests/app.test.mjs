@@ -17,6 +17,7 @@ const catalogue = {
   tasks: [
     { id: "multi", dataset: "ds-multi", short: "Multi", input_channels: 12, output_size: 5 },
     { id: "binary", dataset: "ds-binary", short: "Binary", input_channels: 1, output_size: 1 },
+    { id: "later", dataset: "ds-later", short: "Later", input_channels: 1, output_size: 1, hidden: true },
   ],
   metrics: [
     { id: "f1", label: "F1", name: "F1", better: "higher", group: null },
@@ -26,8 +27,9 @@ const catalogue = {
   ],
   models: [
     { name: "big", family: "cnn", summary: "A large residual network.", paper: { year: 2016, title: "Deep Residual Learning", authors: "He" } },
-    { name: "small", family: "cnn", summary: "A small network." },
-    { name: "linear", family: "base", summary: "A linear baseline." },
+    { name: "small", family: "cnn", summary: "A small network.", code_url: "https://example.org/small" },
+    { name: "linear", family: "base", summary: "A linear baseline.", paper: { year: 1936, title: "Discriminant analysis", authors: "Fisher" } },
+    { name: "homemade", family: "cnn", summary: "An in-house network without a reference." },
   ],
 };
 const probe = (params) => ({ status: "ok", params_trainable: params, feature_dim: 8 });
@@ -39,12 +41,13 @@ const registry = {
     big: { registry_name: "big", display_name: "BigNet", class: "Big", description: "from the registry", probes: { "12x5": probe(9_000_000), "1x1": probe(8_900_000) } },
     small: { registry_name: "small", display_name: "SmallNet", class: "Small", description: "", probes: { "12x5": probe(100_000), "1x1": probe(90_000) } },
     linear: { registry_name: "linear", display_name: "Linear", class: "Linear", description: "", probes: { "12x5": probe(5_000_000), "1x1": probe(1_000) } },
+    homemade: { registry_name: "homemade", display_name: "Homemade", class: "Homemade", description: "", probes: { "12x5": probe(7), "1x1": probe(6) } },
     fresh: { registry_name: "fresh", display_name: null, class: "Fresh", description: "Registered upstream, not yet described.", probes: { "12x5": probe(42), "1x1": probe(41) } },
   },
 };
 const metric = (mean, extra = {}) => ({ n: 1, mean, std: null, lo: null, hi: null, values: [mean], ...extra });
 const results = {
-  generated: "2026-01-02T03:04:05Z", kit_version: "0.9.0", n_runs: 4, confidence_level: 0.95,
+  generated: "2026-01-02T03:04:05Z", kit_version: "0.9.0", n_runs: 8, confidence_level: 0.95,
   rows: [
     { model: "big", task: "multi", runs: 1, metrics: { f1: metric(0.7), ece: metric(0.05), temperature: metric(1.4) } },
     { model: "small", task: "multi", runs: 1, metrics: { f1: metric(0.6), ece: metric(0.02) } },
@@ -52,6 +55,8 @@ const results = {
     { model: "small", task: "binary", runs: 1, metrics: { f1: metric(0.9), accuracy: metric(0.95), precision: metric(0.9), recall: metric(0.9) } },
     { model: "ghost", task: "multi", runs: 1, metrics: { f1: metric(1) } },
     { model: "big", task: "retired", runs: 1, metrics: { f1: metric(1) } },
+    { model: "big", task: "later", runs: 1, metrics: { f1: metric(0.5) } },
+    { model: "homemade", task: "multi", runs: 1, metrics: { f1: metric(0.8) } },
   ],
 };
 const model = buildModel(catalogue, registry, results);
@@ -60,22 +65,21 @@ const names = (rows) => rows.map((r) => r.name);
 const metricOf = (id) => model.metrics.find((m) => m.id === id);
 
 test("rows come from the registry, in family then parameter order", () => {
-  assert.deepEqual(names(model.rows), ["linear", "small", "big", "fresh"]);
+  assert.deepEqual(names(model.rows), ["linear", "small", "big"]);
   assert.equal(row("big").title, "BigNet");
   assert.equal(row("big").familyLabel, "Convolutional");
   assert.equal(row("big").year, 2016);
 });
 
-test("an architecture without a catalogue entry is drawn from the registry", () => {
-  const fresh = row("fresh");
-  assert.equal(fresh.title, "fresh");
-  assert.equal(fresh.description, "Registered upstream, not yet described.");
-  assert.equal(fresh.familyLabel, null);
-  assert.equal(fresh.explain, null);
+test("an architecture is listed only with a paper or code to cite, and a hidden task not at all", () => {
+  assert.equal(row("homemade"), undefined, "described, but with nothing to cite");
+  assert.equal(row("fresh"), undefined, "registered upstream, not yet described");
+  assert.deepEqual(model.tasks.map((t) => t.id), ["multi", "binary"]);
 });
 
 test("results for unknown architectures or tasks are left out of the counts", () => {
-  assert.deepEqual(model.counts, { models: 4, tasks: 2, measured: 4, total: 8 });
+  assert.deepEqual(model.counts, { models: 3, tasks: 2, measured: 4, total: 6 });
+  assert.equal(model.provenance.nRuns, 4, "the runs behind the cells shown, not every published run");
 });
 
 test("parameter counts are listed per input shape with the tasks that use it", () => {
@@ -95,7 +99,8 @@ test("only metrics that occur are offered; unknown ones take their direction fro
 
 test("without results the table still lists every architecture", () => {
   const bare = buildModel(catalogue, registry, null);
-  assert.equal(bare.rows.length, 4);
+  assert.equal(bare.rows.length, 3);
+  assert.equal(bare.provenance.nRuns, null);
   assert.deepEqual(bare.metrics, []);
   assert.equal(bare.defaultMetric, null);
   assert.equal(cellFor(bare.rows[0], "multi", null).state, "none");
@@ -122,12 +127,12 @@ test("the best value follows the metric's direction and needs two values to comp
 });
 
 test("sorting puts empty cells last in both directions", () => {
-  assert.deepEqual(names(sortRows(model.rows, { key: "multi", dir: "desc" }, "f1")), ["big", "small", "linear", "fresh"]);
-  assert.deepEqual(names(sortRows(model.rows, { key: "multi", dir: "asc" }, "f1")), ["small", "big", "linear", "fresh"]);
-  assert.deepEqual(names(sortRows(model.rows, { key: "params", dir: "desc" }, "f1")), ["big", "linear", "small", "fresh"]);
-  assert.deepEqual(names(sortRows(model.rows, { key: "name", dir: "asc" }, "f1")), ["big", "fresh", "linear", "small"]);
-  assert.deepEqual(names(sortRows(model.rows, null, "f1")), ["linear", "small", "big", "fresh"]);
-  assert.deepEqual(names(sortRows(model.rows, { key: "binary", dir: "desc" }, "accuracy")), ["small", "big", "linear", "fresh"]);
+  assert.deepEqual(names(sortRows(model.rows, { key: "multi", dir: "desc" }, "f1")), ["big", "small", "linear"]);
+  assert.deepEqual(names(sortRows(model.rows, { key: "multi", dir: "asc" }, "f1")), ["small", "big", "linear"]);
+  assert.deepEqual(names(sortRows(model.rows, { key: "params", dir: "desc" }, "f1")), ["big", "linear", "small"]);
+  assert.deepEqual(names(sortRows(model.rows, { key: "name", dir: "asc" }, "f1")), ["big", "linear", "small"]);
+  assert.deepEqual(names(sortRows(model.rows, null, "f1")), ["linear", "small", "big"]);
+  assert.deepEqual(names(sortRows(model.rows, { key: "binary", dir: "desc" }, "accuracy")), ["small", "big", "linear"]);
 });
 
 test("a header cycles best-first, reversed, default", () => {
@@ -155,7 +160,7 @@ test("family and search filters combine; every search word must match", () => {
   assert.deepEqual(names(model.rows.filter((r) => matches(r, { family: "cnn", q: "" }))), ["small", "big"]);
   assert.deepEqual(names(model.rows.filter((r) => matches(r, { family: "", q: "RESIDUAL he" }))), ["big"]);
   assert.deepEqual(names(model.rows.filter((r) => matches(r, { family: "base", q: "residual" }))), []);
-  assert.equal(model.rows.filter((r) => matches(r, { family: "", q: "   " })).length, 4);
+  assert.equal(model.rows.filter((r) => matches(r, { family: "", q: "   " })).length, 3);
 });
 
 test("numbers are formatted as the article formats them", () => {
@@ -198,9 +203,12 @@ test("unrecognised URL parameters fall back to defaults", () => {
 
 test("the committed data files build a consistent page", () => {
   const live = buildModel(load("catalogue"), load("registry"), load("results"));
-  const published = load("results").rows.length;
-  assert.equal(live.counts.models, Object.keys(load("registry").models).length);
-  assert.equal(live.counts.measured, published, "every published pair is shown");
+  const cited = new Set(load("catalogue").models.filter((m) => m.paper || m.code_url).map((m) => m.name));
+  const listed = Object.keys(load("registry").models).filter((name) => cited.has(name));
+  const shown = new Set(load("catalogue").tasks.filter((t) => !t.hidden).map((t) => t.id));
+  const published = load("results").rows.filter((r) => cited.has(r.model) && shown.has(r.task)).length;
+  assert.equal(live.counts.models, listed.length);
+  assert.equal(live.counts.measured, published, "every published pair of a listed architecture and task is shown");
   assert.equal(live.counts.total, live.counts.models * live.counts.tasks);
   assert.ok(live.rows.every((r) => r.family && r.summary), "every architecture has a family and a summary");
   assert.ok(live.rows.every((r) => r.shapes.length === Object.keys(load("registry").meta.probes).length));

@@ -87,10 +87,15 @@ def test_the_table_is_drawn_from_the_data(served: str, tmp_path: Path) -> None:
     dom = render(served, tmp_path)
     assert 'data-ready="true"' in dom, "app.js did not finish; the fallback text is still showing"
 
-    models, tasks, pairs = data("registry")["models"], data("catalogue")["tasks"], data("results")["rows"]
-    assert len(re.findall(r'<tr class="row"', dom)) == len(models)
+    # Listed: architectures whose catalogue entry cites a paper or code, and the tasks not hidden.
+    registered, prose = data("registry")["models"], data("catalogue")["models"]
+    listed = [m for m in prose if m["name"] in registered and (m.get("paper") or m.get("code_url"))]
+    names = {m["name"] for m in listed}
+    tasks = [t for t in data("catalogue")["tasks"] if not t.get("hidden")]
+    pairs = [r for r in data("results")["rows"] if r["model"] in names and r["task"] in {t["id"] for t in tasks}]
+    assert len(re.findall(r'<tr class="row"', dom)) == len(listed)
     assert len(re.findall(r'<th scope="col"', dom)) == 3 + len(tasks)
-    papers = [m["paper"] for m in data("catalogue")["models"] if m["name"] in models and m.get("paper")]
+    papers = [m for m in listed if m.get("paper")]
     assert len(re.findall(r'<td class="ref"><a href="https://', dom)) == len(papers)
     with_f1 = sum(1 for row in pairs if row["metrics"].get("f1", {}).get("mean") is not None)
     assert len(re.findall(r'<span class="val(?: best)?">', dom)) == with_f1

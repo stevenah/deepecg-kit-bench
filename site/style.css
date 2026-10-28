@@ -246,8 +246,8 @@ header.hero p.lede { color: var(--muted); font-size: 1.1rem; max-width: 620px; m
 
 /* ── Controls: search and toggle buttons above the table they scope ── */
 .controls { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; padding-bottom: 14px; }
-.metric-rows { padding-bottom: 6px; }
-.metric-rows .field { min-width: 120px; }
+.filter-rows { padding-bottom: 6px; }
+.filter-rows .field { min-width: 120px; }
 .search-wrap { flex: 1 1 260px; position: relative; display: block; }
 .search-wrap svg {
   position: absolute; left: 12px; top: 50%; transform: translateY(-50%);
