@@ -26,7 +26,7 @@ const DOCS = "https://stevenah.github.io/deepecg-kit/benchmark/";
 
 /**
  * Join the three files into the rows, columns and counts the page shows. An architecture is
- * listed when its catalogue entry cites a paper or code, and a task unless it is hidden.
+ * listed when its catalogue entry cites a paper or code and is not hidden; a task unless hidden.
  */
 export function buildModel(catalogue, registry, results) {
   const families = catalogue.families ?? [];
@@ -43,8 +43,11 @@ export function buildModel(catalogue, registry, results) {
     resultsOf.get(r.model)[r.task] = r;
   }
 
-  const referenced = (m) => prose.get(m.registry_name)?.paper || prose.get(m.registry_name)?.code_url;
-  const rows = Object.values(registry.models).filter(referenced).map((m) => {
+  const listed = (m) => {
+    const p = prose.get(m.registry_name);
+    return Boolean(p && (p.paper || p.code_url) && !p.hidden);
+  };
+  const rows = Object.values(registry.models).filter(listed).map((m) => {
     const p = prose.get(m.registry_name);
     const family = families[familyIndex.get(p.family)] ?? null;
     const probes = m.probes ?? {};

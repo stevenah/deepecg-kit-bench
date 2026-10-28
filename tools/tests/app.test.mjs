@@ -30,6 +30,7 @@ const catalogue = {
     { name: "small", family: "cnn", summary: "A small network.", code_url: "https://example.org/small" },
     { name: "linear", family: "base", summary: "A linear baseline.", paper: { year: 1936, title: "Discriminant analysis", authors: "Fisher" } },
     { name: "homemade", family: "cnn", summary: "An in-house network without a reference." },
+    { name: "retired", family: "cnn", summary: "Cited, but taken off the page.", code_url: "https://example.org/retired", hidden: true },
   ],
 };
 const probe = (params) => ({ status: "ok", params_trainable: params, feature_dim: 8 });
@@ -42,6 +43,7 @@ const registry = {
     small: { registry_name: "small", display_name: "SmallNet", class: "Small", description: "", probes: { "12x5": probe(100_000), "1x1": probe(90_000) } },
     linear: { registry_name: "linear", display_name: "Linear", class: "Linear", description: "", probes: { "12x5": probe(5_000_000), "1x1": probe(1_000) } },
     homemade: { registry_name: "homemade", display_name: "Homemade", class: "Homemade", description: "", probes: { "12x5": probe(7), "1x1": probe(6) } },
+    retired: { registry_name: "retired", display_name: "Retired", class: "Retired", description: "", probes: { "12x5": probe(8), "1x1": probe(7) } },
     fresh: { registry_name: "fresh", display_name: null, class: "Fresh", description: "Registered upstream, not yet described.", probes: { "12x5": probe(42), "1x1": probe(41) } },
   },
 };
@@ -71,8 +73,9 @@ test("rows come from the registry, in family then parameter order", () => {
   assert.equal(row("big").year, 2016);
 });
 
-test("an architecture is listed only with a paper or code to cite, and a hidden task not at all", () => {
+test("an architecture is listed only with a paper or code to cite, and a hidden one or a hidden task not at all", () => {
   assert.equal(row("homemade"), undefined, "described, but with nothing to cite");
+  assert.equal(row("retired"), undefined, "cited, but hidden");
   assert.equal(row("fresh"), undefined, "registered upstream, not yet described");
   assert.deepEqual(model.tasks.map((t) => t.id), ["multi", "binary"]);
 });
@@ -203,7 +206,7 @@ test("unrecognised URL parameters fall back to defaults", () => {
 
 test("the committed data files build a consistent page", () => {
   const live = buildModel(load("catalogue"), load("registry"), load("results"));
-  const cited = new Set(load("catalogue").models.filter((m) => m.paper || m.code_url).map((m) => m.name));
+  const cited = new Set(load("catalogue").models.filter((m) => (m.paper || m.code_url) && !m.hidden).map((m) => m.name));
   const listed = Object.keys(load("registry").models).filter((name) => cited.has(name));
   const shown = new Set(load("catalogue").tasks.filter((t) => !t.hidden).map((t) => t.id));
   const published = load("results").rows.filter((r) => cited.has(r.model) && shown.has(r.task)).length;

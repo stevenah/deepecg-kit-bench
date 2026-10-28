@@ -87,9 +87,9 @@ def test_the_table_is_drawn_from_the_data(served: str, tmp_path: Path) -> None:
     dom = render(served, tmp_path)
     assert 'data-ready="true"' in dom, "app.js did not finish; the fallback text is still showing"
 
-    # Listed: architectures whose catalogue entry cites a paper or code, and the tasks not hidden.
+    # Listed: architectures that cite a paper or code and are not hidden, and tasks not hidden.
     registered, prose = data("registry")["models"], data("catalogue")["models"]
-    listed = [m for m in prose if m["name"] in registered and (m.get("paper") or m.get("code_url"))]
+    listed = [m for m in prose if m["name"] in registered and (m.get("paper") or m.get("code_url")) and not m.get("hidden")]
     names = {m["name"] for m in listed}
     tasks = [t for t in data("catalogue")["tasks"] if not t.get("hidden")]
     pairs = [r for r in data("results")["rows"] if r["model"] in names and r["task"] in {t["id"] for t in tasks}]

@@ -501,7 +501,8 @@
         "gradient_attribution": true,
         "occlusion": true,
         "class_activation": false
-      }
+      },
+      "hidden": true
     },
     {
       "name": "medformer",
@@ -748,7 +749,8 @@
         "gradient_attribution": true,
         "occlusion": true,
         "class_activation": false
-      }
+      },
+      "hidden": true
     },
     {
       "name": "xresnet",
