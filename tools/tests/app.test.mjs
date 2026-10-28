@@ -5,7 +5,7 @@ import { readFileSync } from "node:fs";
 import { test } from "node:test";
 
 import {
-  barFraction, bestByTask, buildModel, cellFor, formatParams, formatValue, isDegenerate,
+  barFraction, bestByTask, buildModel, cellFor, citation, formatParams, formatValue, isDegenerate,
   matches, nextSort, parseState, sortForMetric, sortRows, toSearch,
 } from "../../site/app.js";
 
@@ -165,6 +165,15 @@ test("numbers are formatted as the article formats them", () => {
   assert.equal(formatParams(8_739_973), "8.740");
   assert.equal(formatParams(10_005), "0.010");
   assert.equal(formatParams(null), "");
+});
+
+test("a paper is cited by its first author, or both, and its year", () => {
+  assert.equal(citation({ authors: "Hannun, Rajpurkar, Haghpanahi", year: 2019 }), "Hannun et al. 2019");
+  assert.equal(citation({ authors: "Hochreiter, Schmidhuber", year: 1997 }), "Hochreiter and Schmidhuber 1997");
+  assert.equal(citation({ authors: "Ismail Fawaz, Lucas, Forestier", year: 2020 }), "Ismail Fawaz et al. 2020");
+  assert.equal(citation({ authors: "He", year: 2016 }), "He 2016");
+  assert.equal(citation({ title: "An unattributed report" }), "An unattributed report");
+  assert.equal(citation(null), null);
 });
 
 test("bars run from 0 to 1 and are absent for a metric without a direction", () => {

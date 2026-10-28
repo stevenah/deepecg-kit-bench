@@ -89,7 +89,9 @@ def test_the_table_is_drawn_from_the_data(served: str, tmp_path: Path) -> None:
 
     models, tasks, pairs = data("registry")["models"], data("catalogue")["tasks"], data("results")["rows"]
     assert len(re.findall(r'<tr class="row"', dom)) == len(models)
-    assert len(re.findall(r'<th scope="col"', dom)) == 2 + len(tasks)
+    assert len(re.findall(r'<th scope="col"', dom)) == 3 + len(tasks)
+    papers = [m["paper"] for m in data("catalogue")["models"] if m["name"] in models and m.get("paper")]
+    assert len(re.findall(r'<td class="ref"><a href="https://', dom)) == len(papers)
     with_f1 = sum(1 for row in pairs if row["metrics"].get("f1", {}).get("mean") is not None)
     assert len(re.findall(r'<span class="val(?: best)?">', dom)) == with_f1
     pressed = re.findall(r'<button class="filter-btn active"[^>]*aria-pressed="true"[^>]*>([^<]*)</button>', dom)

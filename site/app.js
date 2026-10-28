@@ -134,6 +134,14 @@ function metricsOf(catalogue, registry, results) {
   return [...known, ...unknown];
 }
 
+/** A paper as the table cites it: "Hannun et al. 2019", "Hochreiter and Schmidhuber 1997". */
+export function citation(paper) {
+  if (!paper) return null;
+  const names = (paper.authors ?? "").split(",").map((name) => name.trim()).filter(Boolean);
+  const who = names.length > 2 ? `${names[0]} et al.` : names.join(" and ");
+  return [who, paper.year].filter(Boolean).join(" ") || paper.title || null;
+}
+
 /** A run that predicted no positive case: precision and recall are both exactly zero. */
 export function isDegenerate(result) {
   return result?.metrics?.precision?.mean === 0 && result?.metrics?.recall?.mean === 0;
@@ -333,14 +341,15 @@ function mount(model, resultsError) {
         ? `, for ${plural(shape.input_channels, "lead")} and ${plural(shape.output_size, "output")}` : ""}`,
     },
     ...model.tasks.map((t) => ({ key: t.id, label: t.short, num: true, title: t.title, note: t.note })),
+    { key: "ref", label: "Reference", fixed: true, title: "The publication the implementation follows, and its code" },
   ];
   const headEls = new Map();
   const caption = h("caption", { class: "visually-hidden" });
   const thead = h("thead", {}, h("tr", {}, headers.map((col) => {
     const th = h("th", { scope: "col", class: col.num ? "num" : null, title: col.title },
-      h("button", { class: "sort-btn", type: "button", onclick: () => setSort(col.key) }, col.label,
+      col.fixed ? col.label : h("button", { class: "sort-btn", type: "button", onclick: () => setSort(col.key) }, col.label,
         col.note ? [h("span", { class: "mark", "aria-hidden": "true" }, "*"), hidden(" (see note below)")] : null));
-    headEls.set(col.key, th);
+    if (!col.fixed) headEls.set(col.key, th);
     return th;
   })));
   const empty = h("tr", { class: "empty", hidden: true },
@@ -350,12 +359,12 @@ function mount(model, resultsError) {
     const toggle = h("button", {
       class: "row-toggle", type: "button", "aria-expanded": "false", onclick: () => setOpen(row.name),
     }, h("span", { class: "chev", "aria-hidden": "true" }), h("span", { class: "row-name" }, row.title));
-    const sub = [row.familyLabel, row.year].filter(Boolean).join(" · ");
     const cells = new Map(model.tasks.map((t) => [t.id, h("td", { class: "num" })]));
     const tr = h("tr", { class: "row", id: `row-${row.name}` },
-      h("th", { scope: "row" }, toggle, sub ? h("span", { class: "row-sub" }, sub) : null),
+      h("th", { scope: "row" }, toggle, row.familyLabel ? h("span", { class: "row-sub" }, row.familyLabel) : null),
       h("td", { class: "num" }, row.params == null ? "" : formatParams(row.params)),
-      [...cells.values()]);
+      [...cells.values()],
+      h("td", { class: "ref" }, referenceOf(row)));
     rowEls.set(row.name, { tr, toggle, cells, panel: null });
   }
   const table = h("table", { id: "bench" }, caption, thead, tbody);
@@ -547,6 +556,18 @@ function provenanceLine(p) {
     parts.push(".");
   }
   return parts;
+}
+
+/** The Reference cell: the paper, cited short, over a link to its code. */
+function referenceOf(row) {
+  const cite = citation(row.paper);
+  if (!cite && !row.codeUrl) {
+    return [h("span", { class: "muted", "aria-hidden": "true" }, "—"), hidden("no published reference")];
+  }
+  return [
+    cite ? (row.paper.url ? h("a", { href: row.paper.url, rel: "noopener", title: row.paper.title }, cite) : cite) : null,
+    row.codeUrl ? h("span", { class: "ref-code" }, external(row.codeUrl, "Code")) : null,
+  ];
 }
 
 /** The detail for one architecture: what the model page used to hold. */

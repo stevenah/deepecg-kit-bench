@@ -289,7 +289,7 @@
         "id": "10.22489/CinC.2017.070-060",
         "url": "https://doi.org/10.22489/CinC.2017.070-060"
       },
-      "code_url": null,
+      "code_url": "https://github.com/yruffiner/ecg-classification",
       "adapted_from": null,
       "notes": "Follows the convolutional-recurrent design of Zihlmann et al. without reproducing their network; the convolutional front end and recurrent aggregator are both standard.",
       "deviations": [
@@ -353,7 +353,7 @@
         "id": "10.1109/IJCNN.2017.7966039",
         "url": "https://doi.org/10.1109/IJCNN.2017.7966039"
       },
-      "code_url": null,
+      "code_url": "https://github.com/helme/ecg_ptbxl_benchmarking",
       "adapted_from": null,
       "notes": null,
       "deviations": [],
@@ -373,10 +373,10 @@
         "authors": "Cho, van Merrienboer, Gulcehre, Bahdanau, Bougares, Schwenk, Bengio",
         "venue": "EMNLP",
         "year": 2014,
-        "id": "arXiv:1406.1078",
-        "url": "https://arxiv.org/abs/1406.1078"
+        "id": "10.3115/v1/D14-1179",
+        "url": "https://doi.org/10.3115/v1/D14-1179"
       },
-      "code_url": null,
+      "code_url": "https://github.com/helme/ecg_ptbxl_benchmarking",
       "adapted_from": null,
       "notes": null,
       "deviations": [],
@@ -393,7 +393,7 @@
       "description": null,
       "paper": {
         "title": "InceptionTime: Finding AlexNet for Time Series Classification",
-        "authors": "Fawaz, Lucas, Forestier, Pelletier, Schmidt, Weber, Webb, Idoumghar, Muller, Petitjean",
+        "authors": "Ismail Fawaz, Lucas, Forestier, Pelletier, Schmidt, Weber, Webb, Idoumghar, Muller, Petitjean",
         "venue": "Data Mining and Knowledge Discovery",
         "year": 2020,
         "id": "10.1007/s10618-020-00710-y",
@@ -491,7 +491,7 @@
         "id": "arXiv:2312.00752",
         "url": "https://arxiv.org/abs/2312.00752"
       },
-      "code_url": null,
+      "code_url": "https://github.com/state-spaces/mamba",
       "adapted_from": null,
       "notes": "Included here because it is a registered architecture with measured results. Note the conference paper excludes Mamba; this site documents the library, not the paper.",
       "deviations": [],
@@ -508,13 +508,13 @@
       "description": null,
       "paper": {
         "title": "Medformer: A Multi-Granularity Patching Transformer for Medical Time-Series Classification",
-        "authors": "Wang, Chen, Fu, Song, Zhang, Wang, Yang, Wang",
+        "authors": "Wang, Huang, Li, Yan, Zhang",
         "venue": "NeurIPS",
         "year": 2024,
-        "id": "arXiv:2405.19363",
-        "url": "https://arxiv.org/abs/2405.19363"
+        "id": "10.52202/079017-1145",
+        "url": "https://doi.org/10.52202/079017-1145"
       },
-      "code_url": null,
+      "code_url": "https://github.com/DL4mHealth/Medformer",
       "adapted_from": null,
       "notes": null,
       "deviations": [],
@@ -537,7 +537,7 @@
         "id": "10.1109/IJCNN.2017.7966039",
         "url": "https://doi.org/10.1109/IJCNN.2017.7966039"
       },
-      "code_url": null,
+      "code_url": "https://github.com/cauchyturing/UCR_Time_Series_Classification_Deep_Learning_Baseline",
       "adapted_from": null,
       "notes": null,
       "deviations": [
@@ -587,7 +587,7 @@
         "id": "10.1109/IJCNN.2017.7966039",
         "url": "https://doi.org/10.1109/IJCNN.2017.7966039"
       },
-      "code_url": null,
+      "code_url": "https://github.com/helme/ecg_ptbxl_benchmarking",
       "adapted_from": "fcn-wang",
       "notes": null,
       "deviations": [],
@@ -610,7 +610,7 @@
         "id": "10.1109/CVPR.2016.90",
         "url": "https://doi.org/10.1109/CVPR.2016.90"
       },
-      "code_url": null,
+      "code_url": "https://github.com/KaimingHe/deep-residual-networks",
       "adapted_from": null,
       "notes": null,
       "deviations": [],
@@ -660,7 +660,7 @@
         "id": "10.1109/CVPR.2018.00745",
         "url": "https://doi.org/10.1109/CVPR.2018.00745"
       },
-      "code_url": null,
+      "code_url": "https://github.com/hujie-frank/SENet",
       "adapted_from": "resnet",
       "notes": null,
       "deviations": [],
@@ -715,7 +715,7 @@
         "id": "arXiv:1803.01271",
         "url": "https://arxiv.org/abs/1803.01271"
       },
-      "code_url": null,
+      "code_url": "https://github.com/locuslab/TCN",
       "adapted_from": null,
       "notes": null,
       "deviations": [],
@@ -738,7 +738,7 @@
         "id": "arXiv:1706.03762",
         "url": "https://arxiv.org/abs/1706.03762"
       },
-      "code_url": null,
+      "code_url": "https://github.com/tensorflow/tensor2tensor",
       "adapted_from": null,
       "notes": "Positional encoding caps the input at 5000 samples, which is the whole 10-second PTB- XL record at 500 Hz and a fraction of a Holter recording.",
       "deviations": [],
@@ -761,7 +761,7 @@
         "id": "10.1109/CVPR.2019.00065",
         "url": "https://doi.org/10.1109/CVPR.2019.00065"
       },
-      "code_url": null,
+      "code_url": "https://github.com/dmlc/gluon-cv",
       "adapted_from": "resnet",
       "notes": null,
       "deviations": [],
