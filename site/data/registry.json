@@ -2,9 +2,9 @@
   "meta": {
     "kit_version": "0.3.0",
     "kit_source": null,
-    "exported_utc": "2026-10-27T18:46:07Z",
+    "exported_utc": "2026-11-01T12:53:22Z",
     "python": "3.10.16",
-    "n_models": 26,
+    "n_models": 30,
     "n_datasets": 5,
     "canonical_probe": "12x5",
     "probes": {
@@ -58,6 +58,40 @@
           "params_total": 5759096,
           "params_trainable": 5759096,
           "feature_dim": 196,
+          "reason": null
+        }
+      }
+    },
+    "cnn-acharya": {
+      "registry_name": "cnn-acharya",
+      "class": "CNNAcharya",
+      "module": "deepecgkit.models.cnn_acharya",
+      "description": "Nine-layer heartbeat CNN (Acharya et al. 2017): 3 convolutions, 3 dense layers",
+      "head_attr": "classifier",
+      "default_kwargs": {},
+      "min_input_length": 28,
+      "max_input_length": null,
+      "display_name": "CNN-Acharya",
+      "probes": {
+        "12x5": {
+          "status": "ok",
+          "params_total": 19970,
+          "params_trainable": 19970,
+          "feature_dim": 20,
+          "reason": null
+        },
+        "1x1": {
+          "status": "ok",
+          "params_total": 19721,
+          "params_trainable": 19721,
+          "feature_dim": 20,
+          "reason": null
+        },
+        "1x4": {
+          "status": "ok",
+          "params_total": 19784,
+          "params_trainable": 19784,
+          "feature_dim": 20,
           "reason": null
         }
       }
@@ -538,6 +572,40 @@
         }
       }
     },
+    "resnet-attia": {
+      "registry_name": "resnet-attia",
+      "class": "ResNetAttia",
+      "module": "deepecgkit.models.resnet_attia",
+      "description": "Residual AI-ECG network (Attia et al. 2019): 9 temporal blocks, then a lead convolution",
+      "head_attr": "classifier",
+      "default_kwargs": {},
+      "min_input_length": null,
+      "max_input_length": null,
+      "display_name": "ResNet-Attia",
+      "probes": {
+        "12x5": {
+          "status": "ok",
+          "params_total": 225463,
+          "params_trainable": 225463,
+          "feature_dim": 1280,
+          "reason": null
+        },
+        "1x1": {
+          "status": "ok",
+          "params_total": 130227,
+          "params_trainable": 130227,
+          "feature_dim": 1280,
+          "reason": null
+        },
+        "1x4": {
+          "status": "ok",
+          "params_total": 134070,
+          "params_trainable": 134070,
+          "feature_dim": 1280,
+          "reason": null
+        }
+      }
+    },
     "resnet-hannun": {
       "registry_name": "resnet-hannun",
       "class": "ResNetHannun",
@@ -572,6 +640,40 @@
         }
       }
     },
+    "resnet-ribeiro": {
+      "registry_name": "resnet-ribeiro",
+      "class": "ResNetRibeiro",
+      "module": "deepecgkit.models.resnet_ribeiro",
+      "description": "Residual network (Ribeiro et al. 2020) for 12-lead ECG diagnosis",
+      "head_attr": "classifier",
+      "default_kwargs": {},
+      "min_input_length": null,
+      "max_input_length": null,
+      "display_name": "ResNet-Ribeiro",
+      "probes": {
+        "12x5": {
+          "status": "ok",
+          "params_total": 6416789,
+          "params_trainable": 6416789,
+          "feature_dim": 5120,
+          "reason": null
+        },
+        "1x1": {
+          "status": "ok",
+          "params_total": 6385041,
+          "params_trainable": 6385041,
+          "feature_dim": 5120,
+          "reason": null
+        },
+        "1x4": {
+          "status": "ok",
+          "params_total": 6400404,
+          "params_trainable": 6400404,
+          "feature_dim": 5120,
+          "reason": null
+        }
+      }
+    },
     "resnet-wang": {
       "registry_name": "resnet-wang",
       "class": "ResNetWang",
@@ -585,22 +687,22 @@
       "probes": {
         "12x5": {
           "status": "ok",
-          "params_total": 406405,
-          "params_trainable": 406405,
+          "params_total": 439685,
+          "params_trainable": 439685,
           "feature_dim": 128,
           "reason": null
         },
         "1x1": {
           "status": "ok",
-          "params_total": 396033,
-          "params_trainable": 396033,
+          "params_total": 429313,
+          "params_trainable": 429313,
           "feature_dim": 128,
           "reason": null
         },
         "1x4": {
           "status": "ok",
-          "params_total": 396420,
-          "params_trainable": 396420,
+          "params_total": 429700,
+          "params_trainable": 429700,
           "feature_dim": 128,
           "reason": null
         }
@@ -636,6 +738,40 @@
           "params_total": 8004,
           "params_trainable": 8004,
           "feature_dim": 2000,
+          "reason": null
+        }
+      }
+    },
+    "s4": {
+      "registry_name": "s4",
+      "class": "S4ECG",
+      "module": "deepecgkit.models.s4",
+      "description": "Bidirectional S4 state space model (Mehari & Strodthoff 2022): 4 layers, mean readout",
+      "head_attr": "classifier",
+      "default_kwargs": {},
+      "min_input_length": null,
+      "max_input_length": null,
+      "display_name": "S4",
+      "probes": {
+        "12x5": {
+          "status": "ok",
+          "params_total": 2149381,
+          "params_trainable": 2149381,
+          "feature_dim": 512,
+          "reason": null
+        },
+        "1x1": {
+          "status": "ok",
+          "params_total": 2141697,
+          "params_trainable": 2141697,
+          "feature_dim": 512,
+          "reason": null
+        },
+        "1x4": {
+          "status": "ok",
+          "params_total": 2143236,
+          "params_trainable": 2143236,
+          "feature_dim": 512,
           "reason": null
         }
       }

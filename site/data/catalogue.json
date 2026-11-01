@@ -22,7 +22,7 @@
     },
     {
       "id": "ssm",
-      "label": "State-space"
+      "label": "State space"
     }
   ],
   "tasks": [
@@ -478,7 +478,8 @@
         "gradient_attribution": true,
         "occlusion": true,
         "class_activation": false
-      }
+      },
+      "hidden": true
     },
     {
       "name": "mamba",
@@ -815,6 +816,106 @@
       "adapted_from": "xresnet1d-benchmark",
       "notes": "Follows the xresnet1d101 constructor of the PTB-XL benchmark code, so PTB-XL numbers stay comparable with Strodthoff et al. The fixed-width xresnet1d-benchmark is its shallow counterpart.",
       "deviations": [],
+      "explain": {
+        "gradient_attribution": true,
+        "occlusion": true,
+        "class_activation": false
+      }
+    },
+    {
+      "name": "cnn-acharya",
+      "family": "cnn",
+      "summary": "The nine-layer heartbeat classifier of Acharya et al.: three convolutions and three dense layers.",
+      "description": "Three unpadded convolutions of 5, 10 and 20 filters, each followed by max pooling, then fully connected layers of 30 and 20 units with leaky ReLU activations.",
+      "paper": {
+        "title": "A deep convolutional neural network model to classify heartbeats",
+        "authors": "Acharya, Oh, Hagiwara, Tan, Adam, Gertych, Tan",
+        "venue": "Computers in Biology and Medicine",
+        "year": 2017,
+        "id": "10.1016/j.compbiomed.2017.08.022",
+        "url": "https://doi.org/10.1016/j.compbiomed.2017.08.022"
+      },
+      "code_url": null,
+      "adapted_from": null,
+      "notes": null,
+      "deviations": [
+        "The original classifies single beats of 260 samples; here it sees whole windows, and the last feature map is averaged over time to the original 30 steps before flattening."
+      ],
+      "explain": {
+        "gradient_attribution": true,
+        "occlusion": true,
+        "class_activation": false
+      }
+    },
+    {
+      "name": "resnet-attia",
+      "family": "cnn",
+      "summary": "The residual AI-ECG network of Attia et al. for atrial fibrillation.",
+      "description": "Nine residual blocks filter every lead along time with shared kernels of 7, 5 and 3 samples, one convolution then combines the leads, and the result is flattened.",
+      "paper": {
+        "title": "An artificial intelligence-enabled ECG algorithm for the identification of patients with atrial fibrillation during sinus rhythm: a retrospective analysis of outcome prediction",
+        "authors": "Attia, Noseworthy, Lopez-Jimenez, Asirvatham, Deshmukh, Gersh, Carter, Yao, Rabinstein, Erickson, Kapa, Friedman",
+        "venue": "The Lancet",
+        "year": 2019,
+        "id": "10.1016/S0140-6736(19)31721-0",
+        "url": "https://doi.org/10.1016/S0140-6736(19)31721-0"
+      },
+      "code_url": null,
+      "adapted_from": null,
+      "notes": null,
+      "deviations": [
+        "The original combines 8 leads; the lead convolution here spans however many leads the input has, and the last feature map is averaged over time to the original 10 steps before flattening."
+      ],
+      "explain": {
+        "gradient_attribution": true,
+        "occlusion": true,
+        "class_activation": false
+      }
+    },
+    {
+      "name": "resnet-ribeiro",
+      "family": "cnn",
+      "summary": "The residual network of Ribeiro et al. for automatic diagnosis of the 12-lead ECG.",
+      "description": "Four residual units with kernels of 16 samples, each dividing the temporal length by four, with the dropout of 0.8 of the released model.",
+      "paper": {
+        "title": "Automatic diagnosis of the 12-lead ECG using a deep neural network",
+        "authors": "Ribeiro, Ribeiro, Paixão, Oliveira, Gomes, Canazart, Ferreira, Andersson, Macfarlane, Meira, Schön, Ribeiro",
+        "venue": "Nature Communications",
+        "year": 2020,
+        "id": "10.1038/s41467-020-15432-4",
+        "url": "https://doi.org/10.1038/s41467-020-15432-4"
+      },
+      "code_url": "https://github.com/antonior92/automatic-ecg-diagnosis",
+      "adapted_from": null,
+      "notes": null,
+      "deviations": [
+        "The last feature map is averaged over time to the original 16 steps before flattening, so that any input length gives the same feature width."
+      ],
+      "explain": {
+        "gradient_attribution": true,
+        "occlusion": true,
+        "class_activation": false
+      }
+    },
+    {
+      "name": "s4",
+      "family": "ssm",
+      "summary": "The structured state space classifier of Mehari and Strodthoff for ECG analysis.",
+      "description": "A pointwise convolution maps the leads to 512 channels, followed by four bidirectional S4 layers of state size 8 in residual blocks and global average pooling. The state matrix, input matrix and step sizes stay at their initial values.",
+      "paper": {
+        "title": "Advancing the State-of-the-Art for ECG Analysis through Structured State Space Models",
+        "authors": "Mehari, Strodthoff",
+        "venue": "ML4H",
+        "year": 2022,
+        "id": "arXiv:2211.07579",
+        "url": "https://arxiv.org/abs/2211.07579"
+      },
+      "code_url": "https://github.com/tmehari/ssm_ecg",
+      "adapted_from": null,
+      "notes": null,
+      "deviations": [
+        "The reference kernel length is 5000 samples, 10 s at 500 Hz, rather than the original's 250-sample input."
+      ],
       "explain": {
         "gradient_attribution": true,
         "occlusion": true,
