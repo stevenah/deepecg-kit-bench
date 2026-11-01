@@ -60,7 +60,8 @@
       "summary": "Long two-lead Holter recordings. The dataset registers four rhythm classes, but this task collapses them to AF versus non-AF, so precision, recall and F1 are positive-class values rather than macro averages.",
       "dataset_url": "https://physionet.org/content/afdb/1.0.0/",
       "ecgbench_url": null,
-      "note": null
+      "note": null,
+      "hidden": true
     },
     {
       "id": "ltafdb-binary",
